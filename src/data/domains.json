@@ -1,0 +1,73 @@
+[
+  {
+    "name": "Identity and Access Management",
+    "shortName": "Identity",
+    "weight": 18,
+    "minWeight": 15,
+    "maxWeight": 20,
+    "color": "#4d99ff",
+    "description": "Manage Microsoft Entra ID (Azure AD) users and groups, RBAC, and subscriptions/governance.",
+    "objectives": [
+      "Manage Microsoft Entra users and groups",
+      "Manage role-based access control (RBAC)",
+      "Manage subscriptions and governance"
+    ]
+  },
+  {
+    "name": "Storage",
+    "shortName": "Storage",
+    "weight": 17,
+    "minWeight": 15,
+    "maxWeight": 20,
+    "color": "#22c1a6",
+    "description": "Configure storage accounts, blob storage, Azure Files, and secure access.",
+    "objectives": [
+      "Configure access to storage",
+      "Configure and manage storage accounts",
+      "Configure Azure Files and Azure Blob Storage"
+    ]
+  },
+  {
+    "name": "Compute",
+    "shortName": "Compute",
+    "weight": 23,
+    "minWeight": 20,
+    "maxWeight": 25,
+    "color": "#a070ff",
+    "description": "Deploy and manage virtual machines, containers, and Azure App Service.",
+    "objectives": [
+      "Automate deployment of resources using ARM/Bicep",
+      "Create and configure virtual machines",
+      "Provision and manage containers",
+      "Create and configure Azure App Service"
+    ]
+  },
+  {
+    "name": "Networking",
+    "shortName": "Networking",
+    "weight": 23,
+    "minWeight": 20,
+    "maxWeight": 25,
+    "color": "#ff8a4d",
+    "description": "Configure virtual networking, name resolution, secure access, and load balancing.",
+    "objectives": [
+      "Configure and manage virtual networks",
+      "Configure secure access to virtual networks",
+      "Configure name resolution and load balancing",
+      "Configure network connectivity"
+    ]
+  },
+  {
+    "name": "Monitoring and Backup",
+    "shortName": "Monitoring",
+    "weight": 13,
+    "minWeight": 10,
+    "maxWeight": 15,
+    "color": "#ffd24d",
+    "description": "Monitor resources with Azure Monitor and implement backup and recovery.",
+    "objectives": [
+      "Monitor resources by using Azure Monitor",
+      "Implement backup and recovery"
+    ]
+  }
+]

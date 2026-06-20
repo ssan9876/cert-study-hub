@@ -1,0 +1,827 @@
+[
+  {
+    "id": "sp-gsc-01",
+    "domain": "General Security Concepts",
+    "domainWeight": 12,
+    "difficulty": "easy",
+    "objective": "Summarize fundamental security concepts (CIA, AAA, zero trust)",
+    "type": "single",
+    "question": "A ransomware outbreak encrypts a company's file servers, and staff can no longer open their documents even though the files are intact and unread by attackers. Which element of the CIA triad is most directly affected?",
+    "answers": [
+      { "id": "a", "text": "Confidentiality" },
+      { "id": "b", "text": "Integrity" },
+      { "id": "c", "text": "Availability" },
+      { "id": "d", "text": "Non-repudiation" }
+    ],
+    "correct": ["c"],
+    "explanation": "The data still exists and was not disclosed (confidentiality) or altered in a deceptive way (integrity); users simply cannot access it. Loss of timely, reliable access is an availability impact.",
+    "references": ["https://csrc.nist.gov/glossary/term/availability"],
+    "tags": ["cia-triad", "availability"],
+    "estimatedTime": 60
+  },
+  {
+    "id": "sp-gsc-02",
+    "domain": "General Security Concepts",
+    "domainWeight": 12,
+    "difficulty": "medium",
+    "objective": "Compare and contrast security control categories and types",
+    "type": "single",
+    "question": "Security policies, standards, and risk assessments are examples of which control category?",
+    "answers": [
+      { "id": "a", "text": "Technical controls" },
+      { "id": "b", "text": "Managerial (administrative) controls" },
+      { "id": "c", "text": "Physical controls" },
+      { "id": "d", "text": "Operational controls" }
+    ],
+    "correct": ["b"],
+    "explanation": "Managerial (administrative) controls are governance-oriented: policies, standards, procedures, and risk assessments. Technical controls are implemented in technology, physical controls protect facilities, and operational controls are processes performed by people.",
+    "references": ["https://csrc.nist.gov/glossary/term/security_controls"],
+    "tags": ["controls", "categories"],
+    "estimatedTime": 70
+  },
+  {
+    "id": "sp-gsc-03",
+    "domain": "General Security Concepts",
+    "domainWeight": 12,
+    "difficulty": "medium",
+    "objective": "Compare and contrast security control categories and types",
+    "type": "matching",
+    "question": "Match each security control type to the example that best represents it.",
+    "terms": [
+      { "id": "t1", "text": "Preventive" },
+      { "id": "t2", "text": "Detective" },
+      { "id": "t3", "text": "Corrective" },
+      { "id": "t4", "text": "Deterrent" }
+    ],
+    "definitions": [
+      { "id": "d1", "text": "A firewall rule that blocks traffic to an unauthorized port" },
+      { "id": "d2", "text": "A SIEM alert generated after suspicious logins occur" },
+      { "id": "d3", "text": "Restoring systems from backup after an incident" },
+      { "id": "d4", "text": "A 'Warning: CCTV in use' sign at an entrance" }
+    ],
+    "correctPairs": [
+      { "termId": "t1", "definitionId": "d1" },
+      { "termId": "t2", "definitionId": "d2" },
+      { "termId": "t3", "definitionId": "d3" },
+      { "termId": "t4", "definitionId": "d4" }
+    ],
+    "explanation": "Preventive controls stop an action before it happens (firewall block). Detective controls identify events after they occur (SIEM alert). Corrective controls remediate after an incident (restore from backup). Deterrent controls discourage an actor (warning signage).",
+    "references": ["https://csrc.nist.gov/glossary/term/security_controls"],
+    "tags": ["controls", "types"],
+    "estimatedTime": 100
+  },
+  {
+    "id": "sp-gsc-04",
+    "domain": "General Security Concepts",
+    "domainWeight": 12,
+    "difficulty": "hard",
+    "objective": "Summarize fundamental security concepts (CIA, AAA, zero trust)",
+    "type": "single",
+    "question": "In a Zero Trust architecture, which component evaluates policy and decides whether to grant a subject access to a resource?",
+    "answers": [
+      { "id": "a", "text": "Policy Enforcement Point (PEP)" },
+      { "id": "b", "text": "Policy Decision Point (PDP)" },
+      { "id": "c", "text": "Implicit trust zone" },
+      { "id": "d", "text": "Subject/system" }
+    ],
+    "correct": ["b"],
+    "explanation": "In Zero Trust, the Policy Decision Point (made up of the policy engine and policy administrator) evaluates policy and makes the access decision. The Policy Enforcement Point enforces that decision by allowing or blocking the connection to the resource.",
+    "references": ["https://csrc.nist.gov/pubs/sp/800/207/final"],
+    "tags": ["zero-trust", "pdp", "pep"],
+    "estimatedTime": 90
+  },
+  {
+    "id": "sp-gsc-05",
+    "domain": "General Security Concepts",
+    "domainWeight": 12,
+    "difficulty": "medium",
+    "objective": "Explain the importance of using appropriate cryptographic solutions",
+    "type": "single",
+    "question": "Which cryptographic outcome is achieved when a sender signs a message with their private key and anyone can verify it with the sender's public key?",
+    "answers": [
+      { "id": "a", "text": "Confidentiality of the message contents" },
+      { "id": "b", "text": "Non-repudiation and integrity of the message" },
+      { "id": "c", "text": "Faster bulk encryption than symmetric ciphers" },
+      { "id": "d", "text": "Key escrow" }
+    ],
+    "correct": ["b"],
+    "explanation": "A digital signature uses the sender's private key; verification with the public key proves the message came from the holder of that private key (non-repudiation) and was not altered (integrity). It does not encrypt the contents, so it provides no confidentiality.",
+    "references": ["https://csrc.nist.gov/glossary/term/digital_signature"],
+    "tags": ["cryptography", "digital-signature", "non-repudiation"],
+    "estimatedTime": 80
+  },
+
+  {
+    "id": "sp-thr-01",
+    "domain": "Threats, Vulnerabilities, and Mitigations",
+    "domainWeight": 22,
+    "difficulty": "easy",
+    "objective": "Compare and contrast common threat actors and motivations",
+    "type": "single",
+    "question": "A group defaces a corporation's website to protest its environmental practices, seeking publicity rather than financial gain. Which threat actor type best describes them?",
+    "answers": [
+      { "id": "a", "text": "Organized crime" },
+      { "id": "b", "text": "Hacktivist" },
+      { "id": "c", "text": "Nation-state (APT)" },
+      { "id": "d", "text": "Insider threat" }
+    ],
+    "correct": ["b"],
+    "explanation": "Hacktivists are motivated by ideology or a political/social cause and often seek visibility (e.g., defacement). Organized crime is financially motivated, nation-state actors pursue espionage/strategic goals, and insiders operate from within the organization.",
+    "references": ["https://www.cisa.gov/topics/cyber-threats-and-advisories"],
+    "tags": ["threat-actors", "hacktivist"],
+    "estimatedTime": 60
+  },
+  {
+    "id": "sp-thr-02",
+    "domain": "Threats, Vulnerabilities, and Mitigations",
+    "domainWeight": 22,
+    "difficulty": "medium",
+    "objective": "Analyze indicators of malicious activity",
+    "type": "multi",
+    "question": "Which of the following are common indicators that an email is a phishing attempt? Select all that apply.",
+    "answers": [
+      { "id": "a", "text": "A sense of urgency demanding immediate action" },
+      { "id": "b", "text": "A sender display name that does not match the actual email domain" },
+      { "id": "c", "text": "A hyperlink whose visible text differs from its true destination URL" },
+      { "id": "d", "text": "A valid DKIM signature from the organization's real mail server" }
+    ],
+    "correct": ["a", "b", "c"],
+    "explanation": "Urgency/pressure, mismatched sender identity, and deceptive link text are classic phishing indicators. A valid DKIM signature from the legitimate domain is evidence the message is authentic, not an indicator of phishing.",
+    "references": ["https://www.cisa.gov/news-events/news/avoiding-social-engineering-and-phishing-attacks"],
+    "tags": ["phishing", "social-engineering", "indicators"],
+    "estimatedTime": 90
+  },
+  {
+    "id": "sp-thr-03",
+    "domain": "Threats, Vulnerabilities, and Mitigations",
+    "domainWeight": 22,
+    "difficulty": "easy",
+    "objective": "Explain common threat vectors and attack surfaces",
+    "type": "single",
+    "question": "An employee receives a fraudulent text message asking them to click a link to 'verify' their bank account. What type of attack is this?",
+    "answers": [
+      { "id": "a", "text": "Vishing" },
+      { "id": "b", "text": "Smishing" },
+      { "id": "c", "text": "Whaling" },
+      { "id": "d", "text": "Pharming" }
+    ],
+    "correct": ["b"],
+    "explanation": "Smishing is phishing conducted over SMS/text messages. Vishing uses voice calls, whaling targets high-profile executives, and pharming redirects users to fraudulent sites (often via DNS manipulation).",
+    "references": ["https://www.cisa.gov/news-events/news/avoiding-social-engineering-and-phishing-attacks"],
+    "tags": ["smishing", "social-engineering"],
+    "estimatedTime": 60
+  },
+  {
+    "id": "sp-thr-04",
+    "domain": "Threats, Vulnerabilities, and Mitigations",
+    "domainWeight": 22,
+    "difficulty": "medium",
+    "objective": "Explain mitigation techniques used to secure the enterprise",
+    "type": "single",
+    "question": "A web application concatenates user input directly into database queries. Which mitigation most directly prevents SQL injection?",
+    "answers": [
+      { "id": "a", "text": "Enabling full-disk encryption on the database server" },
+      { "id": "b", "text": "Using parameterized queries (prepared statements) with input validation" },
+      { "id": "c", "text": "Forcing TLS 1.3 on the web front end" },
+      { "id": "d", "text": "Increasing the password complexity policy" }
+    ],
+    "correct": ["b"],
+    "explanation": "Parameterized queries separate code from data so user input cannot alter query structure, directly preventing SQL injection; input validation adds defense in depth. Disk encryption, TLS, and password policies address other risks, not injection.",
+    "references": ["https://owasp.org/www-community/attacks/SQL_Injection"],
+    "tags": ["sql-injection", "input-validation", "mitigation"],
+    "estimatedTime": 80
+  },
+  {
+    "id": "sp-thr-05",
+    "domain": "Threats, Vulnerabilities, and Mitigations",
+    "domainWeight": 22,
+    "difficulty": "medium",
+    "objective": "Explain common threat vectors and attack surfaces",
+    "type": "single",
+    "question": "An attacker positions themselves between a user and a web server, silently relaying and potentially altering traffic in both directions. Which attack is this?",
+    "answers": [
+      { "id": "a", "text": "On-path (man-in-the-middle) attack" },
+      { "id": "b", "text": "Denial-of-service attack" },
+      { "id": "c", "text": "Cross-site scripting" },
+      { "id": "d", "text": "Pass-the-hash" }
+    ],
+    "correct": ["a"],
+    "explanation": "An on-path (formerly man-in-the-middle) attack intercepts communication between two parties, allowing eavesdropping or modification. It is mitigated by strong mutual authentication and encryption (e.g., TLS with certificate validation).",
+    "references": ["https://csrc.nist.gov/glossary/term/man_in_the_middle_attack"],
+    "tags": ["on-path", "mitm"],
+    "estimatedTime": 70
+  },
+  {
+    "id": "sp-thr-06",
+    "domain": "Threats, Vulnerabilities, and Mitigations",
+    "domainWeight": 22,
+    "difficulty": "medium",
+    "objective": "Explain common threat vectors and attack surfaces",
+    "type": "yesno",
+    "question": "For each technique, indicate whether it is primarily a social-engineering technique.",
+    "statements": [
+      { "id": "s1", "text": "Pretexting — inventing a scenario to manipulate a target into divulging information.", "correct": true },
+      { "id": "s2", "text": "Tailgating — following an authorized person through a secure door.", "correct": true },
+      { "id": "s3", "text": "A buffer overflow that overwrites memory to execute attacker code.", "correct": false }
+    ],
+    "explanation": "Pretexting and tailgating manipulate people, so they are social-engineering techniques. A buffer overflow is a technical software exploit against a memory-handling vulnerability, not social engineering.",
+    "references": ["https://www.cisa.gov/news-events/news/avoiding-social-engineering-and-phishing-attacks"],
+    "tags": ["social-engineering", "buffer-overflow"],
+    "estimatedTime": 100
+  },
+  {
+    "id": "sp-thr-07",
+    "domain": "Threats, Vulnerabilities, and Mitigations",
+    "domainWeight": 22,
+    "difficulty": "medium",
+    "objective": "Explain mitigation techniques used to secure the enterprise",
+    "type": "choose2",
+    "question": "Which TWO controls most effectively mitigate online password brute-force attacks against a web login? Choose two.",
+    "answers": [
+      { "id": "a", "text": "Account lockout or progressive login delays after repeated failures" },
+      { "id": "b", "text": "Requiring multifactor authentication (MFA)" },
+      { "id": "c", "text": "Storing passwords with reversible encryption" },
+      { "id": "d", "text": "Disabling TLS to simplify troubleshooting" }
+    ],
+    "correct": ["a", "b"],
+    "explanation": "Lockout/throttling slows or stops repeated guessing, and MFA ensures a guessed password alone is insufficient. Reversible password storage and disabling TLS both weaken security.",
+    "references": ["https://pages.nist.gov/800-63-3/sp800-63b.html"],
+    "tags": ["brute-force", "mfa", "lockout"],
+    "estimatedTime": 85
+  },
+  {
+    "id": "sp-thr-08",
+    "domain": "Threats, Vulnerabilities, and Mitigations",
+    "domainWeight": 22,
+    "difficulty": "easy",
+    "objective": "Explain types of vulnerabilities",
+    "type": "single",
+    "question": "A vulnerability is actively exploited in the wild before the vendor has released a patch or is even aware of it. What is this called?",
+    "answers": [
+      { "id": "a", "text": "A zero-day vulnerability" },
+      { "id": "b", "text": "A legacy vulnerability" },
+      { "id": "c", "text": "A misconfiguration" },
+      { "id": "d", "text": "A false positive" }
+    ],
+    "correct": ["a"],
+    "explanation": "A zero-day is a previously unknown vulnerability with no available patch, giving defenders 'zero days' to prepare. Compensating controls and behavior-based detection help reduce exposure until a fix is released.",
+    "references": ["https://csrc.nist.gov/glossary/term/zero_day_attack"],
+    "tags": ["zero-day", "vulnerability"],
+    "estimatedTime": 60
+  },
+  {
+    "id": "sp-thr-09",
+    "domain": "Threats, Vulnerabilities, and Mitigations",
+    "domainWeight": 22,
+    "difficulty": "hard",
+    "objective": "Analyze indicators of malicious activity",
+    "type": "single",
+    "question": "A standard user account suddenly appears in the Domain Admins group at 3 a.m., and shortly afterward new accounts are created. Which activity is most strongly indicated?",
+    "answers": [
+      { "id": "a", "text": "Privilege escalation followed by persistence" },
+      { "id": "b", "text": "A distributed denial-of-service attack" },
+      { "id": "c", "text": "A normal password rotation event" },
+      { "id": "d", "text": "Data at rest being encrypted by policy" }
+    ],
+    "correct": ["a"],
+    "explanation": "A low-privilege account gaining administrative group membership indicates privilege escalation; creating additional accounts is a persistence technique to maintain access. These indicators of compromise warrant immediate investigation.",
+    "references": ["https://attack.mitre.org/tactics/TA0004/"],
+    "tags": ["ioc", "privilege-escalation", "persistence"],
+    "estimatedTime": 95
+  },
+
+  {
+    "id": "sp-arc-01",
+    "domain": "Security Architecture",
+    "domainWeight": 18,
+    "difficulty": "medium",
+    "objective": "Apply security principles to secure enterprise infrastructure",
+    "type": "single",
+    "question": "A company wants internet-facing web servers reachable from outside but isolated from the internal LAN. Which architecture concept best meets this need?",
+    "answers": [
+      { "id": "a", "text": "Placing the web servers in a screened subnet (DMZ)" },
+      { "id": "b", "text": "Putting the web servers on the internal user VLAN" },
+      { "id": "c", "text": "Assigning the web servers public IPs with no firewall" },
+      { "id": "d", "text": "Disabling all segmentation for simplicity" }
+    ],
+    "correct": ["a"],
+    "explanation": "A screened subnet (DMZ) sits between the internet and the internal network, hosting public-facing services while firewalls restrict flows so a compromised server cannot directly reach the internal LAN.",
+    "references": ["https://csrc.nist.gov/glossary/term/demilitarized_zone"],
+    "tags": ["dmz", "segmentation", "architecture"],
+    "estimatedTime": 80
+  },
+  {
+    "id": "sp-arc-02",
+    "domain": "Security Architecture",
+    "domainWeight": 18,
+    "difficulty": "medium",
+    "objective": "Explain the importance of resilience and recovery in security architecture",
+    "type": "single",
+    "question": "To eliminate a single point of failure for a critical application, you deploy multiple identical servers behind a load balancer in an active/active cluster. Which property are you primarily improving?",
+    "answers": [
+      { "id": "a", "text": "Confidentiality" },
+      { "id": "b", "text": "High availability" },
+      { "id": "c", "text": "Non-repudiation" },
+      { "id": "d", "text": "Data sovereignty" }
+    ],
+    "correct": ["b"],
+    "explanation": "Redundant nodes behind a load balancer provide high availability and fault tolerance—if one node fails, others continue serving traffic, removing the single point of failure.",
+    "references": ["https://csrc.nist.gov/glossary/term/high_availability"],
+    "tags": ["high-availability", "resilience", "load-balancing"],
+    "estimatedTime": 75
+  },
+  {
+    "id": "sp-arc-03",
+    "domain": "Security Architecture",
+    "domainWeight": 18,
+    "difficulty": "medium",
+    "objective": "Compare and contrast concepts to protect data",
+    "type": "single",
+    "question": "Which technology protects data at rest on a stolen laptop by encrypting the entire drive and binding the key to the device hardware?",
+    "answers": [
+      { "id": "a", "text": "TLS" },
+      { "id": "b", "text": "Full-disk encryption backed by a TPM" },
+      { "id": "c", "text": "A VPN" },
+      { "id": "d", "text": "A web application firewall" }
+    ],
+    "correct": ["b"],
+    "explanation": "Full-disk encryption (e.g., BitLocker) protects data at rest; a TPM securely stores the encryption key and binds it to the platform so the drive cannot be read in another machine. TLS and VPNs protect data in transit; a WAF protects web apps.",
+    "references": ["https://csrc.nist.gov/glossary/term/full_disk_encryption"],
+    "tags": ["data-at-rest", "fde", "tpm"],
+    "estimatedTime": 80
+  },
+  {
+    "id": "sp-arc-04",
+    "domain": "Security Architecture",
+    "domainWeight": 18,
+    "difficulty": "hard",
+    "objective": "Compare and contrast concepts to protect data",
+    "type": "multi",
+    "question": "Which techniques can reduce the exposure of sensitive data such as credit card numbers in a database or application? Select all that apply.",
+    "answers": [
+      { "id": "a", "text": "Tokenization (replacing the value with a non-sensitive token)" },
+      { "id": "b", "text": "Data masking (showing only the last four digits)" },
+      { "id": "c", "text": "Encryption of the stored field" },
+      { "id": "d", "text": "Storing the values in plaintext for easier reporting" }
+    ],
+    "correct": ["a", "b", "c"],
+    "explanation": "Tokenization, masking, and encryption all reduce exposure of sensitive data. Storing values in plaintext increases risk and typically violates standards such as PCI DSS.",
+    "references": ["https://csrc.nist.gov/glossary/term/tokenization"],
+    "tags": ["tokenization", "masking", "encryption", "data-protection"],
+    "estimatedTime": 90
+  },
+  {
+    "id": "sp-arc-05",
+    "domain": "Security Architecture",
+    "domainWeight": 18,
+    "difficulty": "hard",
+    "objective": "Explain the importance of resilience and recovery in security architecture",
+    "type": "single",
+    "question": "A business continuity plan states that after a disruption the order-entry system must be restored and processing within 4 hours. Which metric does the 4-hour target represent?",
+    "answers": [
+      { "id": "a", "text": "Recovery Point Objective (RPO)" },
+      { "id": "b", "text": "Recovery Time Objective (RTO)" },
+      { "id": "c", "text": "Mean Time Between Failures (MTBF)" },
+      { "id": "d", "text": "Maximum Tolerable Downtime baseline" }
+    ],
+    "correct": ["b"],
+    "explanation": "The Recovery Time Objective is the maximum acceptable time to restore a system after a disruption. RPO defines the maximum acceptable data loss measured in time, and MTBF measures reliability between failures.",
+    "references": ["https://csrc.nist.gov/glossary/term/recovery_time_objective"],
+    "tags": ["rto", "rpo", "bcp"],
+    "estimatedTime": 85
+  },
+  {
+    "id": "sp-arc-06",
+    "domain": "Security Architecture",
+    "domainWeight": 18,
+    "difficulty": "medium",
+    "objective": "Explain the importance of resilience and recovery in security architecture",
+    "type": "single",
+    "question": "A company runs a full backup every Sunday and differential backups Monday through Saturday. To fully restore data lost on Thursday, which backups are required?",
+    "answers": [
+      { "id": "a", "text": "Sunday's full backup plus Thursday's differential backup" },
+      { "id": "b", "text": "Sunday's full backup plus every daily backup Monday through Thursday" },
+      { "id": "c", "text": "Only Thursday's differential backup" },
+      { "id": "d", "text": "Only Sunday's full backup" }
+    ],
+    "correct": ["a"],
+    "explanation": "A differential backup contains all changes since the last full backup, so a restore needs only the most recent full plus the latest differential (Sunday + Thursday). Incremental backups, by contrast, would require the full plus every incremental since.",
+    "references": ["https://csrc.nist.gov/glossary/term/differential_backup"],
+    "tags": ["backup", "differential", "recovery"],
+    "estimatedTime": 90
+  },
+  {
+    "id": "sp-arc-07",
+    "domain": "Security Architecture",
+    "domainWeight": 18,
+    "difficulty": "medium",
+    "objective": "Compare and contrast concepts to protect data",
+    "type": "single",
+    "question": "What is the primary purpose of a Hardware Security Module (HSM)?",
+    "answers": [
+      { "id": "a", "text": "To generate, store, and manage cryptographic keys in tamper-resistant hardware" },
+      { "id": "b", "text": "To filter web application traffic" },
+      { "id": "c", "text": "To provide redundant power to servers" },
+      { "id": "d", "text": "To aggregate and correlate security logs" }
+    ],
+    "correct": ["a"],
+    "explanation": "An HSM is dedicated, tamper-resistant hardware for secure key generation, storage, and cryptographic operations, keeping private keys out of general-purpose memory. Log correlation is the job of a SIEM.",
+    "references": ["https://csrc.nist.gov/glossary/term/hardware_security_module"],
+    "tags": ["hsm", "key-management"],
+    "estimatedTime": 75
+  },
+
+  {
+    "id": "sp-ops-01",
+    "domain": "Security Operations",
+    "domainWeight": 28,
+    "difficulty": "easy",
+    "objective": "Apply common security techniques to computing resources",
+    "type": "single",
+    "question": "Which action is a core part of hardening a server to reduce its attack surface?",
+    "answers": [
+      { "id": "a", "text": "Disabling or removing unnecessary services, ports, and default accounts" },
+      { "id": "b", "text": "Granting all users local administrator rights" },
+      { "id": "c", "text": "Opening all firewall ports to simplify connectivity" },
+      { "id": "d", "text": "Disabling logging to save disk space" }
+    ],
+    "correct": ["a"],
+    "explanation": "Hardening reduces the attack surface by disabling unneeded services/ports, removing or renaming default accounts, and applying secure baselines. The other options increase risk.",
+    "references": ["https://csrc.nist.gov/glossary/term/hardening"],
+    "tags": ["hardening", "attack-surface", "baseline"],
+    "estimatedTime": 65
+  },
+  {
+    "id": "sp-ops-02",
+    "domain": "Security Operations",
+    "domainWeight": 28,
+    "difficulty": "medium",
+    "objective": "Modify enterprise capabilities to enhance security",
+    "type": "multi",
+    "question": "Which capabilities are commonly enforced through Mobile Device Management (MDM) on corporate devices? Select all that apply.",
+    "answers": [
+      { "id": "a", "text": "Remote wipe of a lost or stolen device" },
+      { "id": "b", "text": "Enforcing screen-lock passcodes and encryption" },
+      { "id": "c", "text": "Pushing and restricting applications via policy" },
+      { "id": "d", "text": "Physically replacing the device battery" }
+    ],
+    "correct": ["a", "b", "c"],
+    "explanation": "MDM enforces device policy: remote wipe, passcode/encryption requirements, and application management/whitelisting. Physical battery replacement is a hardware maintenance task, not an MDM capability.",
+    "references": ["https://csrc.nist.gov/glossary/term/mobile_device_management"],
+    "tags": ["mdm", "mobile", "endpoint"],
+    "estimatedTime": 90
+  },
+  {
+    "id": "sp-ops-03",
+    "domain": "Security Operations",
+    "domainWeight": 28,
+    "difficulty": "hard",
+    "objective": "Explain appropriate incident response activities",
+    "type": "ordering",
+    "question": "Arrange the NIST incident response life-cycle phases in the correct order.",
+    "steps": [
+      { "id": "o1", "text": "Preparation" },
+      { "id": "o2", "text": "Detection and analysis" },
+      { "id": "o3", "text": "Containment" },
+      { "id": "o4", "text": "Eradication" },
+      { "id": "o5", "text": "Recovery" },
+      { "id": "o6", "text": "Lessons learned (post-incident activity)" }
+    ],
+    "correctOrder": ["o1", "o2", "o3", "o4", "o5", "o6"],
+    "explanation": "The NIST SP 800-61 incident response life cycle proceeds: Preparation → Detection & Analysis → Containment, Eradication & Recovery → Post-Incident Activity (Lessons Learned). Containment precedes eradication, which precedes recovery.",
+    "references": ["https://csrc.nist.gov/pubs/sp/800/61/r2/final"],
+    "tags": ["incident-response", "nist", "process"],
+    "estimatedTime": 110
+  },
+  {
+    "id": "sp-ops-04",
+    "domain": "Security Operations",
+    "domainWeight": 28,
+    "difficulty": "medium",
+    "objective": "Explain security alerting and monitoring concepts and tools",
+    "type": "single",
+    "question": "Which tool aggregates logs from many sources, correlates events, and generates real-time alerts to support security monitoring?",
+    "answers": [
+      { "id": "a", "text": "A SIEM (Security Information and Event Management) system" },
+      { "id": "b", "text": "A DHCP server" },
+      { "id": "c", "text": "A load balancer" },
+      { "id": "d", "text": "A certificate authority" }
+    ],
+    "correct": ["a"],
+    "explanation": "A SIEM centralizes log collection, correlates events across sources, and produces alerts and dashboards for monitoring and investigation. The other options serve unrelated functions.",
+    "references": ["https://csrc.nist.gov/glossary/term/security_information_and_event_management"],
+    "tags": ["siem", "monitoring", "logging"],
+    "estimatedTime": 70
+  },
+  {
+    "id": "sp-ops-05",
+    "domain": "Security Operations",
+    "domainWeight": 28,
+    "difficulty": "hard",
+    "objective": "Explain vulnerability management activities",
+    "type": "single",
+    "question": "A vulnerability scanner reports a critical flaw, but investigation shows the affected component is not actually installed. How should this finding be classified?",
+    "answers": [
+      { "id": "a", "text": "False positive" },
+      { "id": "b", "text": "False negative" },
+      { "id": "c", "text": "True positive" },
+      { "id": "d", "text": "Zero-day" }
+    ],
+    "correct": ["a"],
+    "explanation": "A false positive is a reported vulnerability that does not actually exist. Validating findings prevents wasted remediation effort. A false negative is a real vulnerability the scanner missed.",
+    "references": ["https://csrc.nist.gov/glossary/term/false_positive"],
+    "tags": ["vulnerability-management", "false-positive", "scanning"],
+    "estimatedTime": 85
+  },
+  {
+    "id": "sp-ops-06",
+    "domain": "Security Operations",
+    "domainWeight": 28,
+    "difficulty": "medium",
+    "objective": "Use data sources to support an investigation",
+    "type": "matching",
+    "question": "Match each log/data source to the information it is most useful for during an investigation.",
+    "terms": [
+      { "id": "t1", "text": "Firewall logs" },
+      { "id": "t2", "text": "Authentication logs" },
+      { "id": "t3", "text": "DNS logs" },
+      { "id": "t4", "text": "Web server access logs" }
+    ],
+    "definitions": [
+      { "id": "d1", "text": "Allowed/blocked connections and source/destination IPs and ports" },
+      { "id": "d2", "text": "Successful and failed user sign-in attempts" },
+      { "id": "d3", "text": "Hostnames resolved by clients (useful for spotting beaconing to malicious domains)" },
+      { "id": "d4", "text": "URLs requested, response codes, and client user-agents" }
+    ],
+    "correctPairs": [
+      { "termId": "t1", "definitionId": "d1" },
+      { "termId": "t2", "definitionId": "d2" },
+      { "termId": "t3", "definitionId": "d3" },
+      { "termId": "t4", "definitionId": "d4" }
+    ],
+    "explanation": "Firewall logs show connection allow/deny and addressing; authentication logs show sign-in successes/failures; DNS logs reveal resolved domains (helpful for C2/beaconing detection); web access logs record requested URLs, status codes, and user-agents.",
+    "references": ["https://csrc.nist.gov/pubs/sp/800/92/final"],
+    "tags": ["log-sources", "investigation", "forensics"],
+    "estimatedTime": 105
+  },
+  {
+    "id": "sp-ops-07",
+    "domain": "Security Operations",
+    "domainWeight": 28,
+    "difficulty": "medium",
+    "objective": "Implement and maintain identity and access management",
+    "type": "single",
+    "question": "A user is granted only the permissions required to perform their specific job and nothing more. Which principle is being applied?",
+    "answers": [
+      { "id": "a", "text": "Separation of duties" },
+      { "id": "b", "text": "Least privilege" },
+      { "id": "c", "text": "Implicit deny" },
+      { "id": "d", "text": "Mandatory vacation" }
+    ],
+    "correct": ["b"],
+    "explanation": "Least privilege grants only the access necessary for a role, limiting the impact of compromised or misused accounts. Separation of duties splits sensitive tasks among people; implicit deny blocks anything not explicitly allowed.",
+    "references": ["https://csrc.nist.gov/glossary/term/least_privilege"],
+    "tags": ["iam", "least-privilege"],
+    "estimatedTime": 70
+  },
+  {
+    "id": "sp-ops-08",
+    "domain": "Security Operations",
+    "domainWeight": 28,
+    "difficulty": "medium",
+    "objective": "Explain the importance of automation and orchestration",
+    "type": "single",
+    "question": "What is a primary benefit of using SOAR (Security Orchestration, Automation, and Response) playbooks in a SOC?",
+    "answers": [
+      { "id": "a", "text": "Eliminating the need for any logging" },
+      { "id": "b", "text": "Automating repetitive response steps to reduce reaction time and human error" },
+      { "id": "c", "text": "Replacing encryption with tokenization everywhere" },
+      { "id": "d", "text": "Guaranteeing zero false positives from all tools" }
+    ],
+    "correct": ["b"],
+    "explanation": "SOAR automates and orchestrates repetitive response actions via playbooks, improving consistency and speeding reaction time while reducing analyst fatigue and manual error. It does not remove the need for logging or eliminate false positives.",
+    "references": ["https://csrc.nist.gov/glossary/term/security_orchestration_automation_and_response"],
+    "tags": ["soar", "automation", "orchestration"],
+    "estimatedTime": 80
+  },
+  {
+    "id": "sp-ops-09",
+    "domain": "Security Operations",
+    "domainWeight": 28,
+    "difficulty": "medium",
+    "objective": "Implement and maintain identity and access management",
+    "type": "yesno",
+    "question": "Multifactor authentication combines factors from different categories. For each pairing, indicate whether it constitutes true multifactor authentication (factors from two DIFFERENT categories).",
+    "statements": [
+      { "id": "s1", "text": "A password plus a one-time code from an authenticator app.", "correct": true },
+      { "id": "s2", "text": "A password plus a security question (mother's maiden name).", "correct": false },
+      { "id": "s3", "text": "A fingerprint plus a hardware security key (FIDO2).", "correct": true }
+    ],
+    "explanation": "True MFA requires factors from different categories: something you know, have, or are. Password + authenticator code = know + have. Fingerprint + security key = are + have. Password + security question are both 'something you know,' so that is single-factor (multi-step, not multi-factor).",
+    "references": ["https://pages.nist.gov/800-63-3/sp800-63b.html"],
+    "tags": ["mfa", "authentication-factors"],
+    "estimatedTime": 105
+  },
+  {
+    "id": "sp-ops-10",
+    "domain": "Security Operations",
+    "domainWeight": 28,
+    "difficulty": "easy",
+    "objective": "Explain security implications of hardware, software, and data asset management",
+    "type": "single",
+    "question": "What is the main security purpose of a structured patch management process?",
+    "answers": [
+      { "id": "a", "text": "To remediate known vulnerabilities by applying tested updates in a timely, controlled way" },
+      { "id": "b", "text": "To increase the number of open network ports" },
+      { "id": "c", "text": "To disable endpoint logging" },
+      { "id": "d", "text": "To grant users administrative privileges" }
+    ],
+    "correct": ["a"],
+    "explanation": "Patch management identifies, tests, and deploys updates that fix known vulnerabilities, reducing exploitable exposure while controlling the risk of breaking changes through testing and scheduling.",
+    "references": ["https://csrc.nist.gov/pubs/sp/800/40/r4/final"],
+    "tags": ["patch-management", "vulnerability"],
+    "estimatedTime": 65
+  },
+  {
+    "id": "sp-ops-11",
+    "domain": "Security Operations",
+    "domainWeight": 28,
+    "difficulty": "hard",
+    "objective": "Explain appropriate incident response activities",
+    "type": "single",
+    "question": "During evidence collection after an incident, which principle dictates that you should capture the most volatile data (e.g., system memory and running processes) before less volatile data (e.g., disk images)?",
+    "answers": [
+      { "id": "a", "text": "Order of volatility" },
+      { "id": "b", "text": "Chain of custody" },
+      { "id": "c", "text": "Legal hold" },
+      { "id": "d", "text": "Non-repudiation" }
+    ],
+    "correct": ["a"],
+    "explanation": "The order of volatility prioritizes collecting the most ephemeral data first (CPU/registers, RAM, network state) before stable data (disk, backups), because volatile evidence is lost quickly. Chain of custody documents how evidence is handled to preserve admissibility.",
+    "references": ["https://csrc.nist.gov/pubs/sp/800/86/final"],
+    "tags": ["forensics", "order-of-volatility", "evidence"],
+    "estimatedTime": 95
+  },
+
+  {
+    "id": "sp-pgm-01",
+    "domain": "Security Program Management and Oversight",
+    "domainWeight": 20,
+    "difficulty": "medium",
+    "objective": "Explain elements of the risk management process",
+    "type": "single",
+    "question": "An organization documents each identified risk along with its owner, likelihood, impact, and treatment status in a central repository. What is this artifact called?",
+    "answers": [
+      { "id": "a", "text": "A risk register" },
+      { "id": "b", "text": "A business impact analysis" },
+      { "id": "c", "text": "A service level agreement" },
+      { "id": "d", "text": "An acceptable use policy" }
+    ],
+    "correct": ["a"],
+    "explanation": "A risk register is the central record of identified risks, including ownership, likelihood, impact, and treatment/status. A BIA assesses the impact of disruptions to business functions, and an SLA defines service expectations.",
+    "references": ["https://csrc.nist.gov/glossary/term/risk_register"],
+    "tags": ["risk-register", "risk-management", "governance"],
+    "estimatedTime": 75
+  },
+  {
+    "id": "sp-pgm-02",
+    "domain": "Security Program Management and Oversight",
+    "domainWeight": 20,
+    "difficulty": "hard",
+    "objective": "Explain elements of the risk management process",
+    "type": "single",
+    "question": "An asset is valued at $40,000. A particular threat is expected to destroy 50% of its value per occurrence and is estimated to occur twice per year. What is the Annualized Loss Expectancy (ALE)?",
+    "answers": [
+      { "id": "a", "text": "$20,000" },
+      { "id": "b", "text": "$40,000" },
+      { "id": "c", "text": "$80,000" },
+      { "id": "d", "text": "$10,000" }
+    ],
+    "correct": ["b"],
+    "explanation": "SLE = Asset Value × Exposure Factor = $40,000 × 0.5 = $20,000. ALE = SLE × ARO = $20,000 × 2 = $40,000. ALE expresses the expected yearly loss and informs cost-justified control decisions.",
+    "references": ["https://csrc.nist.gov/glossary/term/annual_loss_expectancy"],
+    "tags": ["risk", "ale", "sle", "quantitative"],
+    "estimatedTime": 110
+  },
+  {
+    "id": "sp-pgm-03",
+    "domain": "Security Program Management and Oversight",
+    "domainWeight": 20,
+    "difficulty": "medium",
+    "objective": "Explain elements of the risk management process",
+    "type": "ordering",
+    "question": "Arrange the core steps of the risk management process in the typical order.",
+    "steps": [
+      { "id": "o1", "text": "Identify assets and risks" },
+      { "id": "o2", "text": "Analyze and assess likelihood and impact" },
+      { "id": "o3", "text": "Prioritize the risks" },
+      { "id": "o4", "text": "Select and implement a risk treatment (mitigate, transfer, accept, avoid)" },
+      { "id": "o5", "text": "Monitor and review residual risk" }
+    ],
+    "correctOrder": ["o1", "o2", "o3", "o4", "o5"],
+    "explanation": "Risk management generally proceeds: identify risks → analyze/assess them → prioritize → choose and apply a treatment → continuously monitor and review the residual risk. Treatment options include mitigate, transfer, accept, and avoid.",
+    "references": ["https://csrc.nist.gov/pubs/sp/800/30/r1/final"],
+    "tags": ["risk-management", "process"],
+    "estimatedTime": 105
+  },
+  {
+    "id": "sp-pgm-04",
+    "domain": "Security Program Management and Oversight",
+    "domainWeight": 20,
+    "difficulty": "medium",
+    "objective": "Explain the processes associated with third-party risk assessment and management",
+    "type": "single",
+    "question": "Which agreement specifically defines the measurable performance and uptime commitments a vendor must meet, including penalties for failing to meet them?",
+    "answers": [
+      { "id": "a", "text": "Service Level Agreement (SLA)" },
+      { "id": "b", "text": "Memorandum of Understanding (MOU)" },
+      { "id": "c", "text": "Non-Disclosure Agreement (NDA)" },
+      { "id": "d", "text": "Business Partners Agreement (BPA)" }
+    ],
+    "correct": ["a"],
+    "explanation": "An SLA defines measurable service commitments (e.g., uptime, response times) and consequences for missing them. An MOU is a less formal statement of intent, an NDA protects confidential information, and a BPA governs a business partnership.",
+    "references": ["https://csrc.nist.gov/glossary/term/service_level_agreement"],
+    "tags": ["third-party-risk", "sla", "agreements"],
+    "estimatedTime": 80
+  },
+  {
+    "id": "sp-pgm-05",
+    "domain": "Security Program Management and Oversight",
+    "domainWeight": 20,
+    "difficulty": "medium",
+    "objective": "Summarize elements of effective security compliance",
+    "type": "multi",
+    "question": "Which of the following are considered personally identifiable information (PII) that typically require protection under privacy regulations? Select all that apply.",
+    "answers": [
+      { "id": "a", "text": "Social Security number" },
+      { "id": "b", "text": "Full name combined with date of birth" },
+      { "id": "c", "text": "Home address and personal phone number" },
+      { "id": "d", "text": "A company's public stock ticker symbol" }
+    ],
+    "correct": ["a", "b", "c"],
+    "explanation": "PII is data that can identify an individual, alone or combined: SSN, name + date of birth, and home address/phone. A public stock ticker is public company information, not PII.",
+    "references": ["https://csrc.nist.gov/glossary/term/personally_identifiable_information"],
+    "tags": ["pii", "privacy", "compliance"],
+    "estimatedTime": 90
+  },
+  {
+    "id": "sp-pgm-06",
+    "domain": "Security Program Management and Oversight",
+    "domainWeight": 20,
+    "difficulty": "medium",
+    "objective": "Explain types and purposes of audits and assessments",
+    "type": "single",
+    "question": "How does a penetration test primarily differ from a vulnerability assessment?",
+    "answers": [
+      { "id": "a", "text": "A penetration test actively exploits weaknesses to demonstrate real impact, while a vulnerability assessment identifies and ranks weaknesses without exploiting them" },
+      { "id": "b", "text": "A penetration test only reviews policies, while a vulnerability assessment scans networks" },
+      { "id": "c", "text": "They are identical in scope and method" },
+      { "id": "d", "text": "A vulnerability assessment always requires breaking into systems" }
+    ],
+    "correct": ["a"],
+    "explanation": "A vulnerability assessment discovers and prioritizes weaknesses (typically via scanning) without exploiting them. A penetration test goes further, actively exploiting vulnerabilities (often chaining them) to demonstrate real-world impact within an agreed scope.",
+    "references": ["https://csrc.nist.gov/pubs/sp/800/115/final"],
+    "tags": ["pentest", "vulnerability-assessment", "audit"],
+    "estimatedTime": 85
+  },
+  {
+    "id": "sp-pgm-07",
+    "domain": "Security Program Management and Oversight",
+    "domainWeight": 20,
+    "difficulty": "easy",
+    "objective": "Implement security awareness practices",
+    "type": "single",
+    "question": "An organization periodically sends simulated phishing emails to employees and provides training to those who click. What is the main goal of this practice?",
+    "answers": [
+      { "id": "a", "text": "To measure and improve employees' resistance to social-engineering attacks" },
+      { "id": "b", "text": "To punish employees by reducing their pay" },
+      { "id": "c", "text": "To replace technical email filtering entirely" },
+      { "id": "d", "text": "To collect employees' personal email passwords" }
+    ],
+    "correct": ["a"],
+    "explanation": "Phishing simulations build security awareness by measuring susceptibility and delivering targeted training, strengthening the human layer of defense. They complement—rather than replace—technical email controls.",
+    "references": ["https://www.cisa.gov/resources-tools/programs/cybersecurity-awareness-program"],
+    "tags": ["security-awareness", "phishing-simulation", "training"],
+    "estimatedTime": 65
+  },
+  {
+    "id": "sp-pgm-08",
+    "domain": "Security Program Management and Oversight",
+    "domainWeight": 20,
+    "difficulty": "easy",
+    "objective": "Explain the processes associated with third-party risk assessment and management",
+    "type": "single",
+    "question": "Before sharing confidential product designs with a contractor, the company requires them to sign a document legally prohibiting disclosure of that information. Which agreement is this?",
+    "answers": [
+      { "id": "a", "text": "Non-Disclosure Agreement (NDA)" },
+      { "id": "b", "text": "Service Level Agreement (SLA)" },
+      { "id": "c", "text": "Memorandum of Understanding (MOU)" },
+      { "id": "d", "text": "Acceptable Use Policy (AUP)" }
+    ],
+    "correct": ["a"],
+    "explanation": "A Non-Disclosure Agreement legally binds parties to protect and not disclose shared confidential information. An SLA covers service performance, an MOU expresses intent, and an AUP governs acceptable use of organizational systems.",
+    "references": ["https://csrc.nist.gov/glossary/term/non_disclosure_agreement"],
+    "tags": ["nda", "agreements", "third-party-risk"],
+    "estimatedTime": 60
+  }
+]

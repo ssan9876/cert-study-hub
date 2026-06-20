@@ -1,0 +1,41 @@
+# dependencies
+node_modules/
+.pnp/
+.pnp.js
+
+# build output
+dist/
+dist-ssr/
+*.local
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# editor / OS
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+
+# vite
+.vite/
+
+# server runtime data & secrets (never commit)
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+server/data.sqlite*
+.env
+.env.*
+!.env.example
+
+# local Claude Code settings
+.claude/settings.local.json
+
+# misc
+*.tgz
+*.tar.gz

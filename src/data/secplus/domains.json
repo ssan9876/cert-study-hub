@@ -1,0 +1,85 @@
+[
+  {
+    "name": "General Security Concepts",
+    "shortName": "Concepts",
+    "weight": 12,
+    "minWeight": 12,
+    "maxWeight": 12,
+    "color": "#4d99ff",
+    "description": "Security controls, the CIA triad, zero trust, cryptographic solutions, and change management.",
+    "objectives": [
+      "Compare and contrast security control categories and types",
+      "Summarize fundamental security concepts (CIA, AAA, zero trust)",
+      "Explain the importance of change management",
+      "Explain the importance of using appropriate cryptographic solutions"
+    ]
+  },
+  {
+    "name": "Threats, Vulnerabilities, and Mitigations",
+    "shortName": "Threats",
+    "weight": 22,
+    "minWeight": 22,
+    "maxWeight": 22,
+    "color": "#ff5d5d",
+    "description": "Threat actors, attack surfaces, vulnerabilities, malicious activity, and mitigation techniques.",
+    "objectives": [
+      "Compare and contrast common threat actors and motivations",
+      "Explain common threat vectors and attack surfaces",
+      "Explain types of vulnerabilities",
+      "Analyze indicators of malicious activity",
+      "Explain mitigation techniques used to secure the enterprise"
+    ]
+  },
+  {
+    "name": "Security Architecture",
+    "shortName": "Architecture",
+    "weight": 18,
+    "minWeight": 18,
+    "maxWeight": 18,
+    "color": "#a070ff",
+    "description": "Architecture models, secure enterprise infrastructure, data protection, and resilience.",
+    "objectives": [
+      "Compare and contrast security implications of architecture models",
+      "Apply security principles to secure enterprise infrastructure",
+      "Compare and contrast concepts to protect data",
+      "Explain the importance of resilience and recovery in security architecture"
+    ]
+  },
+  {
+    "name": "Security Operations",
+    "shortName": "Operations",
+    "weight": 28,
+    "minWeight": 28,
+    "maxWeight": 28,
+    "color": "#22c1a6",
+    "description": "Secure baselines, hardening, identity and access management, automation, monitoring, and incident response.",
+    "objectives": [
+      "Apply common security techniques to computing resources",
+      "Explain security implications of hardware, software, and data asset management",
+      "Explain vulnerability management activities",
+      "Explain security alerting and monitoring concepts and tools",
+      "Modify enterprise capabilities to enhance security",
+      "Implement and maintain identity and access management",
+      "Explain the importance of automation and orchestration",
+      "Explain appropriate incident response activities",
+      "Use data sources to support an investigation"
+    ]
+  },
+  {
+    "name": "Security Program Management and Oversight",
+    "shortName": "Governance",
+    "weight": 20,
+    "minWeight": 20,
+    "maxWeight": 20,
+    "color": "#ffb24d",
+    "description": "Governance, risk management, third-party risk, compliance, audits, and security awareness.",
+    "objectives": [
+      "Summarize elements of effective security governance",
+      "Explain elements of the risk management process",
+      "Explain the processes associated with third-party risk assessment and management",
+      "Summarize elements of effective security compliance",
+      "Explain types and purposes of audits and assessments",
+      "Implement security awareness practices"
+    ]
+  }
+]

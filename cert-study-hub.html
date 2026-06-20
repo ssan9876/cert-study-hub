@@ -1,0 +1,1517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>IT Cert Study Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0d1117;
+    --bg-panel: #161b22;
+    --bg-card: #1c2129;
+    --bg-hover: #21262d;
+    --border: #30363d;
+    --border-light: #3d444d;
+    --text: #e6edf3;
+    --text-muted: #7d8590;
+    --text-dim: #484f58;
+    --az-color: #58a6ff;
+    --az-bg: #1d3557;
+    --az-glow: rgba(88,166,255,0.15);
+    --sec-color: #3fb950;
+    --sec-bg: #1a3a2a;
+    --sec-glow: rgba(63,185,80,0.15);
+    --ccna-color: #d29922;
+    --ccna-bg: #2f2617;
+    --ccna-glow: rgba(210,153,34,0.15);
+    --radius: 8px;
+    --radius-lg: 12px;
+    --font-mono: 'JetBrains Mono', monospace;
+    --font-sans: 'Inter', sans-serif;
+    --transition: 0.18s ease;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--bg-panel);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    height: 60px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo {
+    font-family: var(--font-mono);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+  }
+  .logo-bracket { color: var(--text-dim); }
+  .logo-name { color: var(--az-color); }
+  .header-sub {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    border-left: 1px solid var(--border);
+    padding-left: 1.5rem;
+  }
+  .header-badge {
+    margin-left: auto;
+    font-size: 0.72rem;
+    font-family: var(--font-mono);
+    color: var(--sec-color);
+    background: var(--sec-bg);
+    border: 1px solid rgba(63,185,80,0.3);
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+
+  /* ── LAYOUT ── */
+  .layout {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+  }
+
+  /* ── SIDEBAR ── */
+  aside {
+    width: 220px;
+    min-width: 220px;
+    background: var(--bg-panel);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem 0;
+    gap: 0;
+  }
+  .sidebar-section-label {
+    font-size: 0.68rem;
+    font-family: var(--font-mono);
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0 1.25rem;
+    margin-bottom: 0.4rem;
+  }
+  .sidebar-section-label:not(:first-child) {
+    margin-top: 1.25rem;
+  }
+  .cert-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0.55rem 1.25rem;
+    cursor: pointer;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    font-family: var(--font-sans);
+    transition: background var(--transition), color var(--transition);
+    border-left: 3px solid transparent;
+  }
+  .cert-btn:hover { background: var(--bg-hover); color: var(--text); }
+  .cert-btn.active-az {
+    color: var(--az-color);
+    background: var(--az-glow);
+    border-left-color: var(--az-color);
+  }
+  .cert-btn.active-sec {
+    color: var(--sec-color);
+    background: var(--sec-glow);
+    border-left-color: var(--sec-color);
+  }
+  .cert-btn.active-ccna {
+    color: var(--ccna-color);
+    background: var(--ccna-glow);
+    border-left-color: var(--ccna-color);
+  }
+  .cert-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-az { background: var(--az-color); }
+  .dot-sec { background: var(--sec-color); }
+  .dot-ccna { background: var(--ccna-color); }
+  .cert-label { font-weight: 500; font-size: 0.85rem; }
+  .cert-sub { font-size: 0.72rem; color: var(--text-dim); margin-left: auto; font-family: var(--font-mono); }
+  .coming-badge {
+    font-size: 0.64rem;
+    background: #2f2617;
+    color: var(--ccna-color);
+    border: 1px solid rgba(210,153,34,0.3);
+    border-radius: 4px;
+    padding: 1px 5px;
+    margin-left: auto;
+  }
+
+  /* ── MODE TABS ── */
+  .mode-tabs {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 0.75rem 2rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-panel);
+  }
+  .mode-tab {
+    font-size: 0.82rem;
+    font-family: var(--font-mono);
+    padding: 6px 16px;
+    border-radius: var(--radius);
+    border: 1px solid transparent;
+    background: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .mode-tab:hover { background: var(--bg-hover); color: var(--text); }
+  .mode-tab.active {
+    background: var(--bg-card);
+    border-color: var(--border-light);
+    color: var(--text);
+  }
+  .mode-tab-icon { font-size: 0.85rem; }
+  .cert-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+    font-size: 0.78rem;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+  }
+  .cert-indicator-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+  }
+
+  /* ── MAIN CONTENT ── */
+  main {
+    flex: 1;
+    overflow-y: auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  /* ── SECTION PANELS ── */
+  .section-panel { display: none; }
+  .section-panel.active { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  /* ── WELCOME SCREEN ── */
+  .welcome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    text-align: center;
+    gap: 1.5rem;
+  }
+  .welcome-terminal {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--sec-color);
+    margin-bottom: 0.5rem;
+  }
+  .welcome h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--text);
+  }
+  .welcome h1 span { color: var(--az-color); }
+  .welcome p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    max-width: 440px;
+    line-height: 1.7;
+  }
+  .cert-card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    width: 100%;
+    max-width: 680px;
+  }
+  .cert-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    cursor: pointer;
+    transition: all var(--transition);
+    text-align: left;
+  }
+  .cert-card:hover { border-color: var(--border-light); background: var(--bg-hover); transform: translateY(-2px); }
+  .cert-card-icon {
+    width: 36px; height: 36px;
+    border-radius: var(--radius);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+  .cert-card-icon.az { background: var(--az-bg); color: var(--az-color); border: 1px solid rgba(88,166,255,0.3); }
+  .cert-card-icon.sec { background: var(--sec-bg); color: var(--sec-color); border: 1px solid rgba(63,185,80,0.3); }
+  .cert-card-icon.ccna { background: var(--ccna-bg); color: var(--ccna-color); border: 1px solid rgba(210,153,34,0.3); }
+  .cert-card-name { font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+  .cert-card-desc { font-size: 0.75rem; color: var(--text-muted); }
+  .cert-card-status {
+    margin-top: 0.75rem;
+    font-size: 0.7rem;
+    font-family: var(--font-mono);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .status-dot { width: 5px; height: 5px; border-radius: 50%; }
+
+  /* ── PLACEHOLDER ── */
+  .placeholder-panel {
+    background: var(--bg-card);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius-lg);
+    padding: 3rem 2rem;
+    text-align: center;
+    color: var(--text-muted);
+  }
+  .placeholder-panel .ph-icon { font-size: 2rem; margin-bottom: 0.75rem; color: var(--text-dim); }
+  .placeholder-panel .ph-label { font-family: var(--font-mono); font-size: 0.82rem; }
+  .placeholder-panel .ph-sub { font-size: 0.78rem; color: var(--text-dim); margin-top: 0.4rem; }
+
+  /* ── PROGRESS BAR (top of content) ── */
+  .progress-bar-wrap {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .progress-stat { display: flex; flex-direction: column; gap: 2px; }
+  .progress-stat-label { font-size: 0.7rem; color: var(--text-dim); font-family: var(--font-mono); }
+  .progress-stat-val { font-size: 1.1rem; font-weight: 600; font-family: var(--font-mono); }
+  .progress-bar-track {
+    flex: 1;
+    height: 6px;
+    background: var(--bg-hover);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+  .fill-az { background: var(--az-color); }
+  .fill-sec { background: var(--sec-color); }
+  .fill-ccna { background: var(--ccna-color); }
+
+  /* ── COMING SOON RIBBON ── */
+  .coming-soon-panel {
+    background: var(--bg-card);
+    border: 1px solid rgba(210,153,34,0.25);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    text-align: center;
+    color: var(--ccna-color);
+  }
+  .coming-soon-panel .cs-title { font-size: 1rem; font-weight: 600; margin-bottom: 0.4rem; }
+  .coming-soon-panel .cs-sub { font-size: 0.82rem; color: var(--text-muted); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--bg-panel);
+    border-top: 1px solid var(--border);
+    padding: 0.6rem 2rem;
+    font-size: 0.72rem;
+    font-family: var(--font-mono);
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .footer-dot { color: var(--sec-color); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    aside { display: none; }
+    .cert-card-grid { grid-template-columns: 1fr; max-width: 100%; }
+    header { padding: 0 1rem; }
+    main { padding: 1rem; }
+    .mode-tabs { padding: 0.5rem 1rem; overflow-x: auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">
+    <span class="logo-bracket">[</span>
+    <span class="logo-name">IT</span>
+    <span class="logo-bracket">]</span>
+    &nbsp;CertStudy
+  </div>
+  <div class="header-sub">// your certification prep hub</div>
+  <div class="header-badge">⬤ 3 certs loaded</div>
+</header>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside>
+    <div class="sidebar-section-label">Active</div>
+    <button class="cert-btn active-az" onclick="selectCert('az')">
+      <span class="cert-dot dot-az"></span>
+      <span class="cert-label">AZ-104</span>
+      <span class="cert-sub">Azure</span>
+    </button>
+    <button class="cert-btn" onclick="selectCert('sec')">
+      <span class="cert-dot dot-sec"></span>
+      <span class="cert-label">Security+</span>
+      <span class="cert-sub">CompTIA</span>
+    </button>
+
+    <div class="sidebar-section-label">Coming Up</div>
+    <button class="cert-btn" onclick="selectCert('ccna')">
+      <span class="cert-dot dot-ccna"></span>
+      <span class="cert-label">CCNA</span>
+      <span class="coming-badge">Next</span>
+    </button>
+  </aside>
+
+  <!-- RIGHT SIDE -->
+  <div style="flex:1; display:flex; flex-direction:column; min-width:0;">
+
+    <!-- MODE TABS -->
+    <div class="mode-tabs">
+      <button class="mode-tab active" onclick="selectMode('quiz')" id="tab-quiz">
+        <span class="mode-tab-icon">⬡</span> Quiz
+      </button>
+      <button class="mode-tab" onclick="selectMode('flash')" id="tab-flash">
+        <span class="mode-tab-icon">⬢</span> Flashcards
+      </button>
+      <button class="mode-tab" onclick="selectMode('resources')" id="tab-resources">
+        <span class="mode-tab-icon">⬣</span> Resources
+      </button>
+      <div class="cert-indicator" id="cert-indicator">
+        <span class="cert-indicator-dot" id="cert-ind-dot" style="background:var(--az-color)"></span>
+        <span id="cert-ind-label">AZ-104 · Microsoft Azure Administrator</span>
+      </div>
+    </div>
+
+    <!-- MAIN -->
+    <main id="main-content">
+
+      <!-- WELCOME (shown before any cert selected via card) -->
+      <div class="section-panel active" id="panel-welcome">
+        <div class="welcome">
+          <div class="welcome-terminal">$ init study_session --certs az-104 sec+ ccna</div>
+          <h1>Your <span>Cert Hub</span> is ready.</h1>
+          <p>Pick a certification below to start quizzing, flip flashcards, or browse curated resources and videos.</p>
+          <div class="cert-card-grid">
+            <div class="cert-card" onclick="selectCert('az')">
+              <div class="cert-card-icon az">AZ</div>
+              <div class="cert-card-name">AZ-104</div>
+              <div class="cert-card-desc">Microsoft Azure Administrator</div>
+              <div class="cert-card-status">
+                <span class="status-dot" style="background:var(--az-color)"></span>
+                <span style="color:var(--az-color); font-family:var(--font-mono)">active</span>
+              </div>
+            </div>
+            <div class="cert-card" onclick="selectCert('sec')">
+              <div class="cert-card-icon sec">S+</div>
+              <div class="cert-card-name">Security+</div>
+              <div class="cert-card-desc">CompTIA SY0-701</div>
+              <div class="cert-card-status">
+                <span class="status-dot" style="background:var(--sec-color)"></span>
+                <span style="color:var(--sec-color); font-family:var(--font-mono)">active</span>
+              </div>
+            </div>
+            <div class="cert-card" onclick="selectCert('ccna')">
+              <div class="cert-card-icon ccna">CN</div>
+              <div class="cert-card-name">CCNA</div>
+              <div class="cert-card-desc">Cisco 200-301</div>
+              <div class="cert-card-status">
+                <span class="status-dot" style="background:var(--ccna-color)"></span>
+                <span style="color:var(--ccna-color); font-family:var(--font-mono)">coming soon</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AZ-104 -->
+      <div class="section-panel" id="panel-az">
+        <div class="progress-bar-wrap">
+          <div class="progress-stat">
+            <span class="progress-stat-label">cert</span>
+            <span class="progress-stat-val" style="color:var(--az-color)">AZ-104</span>
+          </div>
+          <div class="progress-bar-track">
+            <div class="progress-bar-fill fill-az" id="az-progress-fill"></div>
+          </div>
+          <div class="progress-stat" style="text-align:right">
+            <span class="progress-stat-label">progress</span>
+            <span class="progress-stat-val" id="az-progress-pct" style="color:var(--az-color)">—</span>
+          </div>
+        </div>
+
+        <div id="az-quiz-area"></div>
+        <div id="az-flash-area" style="display:none"></div>
+        <div id="az-resources-area" style="display:none"></div>
+      </div>
+
+      <!-- Security+ -->
+      <div class="section-panel" id="panel-sec">
+        <div class="progress-bar-wrap">
+          <div class="progress-stat">
+            <span class="progress-stat-label">cert</span>
+            <span class="progress-stat-val" style="color:var(--sec-color)">Sec+</span>
+          </div>
+          <div class="progress-bar-track">
+            <div class="progress-bar-fill fill-sec" id="sec-progress-fill"></div>
+          </div>
+          <div class="progress-stat" style="text-align:right">
+            <span class="progress-stat-label">progress</span>
+            <span class="progress-stat-val" id="sec-progress-pct" style="color:var(--sec-color)">—</span>
+          </div>
+        </div>
+        <div id="sec-quiz-area"></div>
+        <div id="sec-flash-area" style="display:none"></div>
+        <div id="sec-resources-area" style="display:none"></div>
+      </div>
+
+      <!-- CCNA -->
+      <div class="section-panel" id="panel-ccna">
+        <div class="coming-soon-panel">
+          <div class="cs-title">⬤ CCNA — Cisco 200-301</div>
+          <div class="cs-sub">Content for this certification will be unlocked in Step 6. Keep grinding AZ-104 and Sec+ first!</div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-dot">⬤</span>
+  <span>CertStudy v0.1</span>
+  <span>·</span>
+  <span>AZ-104 · CompTIA Sec+ · CCNA</span>
+  <span style="margin-left:auto">Step 4/6 — Resources complete</span>
+</footer>
+
+<style>
+/* ── QUIZ ENGINE STYLES ── */
+.quiz-wrap { display:flex; flex-direction:column; gap:1rem; }
+.quiz-topbar {
+  display:flex; align-items:center; gap:1rem;
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--radius-lg); padding:0.85rem 1.25rem;
+}
+.quiz-q-counter {
+  font-family:var(--font-mono); font-size:0.78rem; color:var(--text-muted); white-space:nowrap;
+}
+.quiz-track { flex:1; height:5px; background:var(--bg-hover); border-radius:3px; overflow:hidden; }
+.quiz-track-fill { height:100%; border-radius:3px; transition:width 0.35s ease; }
+.quiz-score-badge {
+  font-family:var(--font-mono); font-size:0.78rem; white-space:nowrap;
+  padding:3px 10px; border-radius:20px;
+}
+.quiz-domain-tag {
+  font-size:0.7rem; font-family:var(--font-mono);
+  padding:2px 8px; border-radius:4px; white-space:nowrap;
+}
+.quiz-card {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--radius-lg); padding:1.75rem;
+}
+.quiz-q-text {
+  font-size:1rem; line-height:1.65; color:var(--text);
+  margin-bottom:1.5rem; font-weight:500;
+}
+.quiz-options { display:flex; flex-direction:column; gap:0.6rem; }
+.quiz-opt {
+  display:flex; align-items:flex-start; gap:12px;
+  background:var(--bg-hover); border:1px solid var(--border);
+  border-radius:var(--radius); padding:0.85rem 1rem;
+  cursor:pointer; transition:all 0.15s ease; text-align:left; width:100%;
+  color:var(--text); font-size:0.9rem; line-height:1.5; font-family:var(--font-sans);
+}
+.quiz-opt:hover:not(:disabled) { border-color:var(--border-light); background:var(--bg-panel); }
+.quiz-opt-key {
+  font-family:var(--font-mono); font-size:0.75rem; color:var(--text-dim);
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:4px; padding:1px 6px; flex-shrink:0; margin-top:1px;
+}
+.quiz-opt.correct { border-color:#3fb950; background:rgba(63,185,80,0.1); }
+.quiz-opt.correct .quiz-opt-key { border-color:#3fb950; color:#3fb950; background:rgba(63,185,80,0.15); }
+.quiz-opt.wrong { border-color:#f85149; background:rgba(248,81,73,0.1); }
+.quiz-opt.wrong .quiz-opt-key { border-color:#f85149; color:#f85149; background:rgba(248,81,73,0.15); }
+.quiz-opt.reveal-correct { border-color:#3fb950; background:rgba(63,185,80,0.07); }
+.quiz-opt:disabled { cursor:default; }
+.quiz-explanation {
+  margin-top:1.25rem; padding:1rem 1.1rem;
+  background:var(--bg-panel); border-left:3px solid var(--border-light);
+  border-radius:0 var(--radius) var(--radius) 0;
+  font-size:0.85rem; line-height:1.65; color:var(--text-muted); display:none;
+}
+.quiz-explanation.show { display:block; }
+.quiz-explanation strong { color:var(--text); font-weight:500; }
+.quiz-actions { display:flex; gap:0.75rem; margin-top:1.25rem; align-items:center; }
+.btn-next {
+  font-family:var(--font-mono); font-size:0.82rem;
+  padding:8px 20px; border-radius:var(--radius);
+  border:1px solid var(--border-light); background:var(--bg-hover);
+  color:var(--text); cursor:pointer; transition:all 0.15s ease;
+}
+.btn-next:hover { background:var(--bg-panel); border-color:var(--az-color); color:var(--az-color); }
+.btn-next.sec:hover { border-color:var(--sec-color); color:var(--sec-color); }
+.btn-shuffle {
+  font-family:var(--font-mono); font-size:0.78rem;
+  padding:8px 14px; border-radius:var(--radius);
+  border:1px solid var(--border); background:none;
+  color:var(--text-muted); cursor:pointer; transition:all 0.15s ease; margin-left:auto;
+}
+.btn-shuffle:hover { color:var(--text); border-color:var(--border-light); }
+
+/* Results screen */
+.quiz-results {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--radius-lg); padding:2.5rem 2rem; text-align:center;
+}
+.results-score-ring {
+  width:100px; height:100px; border-radius:50%;
+  border:3px solid var(--border); display:inline-flex;
+  align-items:center; justify-content:center; flex-direction:column;
+  margin-bottom:1.25rem; position:relative;
+}
+.results-score-num { font-family:var(--font-mono); font-size:1.6rem; font-weight:600; line-height:1; }
+.results-score-denom { font-family:var(--font-mono); font-size:0.72rem; color:var(--text-muted); }
+.results-grade { font-size:1.1rem; font-weight:600; margin-bottom:0.4rem; }
+.results-sub { font-size:0.85rem; color:var(--text-muted); margin-bottom:1.5rem; }
+.results-breakdown {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:0.75rem;
+  margin-bottom:1.5rem;
+}
+.rb-cell {
+  background:var(--bg-panel); border:1px solid var(--border);
+  border-radius:var(--radius); padding:0.75rem 0.5rem;
+}
+.rb-val { font-family:var(--font-mono); font-size:1.1rem; font-weight:600; }
+.rb-label { font-size:0.7rem; color:var(--text-muted); margin-top:2px; }
+.btn-restart {
+  font-family:var(--font-mono); font-size:0.82rem;
+  padding:10px 24px; border-radius:var(--radius);
+  border:1px solid var(--border-light); background:var(--bg-hover);
+  color:var(--text); cursor:pointer; transition:all 0.15s ease;
+}
+.btn-restart:hover { background:var(--bg-panel); }
+</style>
+
+<script>
+/* ═══════════════════════════════════════════
+   QUESTION BANK
+═══════════════════════════════════════════ */
+const QUESTIONS = {
+  az: [
+    {
+      domain:'Identity & Access',
+      q:'A company needs to grant temporary access to an Azure resource for an external vendor without creating a new user account. What is the best approach?',
+      opts:['Create a guest user in Azure AD','Use a Shared Access Signature (SAS) token','Assign a Managed Identity to the vendor','Create a service principal with a client secret'],
+      answer:0,
+      exp:'<strong>Guest users (Azure AD B2B)</strong> let you invite external identities using their own credentials. SAS tokens apply to storage, not identity-based access. Managed identities are for Azure resources, not humans.'
+    },
+    {
+      domain:'Identity & Access',
+      q:'Which Azure AD feature allows you to require MFA only when a sign-in is deemed risky, without applying it to every login?',
+      opts:['Azure AD Identity Protection with Conditional Access','Multi-Factor Authentication Server','Azure AD Password Protection','Privileged Identity Management (PIM)'],
+      answer:0,
+      exp:'<strong>Identity Protection + Conditional Access</strong> evaluates risk signals (unfamiliar location, leaked credentials) and can trigger step-up MFA only when risk is detected, keeping low-risk logins friction-free.'
+    },
+    {
+      domain:'Identity & Access',
+      q:'You want developers to be able to deploy Azure resources but NOT be able to modify role assignments. Which built-in role fits best?',
+      opts:['Owner','Contributor','Reader','User Access Administrator'],
+      answer:1,
+      exp:'<strong>Contributor</strong> grants full create/manage access to resources but cannot grant access to others. Owner adds role assignment rights. Reader is read-only. User Access Administrator manages role assignments only.'
+    },
+    {
+      domain:'Storage',
+      q:'An application uploads millions of small log files daily that are accessed frequently for the first 30 days, then rarely afterward. Which storage lifecycle policy is most cost-effective?',
+      opts:['Keep all blobs in Hot tier indefinitely','Transition to Cool tier after 30 days, Archive after 90 days','Transition to Archive tier immediately','Delete blobs after 30 days'],
+      answer:1,
+      exp:'<strong>Tiered lifecycle policies</strong> move blobs automatically. Hot→Cool after 30 days cuts storage costs for aging data; Cool→Archive after 90 days minimizes cost for rarely accessed logs. Archive has retrieval latency but lowest storage price.'
+    },
+    {
+      domain:'Storage',
+      q:'Which Azure Storage redundancy option replicates data synchronously across three availability zones in the same region?',
+      opts:['Locally-redundant storage (LRS)','Zone-redundant storage (ZRS)','Geo-redundant storage (GRS)','Read-access geo-redundant storage (RA-GRS)'],
+      answer:1,
+      exp:'<strong>ZRS</strong> writes synchronously across 3 AZs in one region, protecting against datacenter-level failures. LRS replicates within a single datacenter. GRS/RA-GRS replicate to a secondary region asynchronously.'
+    },
+    {
+      domain:'Networking',
+      q:'Two VNets in the same Azure region need to communicate privately. You do NOT want to use a VPN gateway. What should you configure?',
+      opts:['VNet-to-VNet VPN gateway','Azure ExpressRoute','VNet Peering','Azure Bastion'],
+      answer:2,
+      exp:'<strong>VNet Peering</strong> connects VNets using the Microsoft backbone with low latency and no gateway overhead. It works within and across regions. Bastion provides secure RDP/SSH access; ExpressRoute connects on-premises to Azure.'
+    },
+    {
+      domain:'Networking',
+      q:'You need to filter inbound internet traffic to a web application, inspect HTTP headers, and block OWASP Top 10 attacks. Which Azure service should you use?',
+      opts:['Network Security Group (NSG)','Azure Firewall','Azure Web Application Firewall (WAF)','Azure DDoS Protection'],
+      answer:2,
+      exp:'<strong>Azure WAF</strong> (on Application Gateway or Front Door) operates at Layer 7, understands HTTP/S, and enforces OWASP rulesets. NSGs operate at L3/L4 with IP/port rules. Azure Firewall is L3–L7 but not HTTP-aware in the same way. DDoS protects against volumetric attacks.'
+    },
+    {
+      domain:'Compute',
+      q:'Your team needs VMs that can survive a single Azure datacenter failure within a region. Which availability option should you configure?',
+      opts:['Availability Set','Availability Zone','VM Scale Set with no zone pinning','Azure Site Recovery'],
+      answer:1,
+      exp:'<strong>Availability Zones</strong> are physically separate datacenters within a region. Deploying VMs across zones protects against single-datacenter failure. Availability Sets protect against rack/update domain failures within one datacenter but not zone-level outages.'
+    },
+    {
+      domain:'Compute',
+      q:'An application requires auto-scaling based on CPU metrics and must maintain a minimum of 2 and maximum of 10 VM instances. What is the correct Azure resource to use?',
+      opts:['Azure App Service Plan','Virtual Machine Scale Set (VMSS)','Azure Kubernetes Service (AKS)','Azure Batch'],
+      answer:1,
+      exp:'<strong>VMSS</strong> is designed for auto-scaling IaaS workloads. You define min/max instance counts and scaling rules based on metrics. AKS is container orchestration. Azure Batch is for large parallel compute jobs.'
+    },
+    {
+      domain:'Monitor & Backup',
+      q:'You want to receive an email alert when CPU usage on a VM exceeds 85% for more than 5 minutes. Which Azure service handles this?',
+      opts:['Azure Advisor','Azure Monitor Alerts','Azure Service Health','Log Analytics workspace only'],
+      answer:1,
+      exp:'<strong>Azure Monitor Alerts</strong> lets you define metric alert rules with conditions (threshold, aggregation period) and action groups (email, SMS, webhook). Advisor gives recommendations. Service Health tracks Azure platform issues.'
+    },
+    {
+      domain:'Monitor & Backup',
+      q:'A company needs to restore an Azure VM to a state from 7 days ago. Which service provides this capability?',
+      opts:['Azure Backup with Recovery Services Vault','Azure Site Recovery','Azure Snapshot (manual)','Azure Archive Storage'],
+      answer:0,
+      exp:'<strong>Azure Backup with a Recovery Services Vault</strong> provides scheduled, policy-driven backups and point-in-time restore for VMs. ASR handles disaster recovery (failover), not point-in-time VM restores. Manual snapshots exist but require manual management.'
+    },
+    {
+      domain:'Identity & Access',
+      q:'Which Azure AD concept allows you to group policies and users so that different departments have different Conditional Access requirements?',
+      opts:['Management Groups','Azure AD Tenants','Azure AD Named Locations','Azure AD Groups with Conditional Access policies'],
+      answer:3,
+      exp:'<strong>Azure AD Groups</strong> used as include/exclude targets in Conditional Access policies allow you to apply different rules to different sets of users (e.g., require compliant devices for Finance but not for Read-only contractors).'
+    },
+    {
+      domain:'Networking',
+      q:'What is the purpose of a Route Table (UDR) in Azure networking?',
+      opts:['To assign public IP addresses to subnets','To override Azures default system routes and control traffic flow','To filter traffic by port and protocol','To peer two virtual networks together'],
+      answer:1,
+      exp:'<strong>User Defined Routes (UDRs)</strong> override Azure system routes so you can force traffic through a Network Virtual Appliance (NVA), Azure Firewall, or on-premises gateway rather than using the default routing behavior.'
+    },
+    {
+      domain:'Storage',
+      q:'An app needs to store configuration data as key-value pairs with no fixed schema that can be queried by partition and row key. Which Azure storage service fits?',
+      opts:['Azure SQL Database','Azure Blob Storage','Azure Table Storage','Azure Queue Storage'],
+      answer:2,
+      exp:'<strong>Azure Table Storage</strong> is a NoSQL key-value store accessed via PartitionKey + RowKey. It is schema-less, massively scalable, and low-cost. Blob is for unstructured binary data. Queue is for messaging. SQL is relational.'
+    },
+    {
+      domain:'Compute',
+      q:'You need to run a containerized app on Azure without managing any underlying VMs or clusters. Which service should you choose?',
+      opts:['Azure Virtual Machines','Azure Kubernetes Service','Azure Container Instances (ACI)','Azure App Service (Linux)'],
+      answer:2,
+      exp:'<strong>ACI</strong> is the simplest way to run containers in Azure — serverless, per-second billing, no cluster management. AKS is for orchestrating many containers at scale. App Service (Linux) supports containers but is PaaS with more abstraction.'
+    },
+  ],
+
+  sec: [
+    {
+      domain:'Threats & Attacks',
+      q:'An attacker intercepts and alters communication between a client and a server without either party knowing. What type of attack is this?',
+      opts:['Replay attack','Man-in-the-Middle (MitM) attack','SQL Injection','Denial of Service (DoS)'],
+      answer:1,
+      exp:'<strong>MitM attacks</strong> involve the attacker secretly relaying and possibly modifying communications between two parties. Replay attacks reuse captured credentials. SQL injection targets databases. DoS disrupts availability.'
+    },
+    {
+      domain:'Threats & Attacks',
+      q:'A user receives an email that appears to be from their bank, asking them to click a link and verify their account. What type of attack is this?',
+      opts:['Vishing','Phishing','Smishing','Whaling'],
+      answer:1,
+      exp:'<strong>Phishing</strong> uses deceptive emails to trick users. Vishing uses voice calls. Smishing uses SMS. Whaling is spear-phishing targeting senior executives. All are social engineering attacks.'
+    },
+    {
+      domain:'Threats & Attacks',
+      q:'Which type of malware encrypts a victims files and demands payment for the decryption key?',
+      opts:['Rootkit','Spyware','Ransomware','Trojan'],
+      answer:2,
+      exp:'<strong>Ransomware</strong> encrypts data and extorts the victim. Rootkits hide malicious activity at the OS level. Spyware silently collects data. Trojans disguise themselves as legitimate software.'
+    },
+    {
+      domain:'Cryptography',
+      q:'Which cryptographic algorithm is considered asymmetric and is commonly used for secure key exchange?',
+      opts:['AES-256','SHA-256','RSA','3DES'],
+      answer:2,
+      exp:'<strong>RSA</strong> is asymmetric — it uses a public/private key pair. AES and 3DES are symmetric (same key for encrypt/decrypt). SHA-256 is a hashing algorithm, not encryption.'
+    },
+    {
+      domain:'Cryptography',
+      q:'A file is hashed before and after transmission. The hashes match. What security property does this verify?',
+      opts:['Confidentiality','Availability','Integrity','Non-repudiation'],
+      answer:2,
+      exp:'<strong>Integrity</strong> ensures data has not been altered in transit. Hashing detects tampering but does not encrypt the data. Confidentiality is ensured by encryption. Non-repudiation is ensured by digital signatures.'
+    },
+    {
+      domain:'Cryptography',
+      q:'Which protocol replaced SSL and provides secure communication over a network?',
+      opts:['HTTPS','TLS','IPSec','SSH'],
+      answer:1,
+      exp:'<strong>TLS (Transport Layer Security)</strong> is the successor to SSL and is the underlying protocol for secure web traffic. HTTPS is HTTP over TLS. IPSec secures network-layer traffic. SSH secures remote shell sessions.'
+    },
+    {
+      domain:'Identity & Access',
+      q:'What does the principle of least privilege state?',
+      opts:['Users should have admin rights by default','Users should only have the minimum access needed to perform their job','All users share a single privileged account','Privileges are assigned based on seniority'],
+      answer:1,
+      exp:'<strong>Least privilege</strong> limits access rights to only what is necessary, reducing the attack surface if an account is compromised. It is a foundational security principle and a key concept on the Security+ exam.'
+    },
+    {
+      domain:'Identity & Access',
+      q:'An organization uses smart cards combined with a PIN to authenticate employees. What type of authentication is this?',
+      opts:['Single-factor (something you know)','Multi-factor (something you have + something you know)','Biometric authentication','Federated identity'],
+      answer:1,
+      exp:'<strong>MFA</strong> combines two or more factors. A smart card is something you have; a PIN is something you know. This combination satisfies two factors, making it MFA.'
+    },
+    {
+      domain:'Network Security',
+      q:'Which device inspects traffic at Layer 7 and can make forwarding decisions based on application content such as URLs and file types?',
+      opts:['Layer 2 Switch','Stateful Firewall','Next-Generation Firewall (NGFW)','Hub'],
+      answer:2,
+      exp:'<strong>NGFWs</strong> perform deep packet inspection at Layer 7, enabling app-aware policies, URL filtering, intrusion prevention, and SSL inspection. Stateful firewalls track connection state but operate at L3/L4. Switches forward at L2.'
+    },
+    {
+      domain:'Network Security',
+      q:'What is the purpose of network segmentation using VLANs?',
+      opts:['To increase internet bandwidth','To isolate network segments to limit lateral movement of threats','To encrypt all network traffic','To assign public IPs to internal devices'],
+      answer:1,
+      exp:'<strong>VLANs</strong> logically separate broadcast domains. If one segment is compromised, VLANs limit how far an attacker can move laterally across the network — a core defense-in-depth strategy.'
+    },
+    {
+      domain:'Compliance & Governance',
+      q:'Which framework provides a set of best practices for IT service management (ITSM) and is widely used in enterprise environments?',
+      opts:['NIST CSF','ISO 27001','ITIL','SOC 2'],
+      answer:2,
+      exp:'<strong>ITIL</strong> is the IT Infrastructure Library — a framework for IT service management best practices. NIST CSF is a cybersecurity framework. ISO 27001 is an information security management standard. SOC 2 is an auditing framework.'
+    },
+    {
+      domain:'Compliance & Governance',
+      q:'A company wants to ensure it can continue operations after a major disaster. Which document outlines the steps to recover IT systems?',
+      opts:['Business Impact Analysis (BIA)','Disaster Recovery Plan (DRP)','Incident Response Plan (IRP)','Security Policy'],
+      answer:1,
+      exp:'<strong>DRP</strong> outlines the procedures to restore IT systems and data after a disaster. BIA identifies critical functions and impact. IRP covers responding to security incidents. Security Policy sets overall rules and intent.'
+    },
+    {
+      domain:'Threats & Attacks',
+      q:'An attacker floods a web server with traffic from thousands of compromised machines, making it unavailable to legitimate users. What is this called?',
+      opts:['Phishing','SQL Injection','Distributed Denial of Service (DDoS)','Cross-Site Scripting (XSS)'],
+      answer:2,
+      exp:'<strong>DDoS</strong> uses a botnet to overwhelm a target with traffic. SQL injection exploits database queries. XSS injects scripts into web pages. Phishing is social engineering via email.'
+    },
+    {
+      domain:'Cryptography',
+      q:'What is the primary purpose of a digital certificate?',
+      opts:['To encrypt data at rest','To bind a public key to an identity verified by a Certificate Authority','To hash passwords for storage','To create a VPN tunnel'],
+      answer:1,
+      exp:'<strong>Digital certificates</strong> use PKI to bind a public key to a verified identity (person, server, or organization). A Certificate Authority (CA) signs the certificate, vouching for its authenticity.'
+    },
+    {
+      domain:'Network Security',
+      q:'Which of the following BEST describes a honeypot?',
+      opts:['A firewall rule that blocks all inbound traffic','A decoy system designed to lure and detect attackers','An encrypted tunnel between two networks','A system that filters email for spam'],
+      answer:1,
+      exp:'<strong>Honeypots</strong> are intentionally vulnerable decoy systems placed to attract attackers. They detect intrusions, gather threat intelligence, and buy time. They are not production systems and should be isolated from real infrastructure.'
+    },
+  ]
+};
+
+/* ═══════════════════════════════════════════
+   QUIZ ENGINE STATE
+═══════════════════════════════════════════ */
+const quizState = {
+  az:  { questions: [], idx: 0, score: 0, answered: false, finished: false },
+  sec: { questions: [], idx: 0, score: 0, answered: false, finished: false }
+};
+
+function shuffleArray(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function initQuiz(cert) {
+  quizState[cert].questions = shuffleArray(QUESTIONS[cert]);
+  quizState[cert].idx = 0;
+  quizState[cert].score = 0;
+  quizState[cert].answered = false;
+  quizState[cert].finished = false;
+  renderQuiz(cert);
+}
+
+function renderQuiz(cert) {
+  const area = document.getElementById(cert + '-quiz-area');
+  const st = quizState[cert];
+  const color = cert === 'az' ? 'var(--az-color)' : 'var(--sec-color)';
+  const total = st.questions.length;
+
+  if (st.finished) {
+    const pct = Math.round((st.score / total) * 100);
+    let grade = pct >= 85 ? '🟢 Passing' : pct >= 70 ? '🟡 Almost there' : '🔴 Keep studying';
+    let gradeTip = pct >= 85 ? 'Great work! You are on track.' : pct >= 70 ? 'Close — review the ones you missed.' : 'Review the material and try again.';
+    area.innerHTML = `
+      <div class="quiz-results">
+        <div class="results-score-ring" style="border-color:${color}">
+          <span class="results-score-num" style="color:${color}">${st.score}</span>
+          <span class="results-score-denom">/ ${total}</span>
+        </div>
+        <div class="results-grade" style="color:${color}">${grade}</div>
+        <div class="results-sub">${pct}% correct — ${gradeTip}</div>
+        <div class="results-breakdown">
+          <div class="rb-cell"><div class="rb-val" style="color:${color}">${st.score}</div><div class="rb-label">Correct</div></div>
+          <div class="rb-cell"><div class="rb-val" style="color:#f85149">${total - st.score}</div><div class="rb-label">Incorrect</div></div>
+          <div class="rb-cell"><div class="rb-val" style="color:${color}">${pct}%</div><div class="rb-label">Score</div></div>
+        </div>
+        <button class="btn-restart" onclick="initQuiz('${cert}')">↺ Restart Quiz</button>
+      </div>`;
+    updateProgressBar(cert, pct);
+    return;
+  }
+
+  const q = st.questions[st.idx];
+  const progress = Math.round((st.idx / total) * 100);
+  const optKeys = ['A','B','C','D'];
+
+  area.innerHTML = `
+    <div class="quiz-wrap">
+      <div class="quiz-topbar">
+        <span class="quiz-q-counter">Q${st.idx + 1} / ${total}</span>
+        <div class="quiz-track"><div class="quiz-track-fill" style="width:${progress}%;background:${color}"></div></div>
+        <span class="quiz-score-badge" style="color:${color};background:${color}22;border:1px solid ${color}44">${st.score} correct</span>
+        <span class="quiz-domain-tag" style="background:var(--bg-hover);color:var(--text-muted);border:1px solid var(--border)">${q.domain}</span>
+      </div>
+      <div class="quiz-card">
+        <div class="quiz-q-text">${q.q}</div>
+        <div class="quiz-options" id="opts-${cert}">
+          ${q.opts.map((o,i) => `
+            <button class="quiz-opt" onclick="selectAnswer('${cert}',${i})" id="opt-${cert}-${i}">
+              <span class="quiz-opt-key">${optKeys[i]}</span>
+              <span>${o}</span>
+            </button>`).join('')}
+        </div>
+        <div class="quiz-explanation" id="exp-${cert}">${q.exp}</div>
+        <div class="quiz-actions">
+          <button class="btn-next ${cert}" id="btn-next-${cert}" onclick="nextQuestion('${cert}')" style="display:none">
+            ${st.idx + 1 < total ? 'Next question →' : 'See results →'}
+          </button>
+          <button class="btn-shuffle" onclick="initQuiz('${cert}')">⟳ Reshuffle</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function selectAnswer(cert, chosen) {
+  const st = quizState[cert];
+  if (st.answered) return;
+  st.answered = true;
+
+  const q = st.questions[st.idx];
+  const correct = q.answer;
+  const isRight = chosen === correct;
+  if (isRight) st.score++;
+
+  for (let i = 0; i < q.opts.length; i++) {
+    const btn = document.getElementById('opt-' + cert + '-' + i);
+    btn.disabled = true;
+    if (i === correct) btn.classList.add(chosen === correct ? 'correct' : 'reveal-correct');
+    if (i === chosen && !isRight) btn.classList.add('wrong');
+  }
+
+  document.getElementById('exp-' + cert).classList.add('show');
+  document.getElementById('btn-next-' + cert).style.display = 'inline-flex';
+}
+
+function nextQuestion(cert) {
+  const st = quizState[cert];
+  st.idx++;
+  st.answered = false;
+  if (st.idx >= st.questions.length) {
+    st.finished = true;
+  }
+  renderQuiz(cert);
+}
+
+function updateProgressBar(cert, pct) {
+  const fill = document.getElementById(cert + '-progress-fill');
+  const label = document.getElementById(cert + '-progress-pct');
+  if (fill) fill.style.width = pct + '%';
+  if (label) label.textContent = pct + '%';
+}
+
+/* ═══════════════════════════════════════════
+   NAV LOGIC
+═══════════════════════════════════════════ */
+let activeCert = 'az';
+let activeMode = 'quiz';
+
+const certMeta = {
+  az:   { color: 'var(--az-color)',   label: 'AZ-104 · Microsoft Azure Administrator' },
+  sec:  { color: 'var(--sec-color)',  label: 'Security+ · CompTIA SY0-701' },
+  ccna: { color: 'var(--ccna-color)', label: 'CCNA · Cisco 200-301' },
+};
+
+function selectCert(cert) {
+  activeCert = cert;
+  document.querySelectorAll('.cert-btn').forEach(b => b.classList.remove('active-az','active-sec','active-ccna'));
+  const btns = document.querySelectorAll('.cert-btn');
+  const idxMap = { az:0, sec:1, ccna:2 };
+  btns[idxMap[cert]].classList.add('active-' + cert);
+  document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-welcome').classList.remove('active');
+  document.getElementById('panel-' + cert).classList.add('active');
+  const meta = certMeta[cert];
+  document.getElementById('cert-ind-dot').style.background = meta.color;
+  document.getElementById('cert-ind-label').textContent = meta.label;
+  selectMode(activeMode);
+}
+
+function selectMode(mode) {
+  activeMode = mode;
+  document.querySelectorAll('.mode-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + mode).classList.add('active');
+  if (activeCert === 'ccna') return;
+  ['quiz','flash','resources'].forEach(m => {
+    const el = document.getElementById(activeCert + '-' + m + '-area');
+    if (el) el.style.display = (m === mode) ? '' : 'none';
+  });
+}
+
+/* ── BOOT ── */
+initQuiz('az');
+initQuiz('sec');
+selectCert('az');
+selectMode('quiz');
+</script>
+
+<style>
+/* ── FLASHCARD STYLES ── */
+.flash-wrap { display:flex; flex-direction:column; gap:1rem; }
+.flash-topbar {
+  display:flex; align-items:center; gap:1rem; flex-wrap:wrap;
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--radius-lg); padding:0.85rem 1.25rem;
+}
+.flash-counter { font-family:var(--font-mono); font-size:0.78rem; color:var(--text-muted); white-space:nowrap; }
+.flash-track { flex:1; min-width:80px; height:5px; background:var(--bg-hover); border-radius:3px; overflow:hidden; }
+.flash-track-fill { height:100%; border-radius:3px; transition:width 0.35s ease; }
+.flash-filter-wrap { display:flex; gap:6px; }
+.flash-filter-btn {
+  font-family:var(--font-mono); font-size:0.7rem;
+  padding:3px 10px; border-radius:20px; border:1px solid var(--border);
+  background:none; color:var(--text-muted); cursor:pointer; transition:all 0.15s;
+}
+.flash-filter-btn:hover { color:var(--text); border-color:var(--border-light); }
+.flash-filter-btn.active-all { background:var(--bg-hover); color:var(--text); border-color:var(--border-light); }
+.flash-filter-btn.active-review { background:rgba(210,153,34,0.15); color:var(--ccna-color); border-color:rgba(210,153,34,0.4); }
+.flash-filter-btn.active-known { background:rgba(63,185,80,0.12); color:var(--sec-color); border-color:rgba(63,185,80,0.35); }
+
+/* The card scene */
+.flash-scene {
+  perspective:1200px;
+  width:100%; min-height:260px; cursor:pointer;
+  user-select:none;
+}
+.flash-card-inner {
+  position:relative; width:100%; min-height:260px;
+  transform-style:preserve-3d;
+  transition:transform 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+.flash-card-inner.flipped { transform:rotateY(180deg); }
+.flash-face {
+  position:absolute; inset:0;
+  backface-visibility:hidden;
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  padding:2rem 2.5rem; text-align:center; gap:1rem;
+}
+.flash-face.back { transform:rotateY(180deg); }
+.flash-face-label {
+  font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.1em;
+  color:var(--text-dim); text-transform:uppercase; position:absolute; top:1rem; left:1.25rem;
+}
+.flash-domain-tag {
+  position:absolute; top:1rem; right:1.25rem;
+  font-family:var(--font-mono); font-size:0.68rem;
+  color:var(--text-dim); background:var(--bg-hover);
+  border:1px solid var(--border); border-radius:4px; padding:2px 7px;
+}
+.flash-term {
+  font-size:1.3rem; font-weight:600; color:var(--text); line-height:1.3;
+}
+.flash-hint {
+  font-size:0.78rem; color:var(--text-dim); font-family:var(--font-mono);
+  margin-top:0.25rem;
+}
+.flash-def {
+  font-size:0.92rem; color:var(--text); line-height:1.7;
+}
+.flash-example {
+  font-size:0.78rem; color:var(--text-muted); font-family:var(--font-mono);
+  background:var(--bg-hover); border:1px solid var(--border);
+  border-radius:var(--radius); padding:0.6rem 0.85rem; text-align:left; width:100%;
+}
+.flash-tap-hint {
+  font-size:0.72rem; color:var(--text-dim); font-family:var(--font-mono);
+  text-align:center; margin-top:-0.25rem;
+}
+
+/* Action bar below card */
+.flash-actions {
+  display:flex; align-items:center; gap:0.75rem;
+}
+.btn-flash-nav {
+  font-family:var(--font-mono); font-size:0.82rem;
+  padding:8px 18px; border-radius:var(--radius);
+  border:1px solid var(--border-light); background:var(--bg-hover);
+  color:var(--text); cursor:pointer; transition:all 0.15s;
+}
+.btn-flash-nav:hover:not(:disabled) { border-color:var(--border-light); background:var(--bg-panel); }
+.btn-flash-nav:disabled { opacity:0.35; cursor:default; }
+.flash-mark-wrap { display:flex; gap:0.5rem; margin-left:auto; }
+.btn-mark {
+  font-family:var(--font-mono); font-size:0.75rem;
+  padding:7px 14px; border-radius:var(--radius);
+  border:1px solid var(--border); background:none;
+  cursor:pointer; transition:all 0.15s;
+}
+.btn-mark-review { color:var(--ccna-color); }
+.btn-mark-review:hover { background:rgba(210,153,34,0.12); border-color:rgba(210,153,34,0.4); }
+.btn-mark-known { color:var(--sec-color); }
+.btn-mark-known:hover { background:rgba(63,185,80,0.1); border-color:rgba(63,185,80,0.35); }
+.btn-mark-review.marked { background:rgba(210,153,34,0.15); border-color:rgba(210,153,34,0.5); }
+.btn-mark-known.marked { background:rgba(63,185,80,0.12); border-color:rgba(63,185,80,0.45); }
+
+/* Deck complete */
+.flash-complete {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--radius-lg); padding:2.5rem; text-align:center;
+}
+.flash-complete-icon { font-size:2rem; margin-bottom:0.75rem; }
+.flash-complete-title { font-size:1.1rem; font-weight:600; color:var(--text); margin-bottom:0.4rem; }
+.flash-complete-sub { font-size:0.85rem; color:var(--text-muted); margin-bottom:1.25rem; }
+.flash-stats-row { display:flex; gap:0.75rem; justify-content:center; margin-bottom:1.5rem; }
+.flash-stat-pill {
+  font-family:var(--font-mono); font-size:0.78rem;
+  padding:5px 14px; border-radius:20px; border:1px solid var(--border);
+  background:var(--bg-hover);
+}
+</style>
+
+<script>
+/* ═══════════════════════════════════════════
+   FLASHCARD DATA
+═══════════════════════════════════════════ */
+const FLASHCARDS = {
+  az: [
+    { domain:'Identity', term:'Azure AD Conditional Access', def:'A policy engine that evaluates signals (user, location, device, app, risk) and enforces access controls like MFA or block.', ex:'Ex: Require MFA when sign-in risk is Medium or High.' },
+    { domain:'Identity', term:'Managed Identity', def:'An automatically managed identity in Azure AD assigned to an Azure resource so it can authenticate to other services without credentials in code.', ex:'Ex: A VM using a Managed Identity to read secrets from Key Vault.' },
+    { domain:'Identity', term:'Azure RBAC', def:'Role-Based Access Control — assigns roles (Owner, Contributor, Reader) at a scope (management group, subscription, resource group, resource).', ex:'Ex: Contributor at RG scope = create resources but cannot manage access.' },
+    { domain:'Identity', term:'Privileged Identity Management (PIM)', def:'Provides just-in-time privileged access to Azure AD roles and Azure resources, requiring justification and approval for elevation.', ex:'Ex: Request Global Admin for 1 hour with approval from a manager.' },
+    { domain:'Identity', term:'Azure AD B2B', def:'Business-to-Business collaboration — invite external users as guests into your Azure AD tenant using their own identity provider.', ex:'Ex: Inviting a vendor\'s Microsoft account to access a SharePoint site.' },
+    { domain:'Storage', term:'Blob Storage Tiers', def:'Hot (frequent access), Cool (infrequent, 30-day min), Cold (rare, 90-day min), Archive (offline, 180-day min). Lower cost storage = higher retrieval cost.', ex:'Ex: Log files older than 90 days moved to Archive via lifecycle policy.' },
+    { domain:'Storage', term:'Shared Access Signature (SAS)', def:'A URI that grants restricted, time-limited access to Azure Storage resources without sharing account keys.', ex:'Ex: Generate a SAS URL allowing a partner to upload to one container for 24 hrs.' },
+    { domain:'Storage', term:'Storage Redundancy Options', def:'LRS (3 copies, 1 datacenter), ZRS (3 AZs, same region), GRS (LRS + async copy to secondary region), RA-GRS (GRS + read access to secondary).', ex:'Ex: ZRS is ideal for high-availability apps that need zone fault tolerance.' },
+    { domain:'Networking', term:'VNet Peering', def:'Connects two Azure Virtual Networks using the Microsoft backbone — no gateway required, low latency, private traffic. Works within region (local) and across regions (global).', ex:'Ex: Peering a hub VNet with spoke VNets in a hub-spoke topology.' },
+    { domain:'Networking', term:'Network Security Group (NSG)', def:'A stateful L3/L4 filter containing inbound and outbound security rules based on IP, port, and protocol. Applied to subnets or NICs.', ex:'Ex: NSG rule allowing port 443 inbound from the internet to a web subnet.' },
+    { domain:'Networking', term:'Azure Load Balancer vs Application Gateway', def:'Load Balancer = L4 (TCP/UDP), distributes traffic across VMs. Application Gateway = L7 (HTTP/S), supports URL-based routing, SSL termination, and WAF.', ex:'Ex: Use App Gateway to route /api/* to one backend pool and /* to another.' },
+    { domain:'Networking', term:'User Defined Route (UDR)', def:'A custom route in a Route Table that overrides Azure\'s default system routes to control next-hop for subnet traffic.', ex:'Ex: UDR sending all 0.0.0.0/0 traffic to an Azure Firewall NVA.' },
+    { domain:'Compute', term:'Availability Zones vs Availability Sets', def:'AZs = physically separate datacenters in a region (zone-level fault tolerance). AS = distributes VMs across fault/update domains within one datacenter (rack-level).', ex:'Ex: Deploy 3 VMs across 3 AZs for zone-redundant protection.' },
+    { domain:'Compute', term:'Virtual Machine Scale Sets (VMSS)', def:'Automatically deploy and manage a group of identical, load-balanced VMs that can scale in/out based on demand or schedule.', ex:'Ex: Scale out from 2 to 10 VMs when CPU > 75% for 5 minutes.' },
+    { domain:'Monitor', term:'Azure Monitor Action Groups', def:'A collection of notification and action preferences (email, SMS, webhook, Azure Function) triggered by Azure Monitor alert rules.', ex:'Ex: Alert fires when CPU > 85% → Action Group emails the ops team.' },
+    { domain:'Monitor', term:'Log Analytics Workspace', def:'A data store for Azure Monitor Logs where you run KQL (Kusto Query Language) queries against collected telemetry from VMs, apps, and services.', ex:'Ex: Query Heartbeat table to find VMs that stopped reporting in the last hour.' },
+    { domain:'Identity', term:'Azure AD Tenant', def:'A dedicated instance of Azure Active Directory representing an organization. All users, groups, apps, and policies live within a tenant.', ex:'Ex: contoso.onmicrosoft.com is Contoso\'s Azure AD tenant.' },
+    { domain:'Storage', term:'Azure File Sync', def:'Syncs on-premises Windows Server file shares with Azure Files, enabling cloud tiering (infrequently accessed files stored only in Azure).', ex:'Ex: A branch office server caches hot files locally; cold files are tiered to Azure.' },
+    { domain:'Networking', term:'Azure DNS Private Zones', def:'Provides DNS name resolution for resources within a VNet using custom domain names without exposing them to the internet.', ex:'Ex: Resolve db.internal.contoso.com to a private IP within a VNet.' },
+    { domain:'Compute', term:'Azure Container Instances (ACI)', def:'Serverless containers in Azure — run Docker containers on demand without managing VMs or clusters, billed per-second.', ex:'Ex: Run a batch processing container for 10 minutes and pay only for those 10 minutes.' },
+  ],
+  sec: [
+    { domain:'Threats', term:'Phishing vs Spear Phishing vs Whaling', def:'Phishing = broad email attacks. Spear phishing = targeted at specific individuals. Whaling = spear phishing targeting executives (C-suite).', ex:'Ex: Email to CEO mimicking the CFO requesting a wire transfer = whaling.' },
+    { domain:'Threats', term:'Social Engineering', def:'Psychological manipulation of people into performing actions or divulging confidential information. Exploits human trust, not technology.', ex:'Ex: Pretexting, baiting, tailgating, vishing (voice phishing).' },
+    { domain:'Threats', term:'Ransomware', def:'Malware that encrypts victim files and demands payment (usually cryptocurrency) for the decryption key. Often spreads via phishing or unpatched vulnerabilities.', ex:'Ex: WannaCry exploited EternalBlue (MS17-010) to spread ransomware across networks.' },
+    { domain:'Threats', term:'SQL Injection', def:'An injection attack where malicious SQL code is inserted into input fields to manipulate a database — can dump, modify, or delete data.', ex:"Ex: Entering ' OR '1'='1 into a login field to bypass authentication." },
+    { domain:'Threats', term:'Cross-Site Scripting (XSS)', def:'An attack that injects malicious scripts into web pages viewed by other users, enabling session hijacking or credential theft.', ex:'Ex: Storing a malicious &lt;script&gt;document.cookie&lt;/script&gt; payload in a forum comment field.' },
+    { domain:'Threats', term:'Man-in-the-Middle (MitM)', def:'An attacker secretly intercepts and potentially alters communications between two parties who believe they are communicating directly.', ex:'Ex: ARP poisoning on a LAN to redirect traffic through the attacker\'s machine.' },
+    { domain:'Crypto', term:'Symmetric vs Asymmetric Encryption', def:'Symmetric = same key encrypts and decrypts (fast, e.g. AES). Asymmetric = public key encrypts, private key decrypts (slow, e.g. RSA, used for key exchange).', ex:'Ex: TLS uses asymmetric to exchange keys, then symmetric for the session.' },
+    { domain:'Crypto', term:'Hashing', def:'A one-way function that converts data of any size into a fixed-length digest. Cannot be reversed. Used for integrity verification and password storage.', ex:'Ex: SHA-256 produces a 256-bit hash. MD5 is deprecated due to collision vulnerabilities.' },
+    { domain:'Crypto', term:'Digital Signature', def:'Uses the sender\'s private key to sign data; recipients verify with the sender\'s public key. Provides authentication, integrity, and non-repudiation.', ex:'Ex: Signed software updates prove the vendor created them and they weren\'t tampered with.' },
+    { domain:'Crypto', term:'PKI — Public Key Infrastructure', def:'A framework of policies, hardware, software, and CAs that manage digital certificates and public-key encryption to secure communications.', ex:'Ex: A web server\'s TLS cert is issued and signed by a trusted CA like DigiCert.' },
+    { domain:'Crypto', term:'TLS Handshake', def:'Negotiation between client and server to establish a secure session: agree on cipher suite, exchange/verify certificates, derive session keys.', ex:'Ex: Browser connects to HTTPS site → TLS 1.3 handshake → encrypted session begins.' },
+    { domain:'Identity', term:'Multifactor Authentication (MFA)', def:'Authentication requiring two or more factors: something you know (password), something you have (token/phone), something you are (biometric).', ex:'Ex: Password + TOTP code from an authenticator app = two-factor authentication.' },
+    { domain:'Identity', term:'Least Privilege', def:'Grant users and systems only the minimum access rights required to perform their function — reduces attack surface if an account is compromised.', ex:'Ex: A read-only service account for a reporting tool that needs no write permissions.' },
+    { domain:'Network', term:'Defense in Depth', def:'A layered security strategy using multiple controls (perimeter firewall, network segmentation, endpoint protection, encryption, monitoring) so no single failure is fatal.', ex:'Ex: Firewall → IDS/IPS → VLAN segmentation → host-based AV → SIEM monitoring.' },
+    { domain:'Network', term:'Zero Trust', def:'A security model where no user, device, or network segment is trusted by default — every access request is verified continuously regardless of location.', ex:'Ex: Even internal VPN users must authenticate per-app and device posture is checked.' },
+    { domain:'Compliance', term:'CIA Triad', def:'The three core principles of information security: Confidentiality (prevent unauthorized disclosure), Integrity (prevent unauthorized modification), Availability (ensure systems are accessible).', ex:'Ex: Encrypting data = Confidentiality. Hashing = Integrity. Redundant servers = Availability.' },
+    { domain:'Compliance', term:'Incident Response Phases (NIST)', def:'Preparation → Detection & Analysis → Containment → Eradication → Recovery → Post-Incident Activity (lessons learned).', ex:'Ex: After detecting ransomware: contain (isolate VM), eradicate (wipe), recover (restore backup).' },
+    { domain:'Threats', term:'Insider Threat', def:'A security risk originating from within the organization — employees, contractors, or partners who misuse access intentionally or accidentally.', ex:'Ex: A disgruntled employee exfiltrating customer data before resigning.' },
+    { domain:'Network', term:'IDS vs IPS', def:'IDS (Intrusion Detection System) = monitors and alerts on suspicious traffic. IPS (Intrusion Prevention System) = monitors AND actively blocks threats inline.', ex:'Ex: IDS is passive (out-of-band). IPS is active (inline, can drop packets).' },
+    { domain:'Compliance', term:'Data Loss Prevention (DLP)', def:'Tools and policies that detect and prevent unauthorized transmission of sensitive data (PII, financial data) outside the organization.', ex:'Ex: DLP policy blocking emails containing credit card numbers sent to external addresses.' },
+  ]
+};
+
+/* ═══════════════════════════════════════════
+   FLASHCARD ENGINE STATE
+═══════════════════════════════════════════ */
+const flashState = {
+  az:  { deck:[], idx:0, flipped:false, filter:'all', known:new Set(), review:new Set() },
+  sec: { deck:[], idx:0, flipped:false, filter:'all', known:new Set(), review:new Set() }
+};
+
+function initFlash(cert) {
+  const st = flashState[cert];
+  st.deck = [...FLASHCARDS[cert]].sort(() => Math.random() - 0.5);
+  st.idx = 0;
+  st.flipped = false;
+  st.filter = 'all';
+  renderFlash(cert);
+}
+
+function getFilteredDeck(cert) {
+  const st = flashState[cert];
+  const all = FLASHCARDS[cert];
+  if (st.filter === 'review') return all.filter((_,i) => st.review.has(i));
+  if (st.filter === 'known')  return all.filter((_,i) => st.known.has(i));
+  return st.deck;
+}
+
+function renderFlash(cert) {
+  const area = document.getElementById(cert + '-flash-area');
+  const st = flashState[cert];
+  const color = cert === 'az' ? 'var(--az-color)' : 'var(--sec-color)';
+  const filtDeck = getFilteredDeck(cert);
+  const total = filtDeck.length;
+
+  if (total === 0) {
+    area.innerHTML = `
+      <div class="flash-complete">
+        <div class="flash-complete-icon">📭</div>
+        <div class="flash-complete-title">No cards in this filter</div>
+        <div class="flash-complete-sub">Mark some cards as Review or Known first, or switch to All.</div>
+        <button class="btn-restart" onclick="setFlashFilter('${cert}','all')">Show all cards</button>
+      </div>`;
+    return;
+  }
+
+  if (st.idx >= total) {
+    const knownCount = st.known.size;
+    const reviewCount = st.review.size;
+    area.innerHTML = `
+      <div class="flash-complete">
+        <div class="flash-complete-icon">✦</div>
+        <div class="flash-complete-title">Deck complete!</div>
+        <div class="flash-complete-sub">You went through all ${total} cards in this set.</div>
+        <div class="flash-stats-row">
+          <span class="flash-stat-pill" style="color:var(--sec-color);border-color:rgba(63,185,80,0.35)">✓ ${knownCount} known</span>
+          <span class="flash-stat-pill" style="color:var(--ccna-color);border-color:rgba(210,153,34,0.35)">↻ ${reviewCount} to review</span>
+          <span class="flash-stat-pill">${total - knownCount - reviewCount} unmarked</span>
+        </div>
+        <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
+          <button class="btn-restart" onclick="initFlash('${cert}')">↺ Reshuffle all</button>
+          ${reviewCount > 0 ? `<button class="btn-restart" onclick="setFlashFilter('${cert}','review')">Study review cards (${reviewCount})</button>` : ''}
+        </div>
+      </div>`;
+    return;
+  }
+
+  const card = filtDeck[st.idx];
+  const origIdx = FLASHCARDS[cert].indexOf(card);
+  const isKnown  = st.known.has(origIdx);
+  const isReview = st.review.has(origIdx);
+  const pct = Math.round((st.idx / total) * 100);
+
+  area.innerHTML = `
+    <div class="flash-wrap">
+      <div class="flash-topbar">
+        <span class="flash-counter">${st.idx + 1} / ${total}</span>
+        <div class="flash-track"><div class="flash-track-fill" style="width:${pct}%;background:${color}"></div></div>
+        <div class="flash-filter-wrap">
+          <button class="flash-filter-btn ${st.filter==='all'?'active-all':''}" onclick="setFlashFilter('${cert}','all')">All (${FLASHCARDS[cert].length})</button>
+          <button class="flash-filter-btn ${st.filter==='review'?'active-review':''}" onclick="setFlashFilter('${cert}','review')">Review (${st.review.size})</button>
+          <button class="flash-filter-btn ${st.filter==='known'?'active-known':''}" onclick="setFlashFilter('${cert}','known')">Known (${st.known.size})</button>
+        </div>
+      </div>
+
+      <div class="flash-scene" onclick="flipCard('${cert}')">
+        <div class="flash-card-inner ${st.flipped ? 'flipped' : ''}" id="flash-inner-${cert}">
+          <div class="flash-face front">
+            <span class="flash-face-label">term</span>
+            <span class="flash-domain-tag">${card.domain}</span>
+            <div class="flash-term">${card.term}</div>
+            <div class="flash-hint">tap to reveal definition</div>
+          </div>
+          <div class="flash-face back">
+            <span class="flash-face-label">definition</span>
+            <span class="flash-domain-tag">${card.domain}</span>
+            <div class="flash-def">${card.def}</div>
+            ${card.ex ? `<div class="flash-example">${card.ex}</div>` : ''}
+          </div>
+        </div>
+      </div>
+      <p class="flash-tap-hint">${st.flipped ? 'tap card to flip back' : 'tap card to reveal'}</p>
+
+      <div class="flash-actions">
+        <button class="btn-flash-nav" onclick="prevCard('${cert}')" ${st.idx===0?'disabled':''}>← Prev</button>
+        <button class="btn-flash-nav" onclick="nextCard('${cert}')">Next →</button>
+        <div class="flash-mark-wrap">
+          <button class="btn-mark btn-mark-review ${isReview?'marked':''}" onclick="markCard('${cert}',${origIdx},'review')" title="Mark for review">↻ Review</button>
+          <button class="btn-mark btn-mark-known ${isKnown?'marked':''}" onclick="markCard('${cert}',${origIdx},'known')" title="Mark as known">✓ Got it</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function flipCard(cert) {
+  flashState[cert].flipped = !flashState[cert].flipped;
+  const inner = document.getElementById('flash-inner-' + cert);
+  if (inner) inner.classList.toggle('flipped');
+  const hint = document.querySelector('#' + cert + '-flash-area .flash-tap-hint');
+  if (hint) hint.textContent = flashState[cert].flipped ? 'tap card to flip back' : 'tap card to reveal';
+}
+
+function nextCard(cert) {
+  flashState[cert].idx++;
+  flashState[cert].flipped = false;
+  renderFlash(cert);
+}
+
+function prevCard(cert) {
+  if (flashState[cert].idx > 0) {
+    flashState[cert].idx--;
+    flashState[cert].flipped = false;
+    renderFlash(cert);
+  }
+}
+
+function markCard(cert, origIdx, type) {
+  const st = flashState[cert];
+  if (type === 'known') {
+    if (st.known.has(origIdx)) { st.known.delete(origIdx); }
+    else { st.known.add(origIdx); st.review.delete(origIdx); }
+  } else {
+    if (st.review.has(origIdx)) { st.review.delete(origIdx); }
+    else { st.review.add(origIdx); st.known.delete(origIdx); }
+  }
+  renderFlash(cert);
+}
+
+function setFlashFilter(cert, filter) {
+  flashState[cert].filter = filter;
+  flashState[cert].idx = 0;
+  flashState[cert].flipped = false;
+  renderFlash(cert);
+}
+
+/* ── BOOT flashcards ── */
+initFlash('az');
+initFlash('sec');
+</script>
+
+<style>
+.res-wrap{display:flex;flex-direction:column;gap:1.5rem}
+.res-section-label{font-family:var(--font-mono);font-size:0.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);display:flex;align-items:center;gap:10px;margin-bottom:.75rem}
+.res-section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.res-exam-banner{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem 1.5rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem}
+.res-exam-stat{display:flex;flex-direction:column;gap:3px}
+.res-exam-stat-label{font-family:var(--font-mono);font-size:.68rem;color:var(--text-dim)}
+.res-exam-stat-val{font-size:.95rem;font-weight:600;color:var(--text)}
+.res-exam-stat-sub{font-size:.73rem;color:var(--text-muted)}
+.res-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(275px,1fr));gap:.85rem}
+.res-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1rem 1.1rem;display:flex;flex-direction:column;gap:.45rem;transition:border-color .15s,background .15s;text-decoration:none}
+.res-card:hover{border-color:var(--border-light);background:var(--bg-hover)}
+.res-card-top{display:flex;align-items:center;gap:10px}
+.res-card-type-badge{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.04em;padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0}
+.badge-official{background:rgba(88,166,255,.15);color:#58a6ff;border:1px solid rgba(88,166,255,.3)}
+.badge-video{background:rgba(248,81,73,.13);color:#f85149;border:1px solid rgba(248,81,73,.3)}
+.badge-practice{background:rgba(63,185,80,.12);color:#3fb950;border:1px solid rgba(63,185,80,.3)}
+.badge-course{background:rgba(210,153,34,.15);color:#d29922;border:1px solid rgba(210,153,34,.3)}
+.badge-community{background:rgba(188,140,255,.13);color:#bc8cff;border:1px solid rgba(188,140,255,.3)}
+.badge-tool{background:rgba(29,198,212,.12);color:#1dc6d4;border:1px solid rgba(29,198,212,.3)}
+.res-card-title{font-size:.88rem;font-weight:600;color:var(--text);line-height:1.3}
+.res-card-desc{font-size:.78rem;color:var(--text-muted);line-height:1.55}
+.res-card-meta{font-family:var(--font-mono);font-size:.68rem;color:var(--text-dim);margin-top:.2rem}
+.res-card-arrow{margin-left:auto;font-size:.75rem;color:var(--text-dim);flex-shrink:0;align-self:flex-start}
+.res-filter-bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:.25rem}
+.res-filter-tag{font-family:var(--font-mono);font-size:.72rem;padding:4px 12px;border-radius:20px;border:1px solid var(--border);background:none;color:var(--text-muted);cursor:pointer;transition:all .15s}
+.res-filter-tag:hover{color:var(--text);border-color:var(--border-light)}
+.res-filter-tag.active{background:var(--bg-hover);color:var(--text);border-color:var(--border-light)}
+</style>
+
+<script>
+const RESOURCES = {
+  az: {
+    exam:{name:'AZ-104: Microsoft Azure Administrator',cost:'$165 USD',duration:'100-120 min',questions:'40-60 questions',passing:'700 / 1000',renewal:'Every 1 year (free online assessment)',link:'https://learn.microsoft.com/en-us/credentials/certifications/azure-administrator/'},
+    resources:[
+      {type:'official',title:'Microsoft Learn — AZ-104 Learning Path',desc:'Free official structured learning path covering all exam domains with sandbox labs and knowledge checks.',meta:'Free · learn.microsoft.com',url:'https://learn.microsoft.com/en-us/training/courses/az-104t00'},
+      {type:'official',title:'AZ-104 Exam Skills Outline (PDF)',desc:'The official exam objectives breakdown with domain weightings. Know exactly what is tested before you study.',meta:'Free · microsoft.com',url:'https://learn.microsoft.com/en-us/credentials/certifications/azure-administrator/'},
+      {type:'video',title:'FreeCodeCamp — AZ-104 Full Course (11 hrs)',desc:'Comprehensive free AZ-104 crash course on YouTube covering every domain with portal demos. A top-rated free resource.',meta:'Free · 11 hrs · youtube.com',url:'https://www.youtube.com/watch?v=10PbGbTUSAg'},
+      {type:'video',title:'John Savill — AZ-104 Study Cram',desc:'John Savill is one of the best Azure educators online. His study crams are dense, accurate, and laser exam-focused.',meta:'Free · youtube.com',url:'https://www.youtube.com/watch?v=VOod_VNgZ1s'},
+      {type:'video',title:'Adam Marczak — Azure Tutorials',desc:'Clear portal walkthroughs of AZ-104 topics. Great for visual learners who want to see services configured live.',meta:'Free · youtube.com',url:'https://www.youtube.com/@AdamMarczakAzure'},
+      {type:'course',title:'Udemy — AZ-104 by Scott Duffy',desc:'Best-selling Udemy course with hands-on labs. Watch for Udemy sales — frequently drops to under $20.',meta:'Paid (~$15 on sale) · udemy.com',url:'https://www.udemy.com/course/70533-azure/'},
+      {type:'course',title:'A Cloud Guru — AZ-104 Course',desc:'Structured course with sandboxed Azure labs so you can practice without needing your own subscription.',meta:'Paid subscription · pluralsight.com',url:'https://www.pluralsight.com/cloud-guru'},
+      {type:'practice',title:'MeasureUp — Official AZ-104 Practice Test',desc:'Microsoft-authorized practice tests. The closest simulation to the real exam format with detailed explanations.',meta:'Paid · measureup.com',url:'https://www.measureup.com/microsoft-azure-administrator-az-104.html'},
+      {type:'practice',title:'Whizlabs — AZ-104 Practice Tests',desc:'400+ questions with section-wise tests and performance analytics to identify your weak domains.',meta:'Paid (~$15) · whizlabs.com',url:'https://www.whizlabs.com/microsoft-azure-administrator/'},
+      {type:'practice',title:'ExamTopics — AZ-104 Questions',desc:'Free community-sourced questions. Always read the discussion threads — the community corrects wrong answers.',meta:'Free (limited) · examtopics.com',url:'https://www.examtopics.com/exams/microsoft/az-104/'},
+      {type:'community',title:'Reddit — r/AzureCertifications',desc:'Active community sharing study tips, recent exam experiences, and resource recommendations for Azure certs.',meta:'Free · reddit.com',url:'https://www.reddit.com/r/AzureCertifications/'},
+      {type:'tool',title:'Microsoft Azure Free Account',desc:'$200 credit for 30 days plus 12 months of free services. Hands-on portal practice is essential for AZ-104.',meta:'Free tier available · azure.microsoft.com',url:'https://azure.microsoft.com/en-us/free/'}
+    ]
+  },
+  sec: {
+    exam:{name:'CompTIA Security+ SY0-701',cost:'$392 USD',duration:'90 min',questions:'Max 90 (MCQ + PBQ)',passing:'750 / 900',renewal:'Every 3 years (CEUs or retake)',link:'https://www.comptia.org/certifications/security'},
+    resources:[
+      {type:'official',title:'CompTIA Security+ Exam Objectives (SY0-701)',desc:'The official objectives PDF — the definitive list of every testable topic with domain weightings. Start here.',meta:'Free · comptia.org',url:'https://www.comptia.org/certifications/security'},
+      {type:'official',title:'CompTIA CertMaster Learn — Security+',desc:'Official CompTIA e-learning platform with interactive lessons, videos, and performance-based practice questions.',meta:'Paid · comptia.org',url:'https://www.comptia.org/training/certmaster-learn/security'},
+      {type:'video',title:'Professor Messer — Security+ SY0-701 (Free)',desc:'The gold standard free Security+ resource. Covers every exam objective clearly and concisely. Start here for video study.',meta:'Free · professormesser.com',url:'https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/sy0-701-comptia-security-plus-course/'},
+      {type:'video',title:'NetworkChuck — Security+ Playlist',desc:'Engaging and beginner-friendly Security+ content. Great for visual learners who want entertaining explanations.',meta:'Free · youtube.com',url:'https://www.youtube.com/playlist?list=PLIhvC56v63IIJr9k9E8PFBvMPpj5p05jn'},
+      {type:'video',title:'Jason Dion — Security+ SY0-701 Course',desc:'Full SY0-701 course from a top-rated CompTIA instructor with real-world context and exam-focused delivery.',meta:'Free preview + Paid · youtube.com',url:'https://www.youtube.com/@ProfessorDion'},
+      {type:'course',title:'Udemy — Security+ by Jason Dion (5 practice exams)',desc:'Top-rated Udemy course bundled with five full practice exams. One of the most complete paid prep packages available.',meta:'Paid (~$15 on sale) · udemy.com',url:'https://www.udemy.com/course/securityplus/'},
+      {type:'course',title:'Professor Messer — Study Groups (Free Live)',desc:'Free weekly live study group sessions hosted by Professor Messer walking through exam objectives with Q&A.',meta:'Free · professormesser.com',url:'https://www.professormesser.com/security-plus/sy0-701/sy0-701-video/sy0-701-comptia-security-plus-course/'},
+      {type:'practice',title:'Jason Dion — 6 Practice Exams (540 Questions)',desc:'Six full-length practice exams modeled on real SY0-701 format, including performance-based questions (PBQs).',meta:'Paid (~$15 on sale) · udemy.com',url:'https://www.udemy.com/course/security-701-exams/'},
+      {type:'practice',title:'Professor Messer — Practice Exams',desc:'Official practice exams from Professor Messer aligned to every SY0-701 domain with detailed answer rationale.',meta:'Paid · professormesser.com',url:'https://www.professormesser.com/sy0-701-security-plus-practice-exams/'},
+      {type:'practice',title:'ExamTopics — Security+ SY0-701',desc:'Free community exam questions. Good for exposure to question styles — always verify answers against official sources.',meta:'Free (limited) · examtopics.com',url:'https://www.examtopics.com/exams/comptia/sy0-701/'},
+      {type:'community',title:'Reddit — r/CompTIA',desc:'Active community for all CompTIA exams. Search for Security+ post-exam threads to understand what to expect.',meta:'Free · reddit.com',url:'https://www.reddit.com/r/CompTIA/'},
+      {type:'tool',title:'TryHackMe — Security+ Learning Path',desc:'Hands-on cybersecurity labs reinforcing Security+ concepts practically. Excellent for understanding real attacks.',meta:'Free tier + Paid · tryhackme.com',url:'https://tryhackme.com/path/outline/comptia-security-plus'}
+    ]
+  }
+};
+
+const TYPE_LABELS={official:'Official',video:'Video',course:'Course',practice:'Practice Test',community:'Community',tool:'Lab / Tool'};
+const RES_FILTERS=['all','official','video','course','practice','community','tool'];
+
+function makeResRenderer(cert){
+  const data=RESOURCES[cert];
+  const color=cert==='az'?'var(--az-color)':'var(--sec-color)';
+  const ex=data.exam;
+
+  function render(filter){
+    const area=document.getElementById(cert+'-resources-area');
+    const filtered=filter==='all'?data.resources:data.resources.filter(r=>r.type===filter);
+
+    const cards=filtered.map(r=>`
+      <a class="res-card" href="${r.url}" target="_blank" rel="noopener">
+        <div class="res-card-top">
+          <span class="res-card-type-badge badge-${r.type}">${TYPE_LABELS[r.type]}</span>
+          <span class="res-card-arrow">↗</span>
+        </div>
+        <div class="res-card-title">${r.title}</div>
+        <div class="res-card-desc">${r.desc}</div>
+        <div class="res-card-meta">${r.meta}</div>
+      </a>`).join('');
+
+    const filterBtns=RES_FILTERS.map(f=>{
+      const lbl=f==='all'?'All':TYPE_LABELS[f];
+      const cnt=f==='all'?data.resources.length:data.resources.filter(r=>r.type===f).length;
+      return `<button class="res-filter-tag${f===filter?' active':''}" onclick="RES_RENDER['${cert}']('${f}')">${lbl} (${cnt})</button>`;
+    }).join('');
+
+    area.innerHTML=`
+      <div class="res-wrap">
+        <div>
+          <div class="res-section-label">exam at a glance</div>
+          <div class="res-exam-banner">
+            <div class="res-exam-stat">
+              <span class="res-exam-stat-label">exam</span>
+              <span class="res-exam-stat-val" style="color:${color}">${cert==='az'?'AZ-104':'SY0-701'}</span>
+              <span class="res-exam-stat-sub">${ex.name}</span>
+            </div>
+            <div class="res-exam-stat">
+              <span class="res-exam-stat-label">cost</span>
+              <span class="res-exam-stat-val">${ex.cost}</span>
+              <span class="res-exam-stat-sub">voucher price</span>
+            </div>
+            <div class="res-exam-stat">
+              <span class="res-exam-stat-label">duration</span>
+              <span class="res-exam-stat-val">${ex.duration}</span>
+              <span class="res-exam-stat-sub">${ex.questions}</span>
+            </div>
+            <div class="res-exam-stat">
+              <span class="res-exam-stat-label">passing score</span>
+              <span class="res-exam-stat-val" style="color:${color}">${ex.passing}</span>
+              <span class="res-exam-stat-sub">scaled score</span>
+            </div>
+            <div class="res-exam-stat">
+              <span class="res-exam-stat-label">renewal</span>
+              <span class="res-exam-stat-val" style="font-size:.78rem">${ex.renewal}</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="res-section-label">study resources &nbsp;·&nbsp; ${filtered.length} shown</div>
+          <div class="res-filter-bar">${filterBtns}</div>
+        </div>
+        <div class="res-grid">${cards}</div>
+        <div style="text-align:center;padding:.5rem 0">
+          <a href="${ex.link}" target="_blank" rel="noopener"
+            style="font-family:var(--font-mono);font-size:.75rem;color:${color};text-decoration:none;border-bottom:1px solid ${color}44">
+            View official exam page ↗
+          </a>
+        </div>
+      </div>`;
+  }
+  return render;
+}
+
+const RES_RENDER={
+  az: makeResRenderer('az'),
+  sec: makeResRenderer('sec')
+};
+
+RES_RENDER.az('all');
+RES_RENDER.sec('all');
+</script>
+</body>
+</html>

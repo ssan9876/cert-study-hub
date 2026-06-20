@@ -1,0 +1,1014 @@
+[
+  {
+    "id": "q-iam-01",
+    "domain": "Identity and Access Management",
+    "domainWeight": 18,
+    "difficulty": "easy",
+    "objective": "Manage Microsoft Entra users and groups",
+    "type": "single",
+    "question": "You need to create a group whose membership is automatically updated based on a user's department attribute. Which group configuration should you use?",
+    "answers": [
+      { "id": "a", "text": "A security group with assigned membership" },
+      { "id": "b", "text": "A security group with dynamic user membership" },
+      { "id": "c", "text": "A Microsoft 365 group with assigned membership" },
+      { "id": "d", "text": "A distribution group" }
+    ],
+    "correct": ["b"],
+    "explanation": "Dynamic user membership groups use membership rules that evaluate user attributes (such as department) and automatically add or remove users. Assigned membership requires manual management. Dynamic groups require Microsoft Entra ID P1.",
+    "references": ["https://learn.microsoft.com/azure/active-directory/enterprise-users/groups-dynamic-membership"],
+    "tags": ["entra", "groups", "dynamic-membership"],
+    "estimatedTime": 60
+  },
+  {
+    "id": "q-iam-02",
+    "domain": "Identity and Access Management",
+    "domainWeight": 18,
+    "difficulty": "medium",
+    "objective": "Manage role-based access control (RBAC)",
+    "type": "single",
+    "question": "A user is assigned the Reader role at the subscription scope and the Contributor role at a resource group scope within that subscription. What is the user's effective permission on resources in that resource group?",
+    "answers": [
+      { "id": "a", "text": "Reader only, because the subscription scope wins" },
+      { "id": "b", "text": "Contributor, because RBAC permissions are additive and the most permissive applies" },
+      { "id": "c", "text": "No access, because the assignments conflict" },
+      { "id": "d", "text": "Owner, because two roles combine to Owner" }
+    ],
+    "correct": ["b"],
+    "explanation": "Azure RBAC role assignments are additive; a user's effective permissions are the union of all assignments. At the resource group the user therefore has Contributor. Only an explicit deny assignment overrides an allow.",
+    "references": ["https://learn.microsoft.com/azure/role-based-access-control/overview"],
+    "tags": ["rbac", "scope", "permissions"],
+    "estimatedTime": 75
+  },
+  {
+    "id": "q-iam-03",
+    "domain": "Identity and Access Management",
+    "domainWeight": 18,
+    "difficulty": "medium",
+    "objective": "Manage role-based access control (RBAC)",
+    "type": "choose2",
+    "question": "You must allow a helpdesk team to reset passwords and manage user accounts in Microsoft Entra ID, following least privilege. Which TWO actions achieve this with the least privilege?",
+    "answers": [
+      { "id": "a", "text": "Assign the Global Administrator role" },
+      { "id": "b", "text": "Assign the User Administrator role" },
+      { "id": "c", "text": "Assign the Helpdesk (Password) Administrator role for password resets" },
+      { "id": "d", "text": "Assign the Owner role at the tenant root" }
+    ],
+    "correct": ["b", "c"],
+    "explanation": "User Administrator can manage user accounts, and the Helpdesk (Password) Administrator role grants password reset abilities. Both follow least privilege. Global Administrator and tenant Owner are far broader than required.",
+    "references": ["https://learn.microsoft.com/azure/active-directory/roles/permissions-reference"],
+    "tags": ["rbac", "entra-roles", "least-privilege"],
+    "estimatedTime": 75
+  },
+  {
+    "id": "q-iam-04",
+    "domain": "Identity and Access Management",
+    "domainWeight": 18,
+    "difficulty": "hard",
+    "objective": "Manage subscriptions and governance",
+    "type": "multi",
+    "question": "Which of the following can an Azure Policy definition do? Select all that apply.",
+    "answers": [
+      { "id": "a", "text": "Deny creation of resources that do not meet a condition" },
+      { "id": "b", "text": "Append or modify properties on a resource during creation" },
+      { "id": "c", "text": "Automatically deploy a related resource when one is missing (deployIfNotExists)" },
+      { "id": "d", "text": "Grant a user the Contributor role on a resource group" }
+    ],
+    "correct": ["a", "b", "c"],
+    "explanation": "Azure Policy effects include deny, append/modify, and deployIfNotExists, among others. Granting RBAC roles is done through role assignments, not Azure Policy.",
+    "references": ["https://learn.microsoft.com/azure/governance/policy/concepts/effects"],
+    "tags": ["azure-policy", "governance"],
+    "estimatedTime": 90
+  },
+  {
+    "id": "q-iam-05",
+    "domain": "Identity and Access Management",
+    "domainWeight": 18,
+    "difficulty": "easy",
+    "objective": "Manage Microsoft Entra users and groups",
+    "type": "single",
+    "question": "What is the most appropriate identity type to grant an external partner access to a single shared application in your tenant?",
+    "answers": [
+      { "id": "a", "text": "A new cloud-only member user" },
+      { "id": "b", "text": "A guest (B2B) user invited by email" },
+      { "id": "c", "text": "A service principal" },
+      { "id": "d", "text": "A managed identity" }
+    ],
+    "correct": ["b"],
+    "explanation": "Microsoft Entra B2B collaboration invites external partners as guest users, letting them sign in with their own credentials while you control access. Member users are for your own organization; service principals and managed identities are for applications, not people.",
+    "references": ["https://learn.microsoft.com/azure/active-directory/external-identities/what-is-b2b"],
+    "tags": ["b2b", "guest", "external-identities"],
+    "estimatedTime": 60
+  },
+  {
+    "id": "q-iam-06",
+    "domain": "Identity and Access Management",
+    "domainWeight": 18,
+    "difficulty": "medium",
+    "objective": "Manage subscriptions and governance",
+    "type": "single",
+    "question": "You want to organize multiple subscriptions and apply a single Azure Policy and RBAC assignment to all of them at once. What should you use?",
+    "answers": [
+      { "id": "a", "text": "A resource group" },
+      { "id": "b", "text": "A management group" },
+      { "id": "c", "text": "A tag" },
+      { "id": "d", "text": "An availability set" }
+    ],
+    "correct": ["b"],
+    "explanation": "Management groups sit above subscriptions and let you apply governance (policy and RBAC) that is inherited by all subscriptions beneath them. Resource groups contain resources within one subscription.",
+    "references": ["https://learn.microsoft.com/azure/governance/management-groups/overview"],
+    "tags": ["management-groups", "governance"],
+    "estimatedTime": 60
+  },
+  {
+    "id": "q-iam-07",
+    "domain": "Identity and Access Management",
+    "domainWeight": 18,
+    "difficulty": "hard",
+    "objective": "Manage role-based access control (RBAC)",
+    "type": "yesno",
+    "question": "A custom RBAC role definition contains the following: Actions = [\"Microsoft.Compute/virtualMachines/start/action\", \"Microsoft.Compute/virtualMachines/read\"], NotActions = [], and AssignableScopes set to one subscription. Evaluate each statement.",
+    "statements": [
+      { "id": "s1", "text": "A user with only this role can start a virtual machine in the subscription.", "correct": true },
+      { "id": "s2", "text": "A user with only this role can delete a virtual machine.", "correct": false },
+      { "id": "s3", "text": "This role can be assigned at a resource group inside the subscription.", "correct": true }
+    ],
+    "explanation": "The Actions grant start and read, so starting a VM is allowed but deleting is not (no delete action). AssignableScopes defines where the role can be assigned; a subscription scope includes the resource groups beneath it, so assignment at a child resource group is allowed.",
+    "references": ["https://learn.microsoft.com/azure/role-based-access-control/custom-roles"],
+    "tags": ["rbac", "custom-roles"],
+    "estimatedTime": 110
+  },
+  {
+    "id": "q-iam-08",
+    "domain": "Identity and Access Management",
+    "domainWeight": 18,
+    "difficulty": "medium",
+    "objective": "Manage Microsoft Entra users and groups",
+    "type": "single",
+    "question": "You enable self-service password reset (SSPR) but want to require users to confirm two different authentication methods before resetting. Which SSPR setting controls this?",
+    "answers": [
+      { "id": "a", "text": "Number of methods required to reset" },
+      { "id": "b", "text": "Registration enforcement interval" },
+      { "id": "c", "text": "Account lockout threshold" },
+      { "id": "d", "text": "Password writeback" }
+    ],
+    "correct": ["a"],
+    "explanation": "The 'Number of methods required to reset' setting determines how many authentication methods a user must verify (one or two) during SSPR. Password writeback synchronizes resets to on-premises AD but does not control method count.",
+    "references": ["https://learn.microsoft.com/azure/active-directory/authentication/concept-sspr-howitworks"],
+    "tags": ["sspr", "authentication"],
+    "estimatedTime": 70
+  },
+  {
+    "id": "q-iam-09",
+    "domain": "Identity and Access Management",
+    "domainWeight": 18,
+    "difficulty": "medium",
+    "objective": "Manage subscriptions and governance",
+    "type": "single",
+    "question": "A resource group contains production resources. You apply a 'Delete' lock and a 'ReadOnly' lock to it. What can users with Contributor access still do?",
+    "answers": [
+      { "id": "a", "text": "Modify and delete resources freely" },
+      { "id": "b", "text": "Read resources only; they cannot modify or delete them" },
+      { "id": "c", "text": "Delete resources but not modify them" },
+      { "id": "d", "text": "Nothing, including reading" }
+    ],
+    "correct": ["b"],
+    "explanation": "A ReadOnly lock is the most restrictive: it prevents all modifications and deletions, allowing only read operations. When both locks exist, the most restrictive (ReadOnly) governs behavior.",
+    "references": ["https://learn.microsoft.com/azure/azure-resource-manager/management/lock-resources"],
+    "tags": ["resource-locks", "governance"],
+    "estimatedTime": 75
+  },
+  {
+    "id": "q-iam-10",
+    "domain": "Identity and Access Management",
+    "domainWeight": 18,
+    "difficulty": "hard",
+    "objective": "Manage role-based access control (RBAC)",
+    "type": "single",
+    "question": "You need an Azure VM application to read secrets from Azure Key Vault without storing any credentials in code or configuration. What should you configure?",
+    "answers": [
+      { "id": "a", "text": "A service principal with a client secret stored in app settings" },
+      { "id": "b", "text": "A system-assigned managed identity granted access to the key vault" },
+      { "id": "c", "text": "A shared access signature on the key vault" },
+      { "id": "d", "text": "A storage account key" }
+    ],
+    "correct": ["b"],
+    "explanation": "A system-assigned managed identity gives the VM an Azure-managed identity in Entra ID with no credentials to store; you grant it access to Key Vault via RBAC or an access policy. A service principal with a secret still requires storing that secret.",
+    "references": ["https://learn.microsoft.com/azure/active-directory/managed-identities-azure-resources/overview"],
+    "tags": ["managed-identity", "key-vault", "rbac"],
+    "estimatedTime": 90
+  },
+
+  {
+    "id": "q-sto-01",
+    "domain": "Storage",
+    "domainWeight": 17,
+    "difficulty": "easy",
+    "objective": "Configure and manage storage accounts",
+    "type": "single",
+    "question": "You need the lowest-cost redundancy option that still protects data against a datacenter-level failure within a single region. Which replication option should you choose?",
+    "answers": [
+      { "id": "a", "text": "Locally redundant storage (LRS)" },
+      { "id": "b", "text": "Zone-redundant storage (ZRS)" },
+      { "id": "c", "text": "Geo-redundant storage (GRS)" },
+      { "id": "d", "text": "Read-access geo-redundant storage (RA-GRS)" }
+    ],
+    "correct": ["b"],
+    "explanation": "ZRS replicates data synchronously across three availability zones in one region, protecting against a single datacenter (zone) failure. LRS keeps three copies in one datacenter and does not survive a datacenter loss; GRS/RA-GRS add cross-region copies at higher cost.",
+    "references": ["https://learn.microsoft.com/azure/storage/common/storage-redundancy"],
+    "tags": ["redundancy", "zrs"],
+    "estimatedTime": 70
+  },
+  {
+    "id": "q-sto-02",
+    "domain": "Storage",
+    "domainWeight": 17,
+    "difficulty": "medium",
+    "objective": "Configure access to storage",
+    "type": "single",
+    "question": "You must give an external application time-limited read access to a single blob without sharing the storage account key. What should you generate?",
+    "answers": [
+      { "id": "a", "text": "A service SAS scoped to the blob with read permission and an expiry" },
+      { "id": "b", "text": "A new storage account access key" },
+      { "id": "c", "text": "A managed identity for the external app" },
+      { "id": "d", "text": "A role assignment of Storage Blob Data Owner" }
+    ],
+    "correct": ["a"],
+    "explanation": "A service shared access signature (SAS) grants scoped, time-limited access to a specific resource (the blob) with defined permissions, without exposing the account key. Account keys grant full access; managed identities are for Azure resources, not arbitrary external apps.",
+    "references": ["https://learn.microsoft.com/azure/storage/common/storage-sas-overview"],
+    "tags": ["sas", "blob", "access"],
+    "estimatedTime": 75
+  },
+  {
+    "id": "q-sto-03",
+    "domain": "Storage",
+    "domainWeight": 17,
+    "difficulty": "medium",
+    "objective": "Configure Azure Files and Azure Blob Storage",
+    "type": "matching",
+    "question": "Match each Azure Blob Storage access tier to the scenario it best fits.",
+    "terms": [
+      { "id": "t1", "text": "Hot tier" },
+      { "id": "t2", "text": "Cool tier" },
+      { "id": "t3", "text": "Archive tier" }
+    ],
+    "definitions": [
+      { "id": "d1", "text": "Data accessed frequently; lowest access cost, highest storage cost" },
+      { "id": "d2", "text": "Data accessed infrequently, stored at least 30 days; lower storage cost" },
+      { "id": "d3", "text": "Rarely accessed data stored months+; lowest storage cost, rehydration needed to read" }
+    ],
+    "correctPairs": [
+      { "termId": "t1", "definitionId": "d1" },
+      { "termId": "t2", "definitionId": "d2" },
+      { "termId": "t3", "definitionId": "d3" }
+    ],
+    "explanation": "Hot is for frequent access (cheapest access, priciest storage). Cool suits infrequently accessed data kept at least 30 days. Archive is for long-term, rarely accessed data and must be rehydrated to Hot/Cool before reading.",
+    "references": ["https://learn.microsoft.com/azure/storage/blobs/access-tiers-overview"],
+    "tags": ["blob", "access-tiers", "lifecycle"],
+    "estimatedTime": 100
+  },
+  {
+    "id": "q-sto-04",
+    "domain": "Storage",
+    "domainWeight": 17,
+    "difficulty": "medium",
+    "objective": "Configure Azure Files and Azure Blob Storage",
+    "type": "ordering",
+    "question": "Arrange the steps to configure a lifecycle management policy that moves blobs to the Cool tier after 30 days of no access.",
+    "steps": [
+      { "id": "o1", "text": "Open the storage account and select Lifecycle management" },
+      { "id": "o2", "text": "Add a rule and scope it to block blobs (and optionally a prefix/filter)" },
+      { "id": "o3", "text": "Define the condition: last accessed more than 30 days ago" },
+      { "id": "o4", "text": "Set the action to move the blob to Cool storage" },
+      { "id": "o5", "text": "Review and save the rule" }
+    ],
+    "correctOrder": ["o1", "o2", "o3", "o4", "o5"],
+    "explanation": "Lifecycle rules are created under the storage account's Lifecycle management blade. You add a rule, scope it (e.g., block blobs with a filter), define the time-based condition, choose the tiering action, then review and save.",
+    "references": ["https://learn.microsoft.com/azure/storage/blobs/lifecycle-management-overview"],
+    "tags": ["lifecycle", "blob", "tiering"],
+    "estimatedTime": 110
+  },
+  {
+    "id": "q-sto-05",
+    "domain": "Storage",
+    "domainWeight": 17,
+    "difficulty": "easy",
+    "objective": "Configure Azure Files and Azure Blob Storage",
+    "type": "single",
+    "question": "You want to mount a shared file system to Windows servers using SMB, accessible from multiple VMs simultaneously. Which Azure service should you use?",
+    "answers": [
+      { "id": "a", "text": "Azure Blob Storage" },
+      { "id": "b", "text": "Azure Files" },
+      { "id": "c", "text": "Azure Queue Storage" },
+      { "id": "d", "text": "Azure Table Storage" }
+    ],
+    "correct": ["b"],
+    "explanation": "Azure Files provides fully managed SMB (and NFS) file shares that multiple VMs can mount concurrently. Blob storage is object storage accessed via REST, not SMB.",
+    "references": ["https://learn.microsoft.com/azure/storage/files/storage-files-introduction"],
+    "tags": ["azure-files", "smb"],
+    "estimatedTime": 60
+  },
+  {
+    "id": "q-sto-06",
+    "domain": "Storage",
+    "domainWeight": 17,
+    "difficulty": "hard",
+    "objective": "Configure access to storage",
+    "type": "multi",
+    "question": "You configure a storage account firewall to deny public access. Which of the following can still reach the account when 'Allow Azure services on the trusted services list' is enabled? Select all that apply.",
+    "answers": [
+      { "id": "a", "text": "Azure Backup writing to the account" },
+      { "id": "b", "text": "A specific virtual network subnet you added to the firewall allow list" },
+      { "id": "c", "text": "A specific public IP range you added to the firewall allow list" },
+      { "id": "d", "text": "Any client on the public internet by default" }
+    ],
+    "correct": ["a", "b", "c"],
+    "explanation": "With the firewall set to deny by default, access is still granted to trusted Azure services (like Azure Backup), explicitly allowed VNet subnets (service endpoints/private), and explicitly allowed public IP ranges. Arbitrary public internet clients are blocked.",
+    "references": ["https://learn.microsoft.com/azure/storage/common/storage-network-security"],
+    "tags": ["firewall", "network-security", "storage"],
+    "estimatedTime": 95
+  },
+  {
+    "id": "q-sto-07",
+    "domain": "Storage",
+    "domainWeight": 17,
+    "difficulty": "medium",
+    "objective": "Configure and manage storage accounts",
+    "type": "single",
+    "question": "Which storage account kind and performance tier should you choose for a high-transaction premium block blob workload requiring low latency?",
+    "answers": [
+      { "id": "a", "text": "General-purpose v1, Standard" },
+      { "id": "b", "text": "BlockBlobStorage, Premium" },
+      { "id": "c", "text": "General-purpose v2, Standard with Cool tier" },
+      { "id": "d", "text": "FileStorage, Premium" }
+    ],
+    "correct": ["b"],
+    "explanation": "Premium block blob workloads requiring high transaction rates and low latency use a BlockBlobStorage account with the Premium performance tier (SSD-backed). FileStorage Premium is for premium file shares, not blobs.",
+    "references": ["https://learn.microsoft.com/azure/storage/common/storage-account-overview"],
+    "tags": ["storage-account", "premium", "blob"],
+    "estimatedTime": 80
+  },
+  {
+    "id": "q-sto-08",
+    "domain": "Storage",
+    "domainWeight": 17,
+    "difficulty": "medium",
+    "objective": "Configure and manage storage accounts",
+    "type": "single",
+    "question": "You used AzCopy to upload data and now need to copy data between two storage accounts in different regions as efficiently as possible. Which approach does AzCopy use to optimize this?",
+    "answers": [
+      { "id": "a", "text": "It downloads to the client and re-uploads via the local NIC" },
+      { "id": "b", "text": "It performs a server-to-server copy so data does not traverse the client" },
+      { "id": "c", "text": "It requires the accounts to be in the same region" },
+      { "id": "d", "text": "It only works within a single subscription" }
+    ],
+    "correct": ["b"],
+    "explanation": "AzCopy can perform server-to-server (service-to-service) copies between storage accounts using SAS/identities, so data moves directly between the services rather than through the client machine, which is far faster.",
+    "references": ["https://learn.microsoft.com/azure/storage/common/storage-use-azcopy-blobs-copy"],
+    "tags": ["azcopy", "data-transfer"],
+    "estimatedTime": 80
+  },
+  {
+    "id": "q-sto-09",
+    "domain": "Storage",
+    "domainWeight": 17,
+    "difficulty": "easy",
+    "objective": "Configure access to storage",
+    "type": "single",
+    "question": "Which feature lets you define one SAS policy that can be revoked without regenerating account keys, by associating SAS tokens with it?",
+    "answers": [
+      { "id": "a", "text": "Stored access policy" },
+      { "id": "b", "text": "Account SAS" },
+      { "id": "c", "text": "Customer-managed key" },
+      { "id": "d", "text": "Immutable blob policy" }
+    ],
+    "correct": ["a"],
+    "explanation": "A stored access policy is defined on a container and associated with service SAS tokens. Revoking or changing the policy immediately invalidates all SAS tokens tied to it, without touching account keys.",
+    "references": ["https://learn.microsoft.com/azure/storage/common/storage-stored-access-policy-define-dotnet"],
+    "tags": ["sas", "stored-access-policy"],
+    "estimatedTime": 70
+  },
+  {
+    "id": "q-sto-10",
+    "domain": "Storage",
+    "domainWeight": 17,
+    "difficulty": "hard",
+    "objective": "Configure and manage storage accounts",
+    "type": "single",
+    "question": "You enabled GRS on a storage account. A regional outage occurs in the primary region. What must you do to read and write to the secondary region?",
+    "answers": [
+      { "id": "a", "text": "Nothing; GRS automatically fails over reads and writes" },
+      { "id": "b", "text": "Initiate a customer-managed (account) failover, which promotes the secondary to primary" },
+      { "id": "c", "text": "Switch the account to RA-GRS to gain write access" },
+      { "id": "d", "text": "Delete and recreate the storage account in the secondary region" }
+    ],
+    "correct": ["b"],
+    "explanation": "Standard GRS does not provide automatic read/write to the secondary. To use the secondary during an outage you initiate a customer-managed account failover, which promotes the secondary to the new primary. RA-GRS only adds read access to the secondary.",
+    "references": ["https://learn.microsoft.com/azure/storage/common/storage-disaster-recovery-guidance"],
+    "tags": ["grs", "failover", "disaster-recovery"],
+    "estimatedTime": 95
+  },
+
+  {
+    "id": "q-com-01",
+    "domain": "Compute",
+    "domainWeight": 23,
+    "difficulty": "easy",
+    "objective": "Create and configure virtual machines",
+    "type": "single",
+    "question": "You need to guarantee that two VMs in the same region are never rebooted by host maintenance at the same time and survive a single rack/power failure. Which configuration provides the highest single-datacenter SLA?",
+    "answers": [
+      { "id": "a", "text": "Place both VMs in the same availability set with multiple fault and update domains" },
+      { "id": "b", "text": "Place both VMs in the same proximity placement group" },
+      { "id": "c", "text": "Use a single VM with Premium SSD" },
+      { "id": "d", "text": "Place both VMs in the same scale set with one instance" }
+    ],
+    "correct": ["a"],
+    "explanation": "An availability set distributes VMs across multiple fault domains (separate racks/power) and update domains (separate maintenance cycles), protecting against rack failures and ensuring not all instances reboot together. A proximity placement group optimizes latency, not availability.",
+    "references": ["https://learn.microsoft.com/azure/virtual-machines/availability-set-overview"],
+    "tags": ["availability-set", "fault-domain", "sla"],
+    "estimatedTime": 75
+  },
+  {
+    "id": "q-com-02",
+    "domain": "Compute",
+    "domainWeight": 23,
+    "difficulty": "medium",
+    "objective": "Create and configure virtual machines",
+    "type": "single",
+    "question": "A VM must automatically add instances when CPU exceeds 70% and remove them when it drops below 30%. Which resource should you deploy instead of a single VM?",
+    "answers": [
+      { "id": "a", "text": "An availability set" },
+      { "id": "b", "text": "A Virtual Machine Scale Set with autoscale rules" },
+      { "id": "c", "text": "A larger VM SKU" },
+      { "id": "d", "text": "An Azure App Service plan" }
+    ],
+    "correct": ["b"],
+    "explanation": "Virtual Machine Scale Sets (VMSS) support autoscale rules based on metrics such as CPU percentage, automatically scaling the instance count in and out. Availability sets do not autoscale.",
+    "references": ["https://learn.microsoft.com/azure/virtual-machine-scale-sets/overview"],
+    "tags": ["vmss", "autoscale"],
+    "estimatedTime": 75
+  },
+  {
+    "id": "q-com-03",
+    "domain": "Compute",
+    "domainWeight": 23,
+    "difficulty": "hard",
+    "objective": "Automate deployment of resources using ARM/Bicep",
+    "type": "choose3",
+    "question": "Which THREE statements about Azure Resource Manager (ARM) templates and Bicep are correct?",
+    "answers": [
+      { "id": "a", "text": "Bicep is transpiled into ARM JSON before deployment" },
+      { "id": "b", "text": "ARM template deployments are idempotent" },
+      { "id": "c", "text": "The 'complete' deployment mode deletes resources in the resource group not defined in the template" },
+      { "id": "d", "text": "Bicep requires a separate runtime installed on every target VM" },
+      { "id": "e", "text": "Parameters cannot be used in ARM templates" }
+    ],
+    "correct": ["a", "b", "c"],
+    "explanation": "Bicep compiles (transpiles) to ARM JSON. ARM deployments are idempotent — deploying the same template repeatedly yields the same result. Complete mode removes resources in the group that aren't in the template. Bicep needs no VM runtime, and ARM fully supports parameters.",
+    "references": ["https://learn.microsoft.com/azure/azure-resource-manager/bicep/overview"],
+    "tags": ["arm", "bicep", "iac"],
+    "estimatedTime": 100
+  },
+  {
+    "id": "q-com-04",
+    "domain": "Compute",
+    "domainWeight": 23,
+    "difficulty": "medium",
+    "objective": "Provision and manage containers",
+    "type": "single",
+    "question": "You want to run a single container for a short-lived batch job without managing any VM or orchestrator. Which service is the best fit?",
+    "answers": [
+      { "id": "a", "text": "Azure Kubernetes Service (AKS)" },
+      { "id": "b", "text": "Azure Container Instances (ACI)" },
+      { "id": "c", "text": "Azure Virtual Machine with Docker installed" },
+      { "id": "d", "text": "Azure App Service" }
+    ],
+    "correct": ["b"],
+    "explanation": "Azure Container Instances runs containers serverlessly with per-second billing, ideal for short-lived or burst jobs with no orchestration. AKS is for full Kubernetes orchestration and is heavier than needed here.",
+    "references": ["https://learn.microsoft.com/azure/container-instances/container-instances-overview"],
+    "tags": ["aci", "containers"],
+    "estimatedTime": 70
+  },
+  {
+    "id": "q-com-05",
+    "domain": "Compute",
+    "domainWeight": 23,
+    "difficulty": "medium",
+    "objective": "Create and configure Azure App Service",
+    "type": "single",
+    "question": "You deployed a web app to Azure App Service and need to test a new version against live traffic before swapping it into production with no downtime. What should you use?",
+    "answers": [
+      { "id": "a", "text": "A separate App Service plan in another region" },
+      { "id": "b", "text": "A deployment slot with a percentage of traffic routed to it" },
+      { "id": "c", "text": "A scale-out rule" },
+      { "id": "d", "text": "An Application Gateway path rule" }
+    ],
+    "correct": ["b"],
+    "explanation": "App Service deployment slots let you stage a new version, route a percentage of production traffic to it for testing, and perform a slot swap that warms instances for zero-downtime release. This is only available on Standard tier and above.",
+    "references": ["https://learn.microsoft.com/azure/app-service/deploy-staging-slots"],
+    "tags": ["app-service", "slots", "deployment"],
+    "estimatedTime": 80
+  },
+  {
+    "id": "q-com-06",
+    "domain": "Compute",
+    "domainWeight": 23,
+    "difficulty": "hard",
+    "objective": "Create and configure virtual machines",
+    "type": "ordering",
+    "question": "Arrange the steps to resize a running VM to a larger SKU that is available in the current host cluster.",
+    "steps": [
+      { "id": "o1", "text": "Open the VM and select the Size blade" },
+      { "id": "o2", "text": "Review the list of available sizes for the VM's region and cluster" },
+      { "id": "o3", "text": "Select the desired larger size" },
+      { "id": "o4", "text": "Click Resize (the VM restarts to apply the new size)" },
+      { "id": "o5", "text": "Verify the VM status and new size after restart" }
+    ],
+    "correctOrder": ["o1", "o2", "o3", "o4", "o5"],
+    "explanation": "Resizing is done from the VM's Size blade. You review the sizes available for the cluster, pick a larger one, and click Resize, which restarts the VM. Afterwards you verify the VM came back online with the new size. If the target size isn't on the current cluster, the VM must be stopped (deallocated) first.",
+    "references": ["https://learn.microsoft.com/azure/virtual-machines/resize-vm"],
+    "tags": ["vm", "resize", "sku"],
+    "estimatedTime": 100
+  },
+  {
+    "id": "q-com-07",
+    "domain": "Compute",
+    "domainWeight": 23,
+    "difficulty": "medium",
+    "objective": "Create and configure virtual machines",
+    "type": "yesno",
+    "question": "A Linux VM was created with only a system-assigned managed identity and a Standard SSD OS disk. Evaluate each statement about this VM.",
+    "statements": [
+      { "id": "s1", "text": "The managed identity is automatically deleted if the VM is deleted.", "correct": true },
+      { "id": "s2", "text": "You can attach the same system-assigned identity to a second VM.", "correct": false },
+      { "id": "s3", "text": "You can change the OS disk to a Premium SSD after deallocating the VM.", "correct": true }
+    ],
+    "explanation": "A system-assigned managed identity is tied to the VM's lifecycle and is removed when the VM is deleted; it cannot be shared with another resource (that requires a user-assigned identity). Disk type can be changed (e.g., Standard SSD to Premium SSD) when the VM is stopped/deallocated.",
+    "references": ["https://learn.microsoft.com/azure/active-directory/managed-identities-azure-resources/managed-identity-best-practice-recommendations"],
+    "tags": ["vm", "managed-identity", "disks"],
+    "estimatedTime": 110
+  },
+  {
+    "id": "q-com-08",
+    "domain": "Compute",
+    "domainWeight": 23,
+    "difficulty": "easy",
+    "objective": "Create and configure virtual machines",
+    "type": "single",
+    "question": "Which disk type should you choose for an OS disk that must deliver consistent low latency for a production database VM?",
+    "answers": [
+      { "id": "a", "text": "Standard HDD" },
+      { "id": "b", "text": "Standard SSD" },
+      { "id": "c", "text": "Premium SSD" },
+      { "id": "d", "text": "Ultra Disk for the OS disk" }
+    ],
+    "correct": ["c"],
+    "explanation": "Premium SSD provides consistent low latency and high IOPS suitable for production workloads. Ultra Disk offers even higher performance but cannot be used as an OS disk; it is for data disks.",
+    "references": ["https://learn.microsoft.com/azure/virtual-machines/disks-types"],
+    "tags": ["disks", "premium-ssd"],
+    "estimatedTime": 65
+  },
+  {
+    "id": "q-com-09",
+    "domain": "Compute",
+    "domainWeight": 23,
+    "difficulty": "medium",
+    "objective": "Provision and manage containers",
+    "type": "single",
+    "question": "In Azure Kubernetes Service, which component is responsible for scaling the number of pods based on CPU/memory usage of the application?",
+    "answers": [
+      { "id": "a", "text": "Cluster Autoscaler" },
+      { "id": "b", "text": "Horizontal Pod Autoscaler (HPA)" },
+      { "id": "c", "text": "Kubelet" },
+      { "id": "d", "text": "Azure Load Balancer" }
+    ],
+    "correct": ["b"],
+    "explanation": "The Horizontal Pod Autoscaler adjusts the number of pod replicas based on observed CPU/memory metrics. The Cluster Autoscaler scales the number of nodes, not pods.",
+    "references": ["https://learn.microsoft.com/azure/aks/concepts-scale"],
+    "tags": ["aks", "hpa", "scaling"],
+    "estimatedTime": 75
+  },
+  {
+    "id": "q-com-10",
+    "domain": "Compute",
+    "domainWeight": 23,
+    "difficulty": "medium",
+    "objective": "Create and configure Azure App Service",
+    "type": "single",
+    "question": "Your App Service web app needs to access an Azure SQL Database using Entra ID authentication without storing a connection password. What should you enable on the web app?",
+    "answers": [
+      { "id": "a", "text": "A system-assigned managed identity granted access to the database" },
+      { "id": "b", "text": "FTP deployment credentials" },
+      { "id": "c", "text": "A custom domain with TLS binding" },
+      { "id": "d", "text": "Always On" }
+    ],
+    "correct": ["a"],
+    "explanation": "Enabling a managed identity on the App Service and granting it database access lets the app authenticate to Azure SQL via Entra ID with no stored password. Always On keeps the app warm but is unrelated to authentication.",
+    "references": ["https://learn.microsoft.com/azure/app-service/overview-managed-identity"],
+    "tags": ["app-service", "managed-identity", "sql"],
+    "estimatedTime": 80
+  },
+  {
+    "id": "q-com-11",
+    "domain": "Compute",
+    "domainWeight": 23,
+    "difficulty": "hard",
+    "objective": "Automate deployment of resources using ARM/Bicep",
+    "type": "single",
+    "question": "You deploy an ARM template in 'incremental' mode to a resource group that already contains a storage account not defined in the template. What happens to that storage account?",
+    "answers": [
+      { "id": "a", "text": "It is deleted because it is not in the template" },
+      { "id": "b", "text": "It is left unchanged" },
+      { "id": "c", "text": "It is renamed to match the template" },
+      { "id": "d", "text": "The deployment fails" }
+    ],
+    "correct": ["b"],
+    "explanation": "Incremental mode (the default) only adds or updates resources defined in the template and leaves existing resources that aren't in the template untouched. Complete mode would delete resources not present in the template.",
+    "references": ["https://learn.microsoft.com/azure/azure-resource-manager/templates/deployment-modes"],
+    "tags": ["arm", "deployment-modes"],
+    "estimatedTime": 90
+  },
+  {
+    "id": "q-com-12",
+    "domain": "Compute",
+    "domainWeight": 23,
+    "difficulty": "medium",
+    "objective": "Create and configure virtual machines",
+    "type": "multi",
+    "question": "Which methods can you use to run a configuration script on an Azure VM at or after deployment? Select all that apply.",
+    "answers": [
+      { "id": "a", "text": "Custom Script Extension" },
+      { "id": "b", "text": "cloud-init (for supported Linux images)" },
+      { "id": "c", "text": "Run Command" },
+      { "id": "d", "text": "Editing the VM's fault domain count" }
+    ],
+    "correct": ["a", "b", "c"],
+    "explanation": "The Custom Script Extension, cloud-init (Linux), and Run Command all execute scripts/configuration on a VM. Fault domain count affects availability placement and cannot run scripts.",
+    "references": ["https://learn.microsoft.com/azure/virtual-machines/extensions/custom-script-linux"],
+    "tags": ["vm", "extensions", "automation"],
+    "estimatedTime": 90
+  },
+
+  {
+    "id": "q-net-01",
+    "domain": "Networking",
+    "domainWeight": 23,
+    "difficulty": "easy",
+    "objective": "Configure and manage virtual networks",
+    "type": "single",
+    "question": "Two virtual networks in the same region must communicate using private IP addresses with low latency and no gateway. What should you configure?",
+    "answers": [
+      { "id": "a", "text": "VNet peering" },
+      { "id": "b", "text": "A site-to-site VPN" },
+      { "id": "c", "text": "An ExpressRoute circuit" },
+      { "id": "d", "text": "A public load balancer" }
+    ],
+    "correct": ["a"],
+    "explanation": "VNet peering connects two virtual networks over the Azure backbone using private IPs with low latency and no VPN gateway. Site-to-site VPN and ExpressRoute are for hybrid/on-premises connectivity.",
+    "references": ["https://learn.microsoft.com/azure/virtual-network/virtual-network-peering-overview"],
+    "tags": ["vnet", "peering"],
+    "estimatedTime": 65
+  },
+  {
+    "id": "q-net-02",
+    "domain": "Networking",
+    "domainWeight": 23,
+    "difficulty": "medium",
+    "objective": "Configure secure access to virtual networks",
+    "type": "single",
+    "question": "An NSG on a subnet has a custom inbound rule (priority 200) allowing TCP 443 from any source, and another custom rule (priority 100) denying TCP 443 from any source. What is the effect on inbound 443 traffic?",
+    "answers": [
+      { "id": "a", "text": "Allowed, because allow rules always win" },
+      { "id": "b", "text": "Denied, because the lower priority number (100) is evaluated first and matches" },
+      { "id": "c", "text": "Allowed, because 443 is allowed by default" },
+      { "id": "d", "text": "Denied, because all inbound traffic is denied by default regardless of rules" }
+    ],
+    "correct": ["b"],
+    "explanation": "NSG rules are processed in priority order from lowest number to highest. Priority 100 (deny) is evaluated before priority 200 (allow); once a rule matches, processing stops. Therefore 443 is denied.",
+    "references": ["https://learn.microsoft.com/azure/virtual-network/network-security-groups-overview"],
+    "tags": ["nsg", "priority", "security"],
+    "estimatedTime": 85
+  },
+  {
+    "id": "q-net-03",
+    "domain": "Networking",
+    "domainWeight": 23,
+    "difficulty": "medium",
+    "objective": "Configure name resolution and load balancing",
+    "type": "single",
+    "question": "You need to distribute HTTP traffic across backend pools with URL path-based routing and TLS offload. Which Azure service should you use?",
+    "answers": [
+      { "id": "a", "text": "Azure Load Balancer (Layer 4)" },
+      { "id": "b", "text": "Azure Application Gateway (Layer 7)" },
+      { "id": "c", "text": "Azure Traffic Manager" },
+      { "id": "d", "text": "Azure Bastion" }
+    ],
+    "correct": ["b"],
+    "explanation": "Application Gateway is a Layer 7 load balancer supporting URL path-based routing, cookie-based affinity, TLS termination/offload, and an optional WAF. Azure Load Balancer is Layer 4 and cannot route by URL path.",
+    "references": ["https://learn.microsoft.com/azure/application-gateway/overview"],
+    "tags": ["application-gateway", "layer7", "load-balancing"],
+    "estimatedTime": 80
+  },
+  {
+    "id": "q-net-04",
+    "domain": "Networking",
+    "domainWeight": 23,
+    "difficulty": "medium",
+    "objective": "Configure name resolution and load balancing",
+    "type": "single",
+    "question": "You must route users to the closest healthy regional endpoint based on DNS for a globally distributed web app. Which service provides DNS-based global traffic routing?",
+    "answers": [
+      { "id": "a", "text": "Azure Load Balancer" },
+      { "id": "b", "text": "Azure Traffic Manager with the Performance routing method" },
+      { "id": "c", "text": "Azure Application Gateway" },
+      { "id": "d", "text": "A network security group" }
+    ],
+    "correct": ["b"],
+    "explanation": "Traffic Manager is a DNS-based global traffic load balancer. The Performance routing method directs clients to the endpoint with the lowest network latency. Application Gateway and Load Balancer operate within a region.",
+    "references": ["https://learn.microsoft.com/azure/traffic-manager/traffic-manager-routing-methods"],
+    "tags": ["traffic-manager", "dns", "global"],
+    "estimatedTime": 80
+  },
+  {
+    "id": "q-net-05",
+    "domain": "Networking",
+    "domainWeight": 23,
+    "difficulty": "hard",
+    "objective": "Configure secure access to virtual networks",
+    "type": "choose2",
+    "question": "You want to securely RDP/SSH to VMs without exposing public IPs or opening inbound 3389/22 from the internet. Which TWO options achieve this?",
+    "answers": [
+      { "id": "a", "text": "Deploy Azure Bastion in the virtual network" },
+      { "id": "b", "text": "Use Just-in-Time VM access in Microsoft Defender for Cloud" },
+      { "id": "c", "text": "Assign each VM a public IP and an inbound allow-any NSG rule" },
+      { "id": "d", "text": "Disable the NSG entirely" }
+    ],
+    "correct": ["a", "b"],
+    "explanation": "Azure Bastion provides browser-based RDP/SSH over TLS without public IPs on the VMs. Just-in-Time access keeps management ports closed and opens them only on approved request for a limited time/source. Public IPs with allow-any rules and disabling NSGs increase exposure.",
+    "references": ["https://learn.microsoft.com/azure/bastion/bastion-overview"],
+    "tags": ["bastion", "jit", "security"],
+    "estimatedTime": 95
+  },
+  {
+    "id": "q-net-06",
+    "domain": "Networking",
+    "domainWeight": 23,
+    "difficulty": "medium",
+    "objective": "Configure and manage virtual networks",
+    "type": "single",
+    "question": "A subnet uses address range 10.0.1.0/27. How many IP addresses are available for your own resources in this Azure subnet?",
+    "answers": [
+      { "id": "a", "text": "32" },
+      { "id": "b", "text": "30" },
+      { "id": "c", "text": "27" },
+      { "id": "d", "text": "26" }
+    ],
+    "correct": ["c"],
+    "explanation": "A /27 contains 32 addresses, but Azure reserves 5 per subnet: the network address, the default gateway, two addresses for Azure DNS mapping, and the broadcast address. 32 - 5 = 27 usable addresses for your resources.",
+    "references": ["https://learn.microsoft.com/azure/virtual-network/virtual-networks-faq"],
+    "tags": ["subnet", "cidr", "ip-addressing"],
+    "estimatedTime": 90
+  },
+  {
+    "id": "q-net-07",
+    "domain": "Networking",
+    "domainWeight": 23,
+    "difficulty": "easy",
+    "objective": "Configure network connectivity",
+    "type": "single",
+    "question": "Which connectivity option provides a private, dedicated connection from on-premises to Azure that does NOT traverse the public internet?",
+    "answers": [
+      { "id": "a", "text": "Site-to-site VPN" },
+      { "id": "b", "text": "Point-to-site VPN" },
+      { "id": "c", "text": "ExpressRoute" },
+      { "id": "d", "text": "VNet peering" }
+    ],
+    "correct": ["c"],
+    "explanation": "ExpressRoute provides a private, dedicated connection through a connectivity provider that bypasses the public internet, offering higher reliability and lower latency. VPNs traverse the public internet (encrypted).",
+    "references": ["https://learn.microsoft.com/azure/expressroute/expressroute-introduction"],
+    "tags": ["expressroute", "hybrid", "connectivity"],
+    "estimatedTime": 65
+  },
+  {
+    "id": "q-net-08",
+    "domain": "Networking",
+    "domainWeight": 23,
+    "difficulty": "hard",
+    "objective": "Configure name resolution and load balancing",
+    "type": "single",
+    "question": "You want resources in a VNet to resolve private DNS names for your custom domain without managing DNS servers. What should you deploy?",
+    "answers": [
+      { "id": "a", "text": "An Azure Private DNS zone linked to the VNet" },
+      { "id": "b", "text": "A public Azure DNS zone" },
+      { "id": "c", "text": "A host file on each VM" },
+      { "id": "d", "text": "A network security group rule" }
+    ],
+    "correct": ["a"],
+    "explanation": "Azure Private DNS zones provide name resolution within and between virtual networks without custom DNS servers. You link the zone to the VNet (optionally with auto-registration). Public DNS zones serve internet-facing resolution.",
+    "references": ["https://learn.microsoft.com/azure/dns/private-dns-overview"],
+    "tags": ["private-dns", "name-resolution"],
+    "estimatedTime": 85
+  },
+  {
+    "id": "q-net-09",
+    "domain": "Networking",
+    "domainWeight": 23,
+    "difficulty": "medium",
+    "objective": "Configure secure access to virtual networks",
+    "type": "single",
+    "question": "You need a storage account to be reachable only over a private IP from a specific subnet, with traffic staying on the Microsoft backbone. Which feature should you use?",
+    "answers": [
+      { "id": "a", "text": "A service endpoint" },
+      { "id": "b", "text": "A private endpoint (Azure Private Link)" },
+      { "id": "c", "text": "A public IP with a firewall rule" },
+      { "id": "d", "text": "A NAT gateway" }
+    ],
+    "correct": ["b"],
+    "explanation": "A private endpoint assigns the storage account a private IP from your subnet via Azure Private Link, so it is reachable privately and traffic stays on the Microsoft backbone. Service endpoints secure access but the resource still uses its public endpoint/IP.",
+    "references": ["https://learn.microsoft.com/azure/private-link/private-endpoint-overview"],
+    "tags": ["private-endpoint", "private-link"],
+    "estimatedTime": 85
+  },
+  {
+    "id": "q-net-10",
+    "domain": "Networking",
+    "domainWeight": 23,
+    "difficulty": "medium",
+    "objective": "Configure network connectivity",
+    "type": "single",
+    "question": "Multiple VMs without public IPs must make outbound connections to the internet using a single, predictable public IP and avoid SNAT port exhaustion. What should you deploy?",
+    "answers": [
+      { "id": "a", "text": "A NAT gateway on the subnet" },
+      { "id": "b", "text": "Azure Bastion" },
+      { "id": "c", "text": "A point-to-site VPN" },
+      { "id": "d", "text": "A private endpoint" }
+    ],
+    "correct": ["a"],
+    "explanation": "A NAT gateway provides scalable, predictable outbound connectivity for a subnet using one or more public IPs and greatly reduces SNAT port exhaustion. Bastion is for inbound management; private endpoints are for inbound private access to PaaS.",
+    "references": ["https://learn.microsoft.com/azure/virtual-network/nat-gateway/nat-overview"],
+    "tags": ["nat-gateway", "outbound", "snat"],
+    "estimatedTime": 85
+  },
+  {
+    "id": "q-net-11",
+    "domain": "Networking",
+    "domainWeight": 23,
+    "difficulty": "hard",
+    "objective": "Configure secure access to virtual networks",
+    "type": "choose3",
+    "question": "Which THREE traffic flows are evaluated by an NSG associated with a subnet? Select three.",
+    "answers": [
+      { "id": "a", "text": "Inbound traffic from outside the subnet to a VM in the subnet" },
+      { "id": "b", "text": "Outbound traffic from a VM in the subnet to a destination" },
+      { "id": "c", "text": "Traffic between two VMs in the same subnet" },
+      { "id": "d", "text": "Disk I/O between a VM and its managed disk" },
+      { "id": "e", "text": "CPU scheduling within the VM hypervisor" }
+    ],
+    "correct": ["a", "b", "c"],
+    "explanation": "NSGs filter inbound and outbound IP traffic, including traffic between VMs within the same subnet. They do not govern disk I/O or hypervisor CPU scheduling, which are not network flows.",
+    "references": ["https://learn.microsoft.com/azure/virtual-network/network-security-group-how-it-works"],
+    "tags": ["nsg", "traffic-flow"],
+    "estimatedTime": 95
+  },
+  {
+    "id": "q-net-12",
+    "domain": "Networking",
+    "domainWeight": 23,
+    "difficulty": "easy",
+    "objective": "Configure name resolution and load balancing",
+    "type": "single",
+    "question": "Which Azure Load Balancer SKU is required to use availability zones and an SLA-backed configuration for production workloads?",
+    "answers": [
+      { "id": "a", "text": "Basic" },
+      { "id": "b", "text": "Standard" },
+      { "id": "c", "text": "Gateway" },
+      { "id": "d", "text": "There is no SKU difference" }
+    ],
+    "correct": ["b"],
+    "explanation": "The Standard Load Balancer SKU supports availability zones, a published SLA, larger backend pools, and secure-by-default behavior. The Basic SKU lacks zone redundancy and an SLA and is being retired.",
+    "references": ["https://learn.microsoft.com/azure/load-balancer/skus"],
+    "tags": ["load-balancer", "sku", "zones"],
+    "estimatedTime": 65
+  },
+
+  {
+    "id": "q-mon-01",
+    "domain": "Monitoring and Backup",
+    "domainWeight": 13,
+    "difficulty": "easy",
+    "objective": "Monitor resources by using Azure Monitor",
+    "type": "single",
+    "question": "You need to collect and query performance counters and event logs from many Azure VMs in a central place using KQL. Where is this data stored and queried?",
+    "answers": [
+      { "id": "a", "text": "A Log Analytics workspace" },
+      { "id": "b", "text": "A storage account container" },
+      { "id": "c", "text": "An Application Insights live metrics stream only" },
+      { "id": "d", "text": "The Activity Log" }
+    ],
+    "correct": ["a"],
+    "explanation": "A Log Analytics workspace stores logs and metrics collected via the Azure Monitor Agent and is queried with Kusto Query Language (KQL). The Activity Log records subscription-level control-plane events, not in-guest performance counters.",
+    "references": ["https://learn.microsoft.com/azure/azure-monitor/logs/log-analytics-workspace-overview"],
+    "tags": ["log-analytics", "kql", "monitoring"],
+    "estimatedTime": 70
+  },
+  {
+    "id": "q-mon-02",
+    "domain": "Monitoring and Backup",
+    "domainWeight": 13,
+    "difficulty": "medium",
+    "objective": "Monitor resources by using Azure Monitor",
+    "type": "single",
+    "question": "You want to be notified and automatically run a Logic App when a VM's average CPU exceeds 80% for 5 minutes. Which Azure Monitor feature should you configure?",
+    "answers": [
+      { "id": "a", "text": "A metric alert rule with an action group" },
+      { "id": "b", "text": "A diagnostic setting" },
+      { "id": "c", "text": "A workbook" },
+      { "id": "d", "text": "A resource tag" }
+    ],
+    "correct": ["a"],
+    "explanation": "A metric alert rule evaluates a metric (CPU) against a threshold over a window and triggers an action group, which can send notifications and invoke automation such as a Logic App, webhook, or runbook. Diagnostic settings route data; they don't alert.",
+    "references": ["https://learn.microsoft.com/azure/azure-monitor/alerts/alerts-metric-overview"],
+    "tags": ["alerts", "action-group", "automation"],
+    "estimatedTime": 80
+  },
+  {
+    "id": "q-mon-03",
+    "domain": "Monitoring and Backup",
+    "domainWeight": 13,
+    "difficulty": "medium",
+    "objective": "Implement backup and recovery",
+    "type": "single",
+    "question": "You must protect Azure VMs with application-consistent backups and store recovery points for long-term retention. Which service should you use?",
+    "answers": [
+      { "id": "a", "text": "Azure Backup with a Recovery Services vault" },
+      { "id": "b", "text": "Azure Site Recovery only" },
+      { "id": "c", "text": "A storage account with manual snapshots" },
+      { "id": "d", "text": "Azure Advisor" }
+    ],
+    "correct": ["a"],
+    "explanation": "Azure Backup uses a Recovery Services vault and the VM backup extension to take application-consistent recovery points with configurable retention policies. Site Recovery is for replication/DR (RPO/RTO), not retention-based backup.",
+    "references": ["https://learn.microsoft.com/azure/backup/backup-azure-vms-introduction"],
+    "tags": ["azure-backup", "recovery-services-vault"],
+    "estimatedTime": 80
+  },
+  {
+    "id": "q-mon-04",
+    "domain": "Monitoring and Backup",
+    "domainWeight": 13,
+    "difficulty": "hard",
+    "objective": "Implement backup and recovery",
+    "type": "multi",
+    "question": "Which of the following are valid recovery options when restoring an Azure VM from a Recovery Services vault recovery point? Select all that apply.",
+    "answers": [
+      { "id": "a", "text": "Create a new VM from the recovery point" },
+      { "id": "b", "text": "Restore disks and then build a VM from them" },
+      { "id": "c", "text": "Replace the disks on the existing VM" },
+      { "id": "d", "text": "Restore individual files from the recovery point" }
+    ],
+    "correct": ["a", "b", "c", "d"],
+    "explanation": "Azure Backup supports creating a new VM, restoring disks (to assemble a VM yourself), replacing existing disks, and file-level recovery (item-level restore) by mounting the recovery point as a drive. All four are valid.",
+    "references": ["https://learn.microsoft.com/azure/backup/backup-azure-arm-restore-vms"],
+    "tags": ["restore", "recovery", "backup"],
+    "estimatedTime": 100
+  },
+  {
+    "id": "q-mon-05",
+    "domain": "Monitoring and Backup",
+    "domainWeight": 13,
+    "difficulty": "medium",
+    "objective": "Monitor resources by using Azure Monitor",
+    "type": "single",
+    "question": "You need to send a VM's guest OS performance metrics and platform metrics to a Log Analytics workspace and to a storage account for archival. What do you configure?",
+    "answers": [
+      { "id": "a", "text": "A diagnostic setting that routes metrics/logs to both destinations" },
+      { "id": "b", "text": "A resource lock" },
+      { "id": "c", "text": "An availability set" },
+      { "id": "d", "text": "A budget alert" }
+    ],
+    "correct": ["a"],
+    "explanation": "Diagnostic settings define which platform logs and metrics are collected and to which destinations they are routed — a Log Analytics workspace, a storage account (archival), and/or an Event Hub — simultaneously.",
+    "references": ["https://learn.microsoft.com/azure/azure-monitor/essentials/diagnostic-settings"],
+    "tags": ["diagnostic-settings", "monitoring"],
+    "estimatedTime": 80
+  },
+  {
+    "id": "q-mon-06",
+    "domain": "Monitoring and Backup",
+    "domainWeight": 13,
+    "difficulty": "easy",
+    "objective": "Implement backup and recovery",
+    "type": "single",
+    "question": "What is the primary purpose of Azure Site Recovery (ASR)?",
+    "answers": [
+      { "id": "a", "text": "To retain long-term file backups" },
+      { "id": "b", "text": "To replicate workloads to a secondary region for failover during a disaster" },
+      { "id": "c", "text": "To analyze cost anomalies" },
+      { "id": "d", "text": "To manage RBAC role assignments" }
+    ],
+    "correct": ["b"],
+    "explanation": "Azure Site Recovery orchestrates replication, failover, and failback of VMs/workloads to a secondary region for business continuity and disaster recovery, minimizing RTO/RPO. Long-term file retention is the job of Azure Backup.",
+    "references": ["https://learn.microsoft.com/azure/site-recovery/site-recovery-overview"],
+    "tags": ["asr", "disaster-recovery", "replication"],
+    "estimatedTime": 65
+  }
+]

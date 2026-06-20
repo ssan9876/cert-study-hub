@@ -1,0 +1,316 @@
+[
+  {
+    "id": "cs-contoso",
+    "title": "Contoso Hybrid Migration",
+    "summary": "Contoso is migrating 200 on-premises VMs to Azure while keeping hybrid identity and on-premises connectivity.",
+    "domain": "Networking",
+    "sections": [
+      {
+        "id": "overview",
+        "title": "Overview",
+        "body": "Contoso, Ltd. is a manufacturing company headquartered in Detroit with branch offices in Chicago and Toronto. Contoso runs approximately 200 virtual machines in an on-premises VMware datacenter and wants to migrate them to Azure over the next nine months.\n\nThe migration must minimize downtime for line-of-business applications and preserve the existing Active Directory identity model. Leadership has mandated that all administrative access to Azure VMs occur without exposing public RDP or SSH endpoints to the internet."
+      },
+      {
+        "id": "identity",
+        "title": "Identity",
+        "body": "Contoso runs Active Directory Domain Services (AD DS) on-premises with a single forest, contoso.com. Users sign in to on-premises resources with their AD credentials.\n\nContoso wants employees to use the same credentials for Microsoft 365 and Azure. Helpdesk staff must be able to reset user passwords from the cloud, and password changes made in the cloud must be written back to on-premises AD. Contoso does not want to deploy domain controllers as Azure VMs solely for cloud authentication if a managed alternative exists."
+      },
+      {
+        "id": "network",
+        "title": "Existing Network",
+        "body": "The on-premises network uses the address space 10.10.0.0/16. Contoso has provisioned an Azure virtual network named vnet-prod with the address space 10.20.0.0/16 and three subnets: snet-web (10.20.1.0/24), snet-app (10.20.2.0/24), and snet-data (10.20.3.0/24).\n\nContoso requires private, high-throughput, low-latency connectivity between the datacenter and Azure that does not traverse the public internet. The data subnet must not have any outbound internet access except to Azure Storage, which must be reached over the Microsoft backbone using a private IP."
+      },
+      {
+        "id": "storage",
+        "title": "Storage Requirements",
+        "body": "Application servers write large volumes of diagnostic logs that are read frequently for the first week and then rarely accessed afterward, but must be retained for seven years for compliance.\n\nA shared configuration file store must be mounted by 12 Windows application servers simultaneously over SMB. Backups of all migrated VMs must be application-consistent and retained for one year."
+      }
+    ],
+    "questionIds": ["cs-contoso-q1", "cs-contoso-q2", "cs-contoso-q3", "cs-contoso-q4", "cs-contoso-q5", "cs-contoso-q6"],
+    "questions": [
+      {
+        "id": "cs-contoso-q1",
+        "domain": "Identity and Access Management",
+        "domainWeight": 18,
+        "difficulty": "medium",
+        "objective": "Manage Microsoft Entra users and groups",
+        "type": "casestudy",
+        "caseStudyId": "cs-contoso",
+        "question": "Contoso wants employees to use the same credentials in the cloud and on-premises, with password changes in the cloud written back to AD, without deploying domain controllers in Azure for authentication. Which solution should you recommend?",
+        "answers": [
+          { "id": "a", "text": "Microsoft Entra Connect with password hash synchronization and password writeback enabled" },
+          { "id": "b", "text": "Separate cloud-only accounts in Microsoft Entra ID" },
+          { "id": "c", "text": "Microsoft Entra Domain Services only" },
+          { "id": "d", "text": "Active Directory Federation Services with no synchronization" }
+        ],
+        "correct": ["a"],
+        "explanation": "Microsoft Entra Connect synchronizes identities and, with password hash sync and password writeback (an Entra ID P1 feature), lets users keep one set of credentials and have cloud password resets written back to on-premises AD — without standing up domain controllers in Azure.",
+        "references": ["https://learn.microsoft.com/azure/active-directory/hybrid/whatis-phs"],
+        "tags": ["entra-connect", "hybrid-identity", "password-writeback"],
+        "estimatedTime": 100
+      },
+      {
+        "id": "cs-contoso-q2",
+        "domain": "Networking",
+        "domainWeight": 23,
+        "difficulty": "medium",
+        "objective": "Configure network connectivity",
+        "type": "casestudy",
+        "caseStudyId": "cs-contoso",
+        "question": "Which connectivity option satisfies Contoso's requirement for private, high-throughput, low-latency connectivity between the datacenter and Azure that does not traverse the public internet?",
+        "answers": [
+          { "id": "a", "text": "ExpressRoute" },
+          { "id": "b", "text": "Site-to-site VPN over the internet" },
+          { "id": "c", "text": "Point-to-site VPN" },
+          { "id": "d", "text": "VNet peering" }
+        ],
+        "correct": ["a"],
+        "explanation": "ExpressRoute provides a private, dedicated connection via a connectivity provider that bypasses the public internet, delivering high throughput and predictable low latency. VPNs traverse the internet; VNet peering connects Azure VNets, not on-premises.",
+        "references": ["https://learn.microsoft.com/azure/expressroute/expressroute-introduction"],
+        "tags": ["expressroute", "hybrid"],
+        "estimatedTime": 90
+      },
+      {
+        "id": "cs-contoso-q3",
+        "domain": "Networking",
+        "domainWeight": 23,
+        "difficulty": "hard",
+        "objective": "Configure secure access to virtual networks",
+        "type": "casestudy",
+        "caseStudyId": "cs-contoso",
+        "question": "The snet-data subnet must reach Azure Storage privately over the Microsoft backbone using a private IP, with no other outbound internet access. What should you implement?",
+        "answers": [
+          { "id": "a", "text": "A private endpoint for the storage account plus an NSG/route restricting other outbound traffic" },
+          { "id": "b", "text": "A public IP on each data VM with a storage firewall rule" },
+          { "id": "c", "text": "A service endpoint with a public route to the internet" },
+          { "id": "d", "text": "A NAT gateway allowing all outbound traffic" }
+        ],
+        "correct": ["a"],
+        "explanation": "A private endpoint assigns the storage account a private IP in snet-data via Azure Private Link, keeping traffic on the Microsoft backbone. Combined with NSG rules/UDRs that block other outbound internet traffic, this meets the requirement. Service endpoints still use the storage public endpoint.",
+        "references": ["https://learn.microsoft.com/azure/private-link/private-endpoint-overview"],
+        "tags": ["private-endpoint", "nsg", "storage"],
+        "estimatedTime": 110
+      },
+      {
+        "id": "cs-contoso-q4",
+        "domain": "Identity and Access Management",
+        "domainWeight": 18,
+        "difficulty": "medium",
+        "objective": "Manage role-based access control (RBAC)",
+        "type": "casestudy",
+        "caseStudyId": "cs-contoso",
+        "question": "Helpdesk staff must reset user passwords in the cloud following least privilege. Which role should you assign?",
+        "answers": [
+          { "id": "a", "text": "Helpdesk (Password) Administrator" },
+          { "id": "b", "text": "Global Administrator" },
+          { "id": "c", "text": "Owner at the tenant root management group" },
+          { "id": "d", "text": "Contributor on every subscription" }
+        ],
+        "correct": ["a"],
+        "explanation": "The Helpdesk (Password) Administrator role grants password reset abilities for non-admin users with the least privilege required. Global Administrator and tenant Owner are far broader than necessary.",
+        "references": ["https://learn.microsoft.com/azure/active-directory/roles/permissions-reference"],
+        "tags": ["rbac", "least-privilege"],
+        "estimatedTime": 90
+      },
+      {
+        "id": "cs-contoso-q5",
+        "domain": "Storage",
+        "domainWeight": 17,
+        "difficulty": "medium",
+        "objective": "Configure Azure Files and Azure Blob Storage",
+        "type": "casestudy",
+        "caseStudyId": "cs-contoso",
+        "question": "Diagnostic logs are read frequently for one week, then rarely, but must be retained for seven years. Which approach minimizes cost while meeting retention?",
+        "answers": [
+          { "id": "a", "text": "Store logs in blob storage with a lifecycle policy: Hot for the first week, then Cool, then Archive for long-term retention" },
+          { "id": "b", "text": "Keep all logs in the Hot tier for seven years" },
+          { "id": "c", "text": "Store logs on Premium SSD data disks" },
+          { "id": "d", "text": "Store logs in Azure Files Premium indefinitely" }
+        ],
+        "correct": ["a"],
+        "explanation": "A lifecycle management policy can move blobs from Hot (frequent first-week access) to Cool and then Archive (cheapest long-term storage) as they age, minimizing cost while retaining data for seven years. Keeping everything Hot or on premium disks is far more expensive.",
+        "references": ["https://learn.microsoft.com/azure/storage/blobs/lifecycle-management-overview"],
+        "tags": ["lifecycle", "tiers", "retention"],
+        "estimatedTime": 100
+      },
+      {
+        "id": "cs-contoso-q6",
+        "domain": "Storage",
+        "domainWeight": 17,
+        "difficulty": "easy",
+        "objective": "Configure Azure Files and Azure Blob Storage",
+        "type": "casestudy",
+        "caseStudyId": "cs-contoso",
+        "question": "Twelve Windows application servers must simultaneously mount a shared configuration file store over SMB. Which service should you use?",
+        "answers": [
+          { "id": "a", "text": "Azure Files" },
+          { "id": "b", "text": "Azure Blob Storage (block blobs)" },
+          { "id": "c", "text": "An unmanaged disk attached to one VM and shared" },
+          { "id": "d", "text": "Azure Table Storage" }
+        ],
+        "correct": ["a"],
+        "explanation": "Azure Files exposes managed SMB file shares that multiple servers can mount concurrently — ideal for a shared configuration store. Blob storage is object storage accessed via REST, and a managed disk can only attach to a limited set of VMs (and not freely shared over SMB).",
+        "references": ["https://learn.microsoft.com/azure/storage/files/storage-files-introduction"],
+        "tags": ["azure-files", "smb"],
+        "estimatedTime": 80
+      }
+    ]
+  },
+  {
+    "id": "cs-fabrikam",
+    "title": "Fabrikam Multi-Region Deployment",
+    "summary": "Fabrikam, a SaaS provider, is deploying a customer-facing application across East US and West Europe for availability and global performance.",
+    "domain": "Compute",
+    "sections": [
+      {
+        "id": "overview",
+        "title": "Overview",
+        "body": "Fabrikam, Inc. is a SaaS company that provides an analytics platform to customers in North America and Europe. To meet customer data-residency expectations and reduce latency, Fabrikam is deploying its application to two Azure regions: East US and West Europe.\n\nThe application consists of a stateless web tier, an API tier, and a managed database. Fabrikam wants to maximize availability, route users to the nearest healthy region, and control cloud spend."
+      },
+      {
+        "id": "availability",
+        "title": "Availability Goals",
+        "body": "Each region must tolerate the loss of a single datacenter without downtime for the web and API tiers. The web and API tiers run on virtual machines and must automatically add capacity during peak business hours and remove it overnight.\n\nFabrikam requires the highest possible single-region SLA for the load-balanced web tier and wants the load balancer to support availability zones."
+      },
+      {
+        "id": "dns",
+        "title": "Global Routing and DNS",
+        "body": "Users worldwide access the application through a single hostname, app.fabrikam.com. Fabrikam needs users to be automatically directed to the region that provides the lowest latency, and traffic must fail over to the other region if one becomes unhealthy.\n\nFabrikam also publishes an internal microservice that should only be resolvable by other services inside the virtual network using a custom private domain."
+      },
+      {
+        "id": "cost",
+        "title": "Cost Optimization",
+        "body": "Fabrikam runs a fleet of identical API virtual machines that operate continuously and have a predictable baseline load for at least one year. The finance team wants to reduce compute cost for this steady-state capacity.\n\nA separate batch-processing workload runs nightly, is fault-tolerant, and can be interrupted and restarted at any time. Fabrikam wants the lowest possible compute price for this workload."
+      }
+    ],
+    "questionIds": ["cs-fabrikam-q1", "cs-fabrikam-q2", "cs-fabrikam-q3", "cs-fabrikam-q4", "cs-fabrikam-q5", "cs-fabrikam-q6"],
+    "questions": [
+      {
+        "id": "cs-fabrikam-q1",
+        "domain": "Compute",
+        "domainWeight": 23,
+        "difficulty": "medium",
+        "objective": "Create and configure virtual machines",
+        "type": "casestudy",
+        "caseStudyId": "cs-fabrikam",
+        "question": "The web and API tiers must automatically add capacity during peak hours and remove it overnight, and tolerate the loss of a single datacenter. Which compute resource should Fabrikam use in each region?",
+        "answers": [
+          { "id": "a", "text": "A Virtual Machine Scale Set with autoscale rules, spread across availability zones" },
+          { "id": "b", "text": "A single large VM per tier" },
+          { "id": "c", "text": "An availability set without autoscale" },
+          { "id": "d", "text": "Azure Container Instances for the whole web tier" }
+        ],
+        "correct": ["a"],
+        "explanation": "A Virtual Machine Scale Set provides autoscale (schedule/metric based) for peak and off-peak capacity and can spread instances across availability zones to survive a datacenter loss. Availability sets don't autoscale, and a single VM provides neither scaling nor zone resiliency.",
+        "references": ["https://learn.microsoft.com/azure/virtual-machine-scale-sets/overview"],
+        "tags": ["vmss", "autoscale", "zones"],
+        "estimatedTime": 100
+      },
+      {
+        "id": "cs-fabrikam-q2",
+        "domain": "Networking",
+        "domainWeight": 23,
+        "difficulty": "medium",
+        "objective": "Configure name resolution and load balancing",
+        "type": "casestudy",
+        "caseStudyId": "cs-fabrikam",
+        "question": "Users must be directed to the lowest-latency healthy region for app.fabrikam.com, with failover if a region becomes unhealthy. Which service and routing method should Fabrikam use?",
+        "answers": [
+          { "id": "a", "text": "Azure Traffic Manager with the Performance routing method" },
+          { "id": "b", "text": "Azure Load Balancer with the Standard SKU" },
+          { "id": "c", "text": "Azure Application Gateway with path-based routing" },
+          { "id": "d", "text": "Azure Bastion" }
+        ],
+        "correct": ["a"],
+        "explanation": "Traffic Manager is a DNS-based global load balancer. The Performance routing method sends users to the lowest-latency endpoint and uses endpoint health monitoring to fail over to a healthy region. Load Balancer and Application Gateway are regional services.",
+        "references": ["https://learn.microsoft.com/azure/traffic-manager/traffic-manager-routing-methods"],
+        "tags": ["traffic-manager", "global", "dns"],
+        "estimatedTime": 95
+      },
+      {
+        "id": "cs-fabrikam-q3",
+        "domain": "Networking",
+        "domainWeight": 23,
+        "difficulty": "easy",
+        "objective": "Configure name resolution and load balancing",
+        "type": "casestudy",
+        "caseStudyId": "cs-fabrikam",
+        "question": "Fabrikam needs the highest single-region SLA for the load-balanced web tier with availability zone support. Which load balancer SKU should be used?",
+        "answers": [
+          { "id": "a", "text": "Standard Load Balancer" },
+          { "id": "b", "text": "Basic Load Balancer" },
+          { "id": "c", "text": "Gateway Load Balancer only" },
+          { "id": "d", "text": "No load balancer; use round-robin DNS" }
+        ],
+        "correct": ["a"],
+        "explanation": "The Standard Load Balancer SKU supports availability zones, larger backend pools, and a published SLA, making it the correct choice for a resilient production web tier. The Basic SKU has no SLA and no zone support and is being retired.",
+        "references": ["https://learn.microsoft.com/azure/load-balancer/skus"],
+        "tags": ["load-balancer", "sku", "zones"],
+        "estimatedTime": 75
+      },
+      {
+        "id": "cs-fabrikam-q4",
+        "domain": "Networking",
+        "domainWeight": 23,
+        "difficulty": "medium",
+        "objective": "Configure name resolution and load balancing",
+        "type": "casestudy",
+        "caseStudyId": "cs-fabrikam",
+        "question": "An internal microservice should only be resolvable by other services inside the virtual network using a custom private domain. What should Fabrikam configure?",
+        "answers": [
+          { "id": "a", "text": "An Azure Private DNS zone linked to the virtual network" },
+          { "id": "b", "text": "A public Azure DNS zone" },
+          { "id": "c", "text": "A Traffic Manager profile" },
+          { "id": "d", "text": "A custom domain on Application Gateway" }
+        ],
+        "correct": ["a"],
+        "explanation": "An Azure Private DNS zone linked to the VNet provides name resolution for a custom private domain that is only resolvable within linked virtual networks, with no public exposure. A public DNS zone would publish the records to the internet.",
+        "references": ["https://learn.microsoft.com/azure/dns/private-dns-overview"],
+        "tags": ["private-dns", "name-resolution"],
+        "estimatedTime": 90
+      },
+      {
+        "id": "cs-fabrikam-q5",
+        "domain": "Compute",
+        "domainWeight": 23,
+        "difficulty": "medium",
+        "objective": "Create and configure virtual machines",
+        "type": "casestudy",
+        "caseStudyId": "cs-fabrikam",
+        "question": "Fabrikam runs identical API VMs continuously with a predictable baseline for at least one year and wants to reduce cost for this steady-state capacity. What should the finance team purchase?",
+        "answers": [
+          { "id": "a", "text": "Azure Reserved VM Instances (1- or 3-year reservation)" },
+          { "id": "b", "text": "Spot Virtual Machines" },
+          { "id": "c", "text": "Pay-as-you-go only" },
+          { "id": "d", "text": "Larger VM SKUs billed hourly" }
+        ],
+        "correct": ["a"],
+        "explanation": "Reserved VM Instances offer significant discounts (up to ~72%) versus pay-as-you-go in exchange for a 1- or 3-year commitment, ideal for steady, predictable baseline workloads. Spot VMs are cheap but can be evicted, so they're unsuitable for always-on capacity.",
+        "references": ["https://learn.microsoft.com/azure/cost-management-billing/reservations/save-compute-costs-reservations"],
+        "tags": ["reservations", "cost-optimization"],
+        "estimatedTime": 95
+      },
+      {
+        "id": "cs-fabrikam-q6",
+        "domain": "Compute",
+        "domainWeight": 23,
+        "difficulty": "medium",
+        "objective": "Create and configure virtual machines",
+        "type": "casestudy",
+        "caseStudyId": "cs-fabrikam",
+        "question": "Fabrikam's nightly batch job is fault-tolerant and can be interrupted and restarted at any time. Which VM purchasing option gives the lowest compute price for this workload?",
+        "answers": [
+          { "id": "a", "text": "Spot Virtual Machines" },
+          { "id": "b", "text": "Reserved Instances" },
+          { "id": "c", "text": "Dedicated Host" },
+          { "id": "d", "text": "Pay-as-you-go on-demand VMs" }
+        ],
+        "correct": ["a"],
+        "explanation": "Spot VMs use spare Azure capacity at deep discounts but can be evicted when capacity is needed. They are ideal for interruptible, fault-tolerant batch workloads. Reserved Instances suit steady workloads; Dedicated Host is the most expensive (isolation) option.",
+        "references": ["https://learn.microsoft.com/azure/virtual-machines/spot-vms"],
+        "tags": ["spot-vms", "cost-optimization", "batch"],
+        "estimatedTime": 95
+      }
+    ]
+  }
+]

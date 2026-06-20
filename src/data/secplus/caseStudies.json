@@ -1,0 +1,138 @@
+[
+  {
+    "id": "sp-cs-meridian",
+    "title": "Meridian Health Incident Response",
+    "summary": "A regional healthcare provider detects suspicious activity and must triage, contain, and govern the response while protecting patient data.",
+    "domain": "Security Operations",
+    "sections": [
+      {
+        "id": "overview",
+        "title": "Overview",
+        "body": "Meridian Health is a regional healthcare provider operating five clinics and a central data center. It stores electronic protected health information (ePHI) and is subject to HIPAA. The security team consists of three analysts and a SOC that uses a SIEM with feeds from firewalls, endpoint detection and response (EDR), authentication servers, and DNS.\n\nAt 02:14 the SIEM raises a high-severity alert: a finance workstation is making repeated outbound connections to an unfamiliar external domain, and EDR has flagged a suspicious process injecting into a system service."
+      },
+      {
+        "id": "timeline",
+        "title": "Alert Timeline",
+        "body": "- 02:14 — SIEM correlation rule fires on beaconing-like DNS requests to a newly registered domain.\n- 02:20 — EDR reports credential-dumping behavior on the finance workstation.\n- 02:35 — Authentication logs show the finance user's account attempting to access file shares it has never accessed before.\n- 02:50 — A second workstation in HR begins exhibiting the same outbound beaconing pattern.\n\nNo data exfiltration has been confirmed yet, but lateral movement appears to be in progress."
+      },
+      {
+        "id": "environment",
+        "title": "Environment",
+        "body": "The finance and HR workstations are on the same flat VLAN as most clinical workstations. Backups are taken nightly to an on-site NAS and weekly to an offline copy. The organization has an incident response plan and a documented chain-of-custody procedure, but it has not been exercised in 14 months.\n\nThe central file server holding ePHI is encrypted at rest and requires MFA for administrative access. Patch levels vary across endpoints; several finance machines are two months behind on updates."
+      },
+      {
+        "id": "obligations",
+        "title": "Compliance Obligations",
+        "body": "As a HIPAA-covered entity, Meridian must protect ePHI and, if a breach of unsecured ePHI is confirmed, follow breach-notification requirements. Leadership wants the response handled in a way that preserves evidence for a possible investigation and limits regulatory exposure, while restoring clinical operations quickly."
+      }
+    ],
+    "questionIds": ["sp-cs-meridian-q1", "sp-cs-meridian-q2", "sp-cs-meridian-q3", "sp-cs-meridian-q4", "sp-cs-meridian-q5"],
+    "questions": [
+      {
+        "id": "sp-cs-meridian-q1",
+        "domain": "Security Operations",
+        "domainWeight": 28,
+        "difficulty": "medium",
+        "objective": "Explain appropriate incident response activities",
+        "type": "casestudy",
+        "caseStudyId": "sp-cs-meridian",
+        "question": "Given active beaconing and apparent lateral movement, what is the most appropriate immediate incident response action after detection and analysis?",
+        "answers": [
+          { "id": "a", "text": "Contain the affected hosts by isolating them from the network" },
+          { "id": "b", "text": "Immediately reimage all workstations to eradicate the threat" },
+          { "id": "c", "text": "Wait until morning to involve the full team" },
+          { "id": "d", "text": "Power the machines off to stop the attack" }
+        ],
+        "correct": ["a"],
+        "explanation": "Following detection/analysis, the next NIST phase is containment. Network isolation stops lateral movement and beaconing while preserving volatile evidence. Reimaging is eradication (premature here), and powering off destroys volatile memory evidence and order-of-volatility data.",
+        "references": ["https://csrc.nist.gov/pubs/sp/800/61/r2/final"],
+        "tags": ["incident-response", "containment"],
+        "estimatedTime": 100
+      },
+      {
+        "id": "sp-cs-meridian-q2",
+        "domain": "Security Operations",
+        "domainWeight": 28,
+        "difficulty": "hard",
+        "objective": "Use data sources to support an investigation",
+        "type": "casestudy",
+        "caseStudyId": "sp-cs-meridian",
+        "question": "Analysts need to confirm which external domain the workstations are contacting and identify other internal hosts doing the same. Which data source is most directly useful?",
+        "answers": [
+          { "id": "a", "text": "DNS query logs" },
+          { "id": "b", "text": "Physical badge-reader logs" },
+          { "id": "c", "text": "HR payroll records" },
+          { "id": "d", "text": "The asset purchase ledger" }
+        ],
+        "correct": ["a"],
+        "explanation": "DNS logs reveal which domains internal hosts resolve, making them ideal for identifying beaconing to a malicious domain and finding other hosts exhibiting the same pattern. Badge, payroll, and purchasing records are unrelated to network beaconing.",
+        "references": ["https://csrc.nist.gov/pubs/sp/800/92/final"],
+        "tags": ["dns-logs", "investigation", "beaconing"],
+        "estimatedTime": 95
+      },
+      {
+        "id": "sp-cs-meridian-q3",
+        "domain": "Security Architecture",
+        "domainWeight": 18,
+        "difficulty": "medium",
+        "objective": "Apply security principles to secure enterprise infrastructure",
+        "type": "casestudy",
+        "caseStudyId": "sp-cs-meridian",
+        "question": "Leadership asks how to limit lateral movement like this in the future. Which architectural change most directly addresses the flat-network weakness?",
+        "answers": [
+          { "id": "a", "text": "Network segmentation (e.g., separating finance, HR, and clinical systems into isolated VLANs with filtered flows)" },
+          { "id": "b", "text": "Increasing the SIEM log retention period" },
+          { "id": "c", "text": "Buying more endpoint licenses" },
+          { "id": "d", "text": "Lengthening the password rotation interval" }
+        ],
+        "correct": ["a"],
+        "explanation": "The hosts share a flat VLAN, which enabled lateral movement. Segmenting the network into isolated zones with controlled, filtered flows between them contains compromise and limits how far an attacker can move. The other options do not constrain lateral movement.",
+        "references": ["https://csrc.nist.gov/pubs/sp/800/207/final"],
+        "tags": ["segmentation", "lateral-movement", "architecture"],
+        "estimatedTime": 95
+      },
+      {
+        "id": "sp-cs-meridian-q4",
+        "domain": "Threats, Vulnerabilities, and Mitigations",
+        "domainWeight": 22,
+        "difficulty": "medium",
+        "objective": "Explain mitigation techniques used to secure the enterprise",
+        "type": "casestudy",
+        "caseStudyId": "sp-cs-meridian",
+        "question": "Several finance machines are two months behind on updates and the attacker exploited a known software flaw. Which mitigation would most directly have reduced this exposure?",
+        "answers": [
+          { "id": "a", "text": "A consistent patch management program" },
+          { "id": "b", "text": "A longer screen-saver timeout" },
+          { "id": "c", "text": "Disabling the SIEM to reduce noise" },
+          { "id": "d", "text": "Granting users local administrator rights" }
+        ],
+        "correct": ["a"],
+        "explanation": "Exploitation of a known flaw on out-of-date machines points to a patch-management gap. A consistent program to test and deploy updates promptly closes known vulnerabilities. Granting admin rights and disabling monitoring would increase risk.",
+        "references": ["https://csrc.nist.gov/pubs/sp/800/40/r4/final"],
+        "tags": ["patch-management", "mitigation"],
+        "estimatedTime": 90
+      },
+      {
+        "id": "sp-cs-meridian-q5",
+        "domain": "Security Program Management and Oversight",
+        "domainWeight": 20,
+        "difficulty": "medium",
+        "objective": "Summarize elements of effective security compliance",
+        "type": "casestudy",
+        "caseStudyId": "sp-cs-meridian",
+        "question": "If the investigation confirms that unsecured ePHI was accessed by the attacker, what is Meridian's key compliance obligation under HIPAA?",
+        "answers": [
+          { "id": "a", "text": "Follow breach-notification requirements for affected individuals and regulators" },
+          { "id": "b", "text": "Delete all logs to avoid liability" },
+          { "id": "c", "text": "Publicly disclose the attacker's identity" },
+          { "id": "d", "text": "Ignore the event since data was encrypted at rest" }
+        ],
+        "correct": ["a"],
+        "explanation": "As a HIPAA-covered entity, a confirmed breach of unsecured ePHI triggers breach-notification obligations to affected individuals and the appropriate regulators. Destroying logs would be evidence tampering, and the file server's at-rest encryption does not negate a breach if the attacker accessed the data through a compromised, authorized session.",
+        "references": ["https://www.hhs.gov/hipaa/for-professionals/breach-notification/index.html"],
+        "tags": ["hipaa", "breach-notification", "compliance"],
+        "estimatedTime": 100
+      }
+    ]
+  }
+]
